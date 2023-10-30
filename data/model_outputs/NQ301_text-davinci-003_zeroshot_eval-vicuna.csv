@@ -1,0 +1,1145 @@
+id,Question,Gold answers,Model answer,EM,F1,vicuna,Response
+,who wrote he ain't heavy he's my brother lyrics,"['Bobby Scott', 'Bob Russell']","The lyrics to ""He Ain't Heavy, He's My Brother"" were written by Bobby Scott and Bob Russell.",0,0.2222222222222222,1,"Question: who wrote he ain't heavy he's my brother lyrics?
+Ground-Truth Answers: Bobby Scott or Bob Russell
+Candidate: The lyrics to ""He Ain't Heavy, He's My Brother"" were written by Bobby Scott and Bob Russell.
+
+Is the candidate correct?
+Explanation: The candidate correctly stated the names of the authors of the lyrics to ""He Ain't Heavy, He's My Brother"".
+Answer based on explanation: Yes."
+,who won last year's ncaa women's basketball,['South Carolina'],The Baylor Lady Bears won the 2020 NCAA Women's Basketball Championship.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the wrong answer for the question. The correct answer is South Carolina, which won the 2021 NCAA Women's Basketball Championship.
+
+Answer based on explanation: No."
+,who had a baby at 100 in the bible,"['Abraham', 'Sarah']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is incorrect because there is no record of anyone having a baby at the age of 100 in the Bible.
+
+Answer based on explanation: No."
+,who is the lead singer of depeche mode,['David Gahan'],Dave Gahan.,0,0.5,0,"Is the candidate correct?
+Explanation: The lead singer of Depeche Mode is David Gahan, not Dave Gahan.
+Answer based on explanation: No."
+,where is lord's prayer found in bible,['in the Gospel of Luke'],The Lord's Prayer is found in Matthew 6:9-13 and Luke 11:2-4.,0,0.2857142857142857,1,"Is the candidate correct?
+
+Explanation: The Lord's Prayer is found in both the Gospel of Luke and the Gospel of Matthew.
+
+Answer based on explanation: Yes."
+,who does eric end up with in that 70s show,['Donna'],Eric Forman ends up with Donna Pinciotti.,0,0.25,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct as Eric Forman does end up with Donna Pinciotti in the show ""That '70s Show"".
+
+Answer based on explanation: Yes."
+,who has the power to approve or veto legislation constitution,['the President'],The President of the United States has the power to approve or veto legislation passed by Congress.,0,0.1333333333333333,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that the President of the United States has the power to approve or veto legislation passed by Congress.
+
+Answer based on explanation: Yes."
+,under article 1 what is the minimum age required to serve in the house of representatives,"['25 years old', '25']",25 years old.,1,1.0,1,"Is the candidate correct?
+Explanation: The minimum age required to serve in the House of Representatives is 25 years old.
+Answer based on explanation: Yes."
+,the chinese dragons are protectors of how many seas diggy,"['Four', 'Four Seas']",Unknown.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The Chinese dragons are considered protectors of four seas, which represent the four cardinal directions.
+
+Answer based on explanation: Yes."
+,how much money did it cost to make gta v,['137'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is incorrect because it does not match any of the ground-truth answers.
+
+Answer based on explanation: No."
+,what is the angle of the tower of pisa,"['at about 3.99 degrees', 'about 3.99 degrees', '3.99 degrees']",5.5 degrees.,0,0.5,0,"Is the candidate correct?
+
+Explanation: The angle of the Tower of Pisa is approximately 3.99 degrees.
+
+Answer based on explanation: No."
+,where is the citrus bowl held this year,['Camping World Stadium'],"The 2021 Citrus Bowl will be held at Camping World Stadium in Orlando, Florida.",0,0.375,1,"Is the candidate correct?
+Explanation: The candidate provided the correct location for the Citrus Bowl this year. Answer based on explanation: Yes."
+,when was the minimum wage established in the united states,"['1933', '1912', '1938']",The minimum wage was established in the United States in 1938.,0,0.1999999999999999,1,"Is the candidate correct?
+
+Explanation: The minimum wage was established in the United States in 1938, which was the year the Fair Labor Standards Act was passed.
+
+Answer based on explanation: Yes."
+,where was the first session of the assam association held in1905,['Guwahati'],The first session of the Assam Association was held in Shillong in 1905.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is incorrect as the first session of the Assam Association was held in Guwahati in 1905, not Shillong.
+Answer based on explanation: No."
+,when is season 2 of jessica jones being released,"['March 8, 2018']","Season 2 of Jessica Jones is set to be released on March 8, 2018.",0,0.3529411764705882,1,"Is the candidate correct?
+Explanation: The candidate provided the correct release date for Season 2 of Jessica Jones. Answer based on explanation: Yes."
+,when did the sims 4 toddlers come out,"['January 2017', 'January 12, 2017', 'the January 2017 patch']","The Sims 4 Toddlers were released on January 16, 2017.",0,0.3636363636363636,1,"Is the candidate correct?
+Explanation: The Sims 4 Toddlers game pack was released on January 16, 2017.
+Answer based on explanation: Yes."
+,the outer layer of the skin that contains no blood or nerve supply is the,['epidermis'],Stratum Corneum.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, ""Stratum Corneum"", which is the correct name for the outermost layer of the skin that does not contain blood or nerve supply.
+Answer based on explanation: Yes."
+,who developed the central processing unit (cpu),['John von Neumann'],Intel Corporation.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the name of a company, Intel Corporation, which did not develop the central processing unit (CPU). The CPU was developed by John von Neumann.
+
+Answer based on explanation: No."
+,rizal finished all the chapters of the novel noli me tangere in,"['Spanish', 'December 1886']",1887.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided the correct year, but not the correct month.
+Answer based on explanation: No."
+,number 4 in roman numerals on clock faces,['IV'],IV,1,1.0,1,"Is the candidate correct?
+Explanation: The Roman numeral for the number 4 is IV.
+Answer based on explanation: Yes."
+,when was the last year the eagles went to the superbowl,"['2017', 'following the 2017 season']",The Philadelphia Eagles last went to the Super Bowl in 2018.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is incorrect as the last Super Bowl appearance for the Philadelphia Eagles was in 2018, not 2017.
+Answer based on explanation: No."
+,who turns into a bear in the hobbit,['Beorn'],Beorn.,1,1.0,0,"Yes, the candidate is correct. In ""The Hobbit,"" Beorn turns into a bear."
+,where is the slide placed on the microscope,"['stage', ""on the microscope's stage""]",The slide is placed on the stage of the microscope.,0,0.4,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that the slide is placed on the stage of the microscope.
+Answer based on explanation: Yes."
+,when did mcgee became a regular on ncis,"['in season two', 'season two']","McGee became a regular on NCIS in the show's third season, which premiered in September 2005.",0,0.2352941176470588,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer to the question. McGee became a regular on NCIS in the show's third season, which premiered in September 2005.
+
+Answer based on explanation: Yes."
+,when was rosencrantz and guildenstern are dead written,['1966'],Rosencrantz and Guildenstern Are Dead was written in 1966 by Tom Stoppard.,0,0.1538461538461538,1,"Is the candidate correct?
+Explanation: The candidate provided the correct year that the play ""Rosencrantz and Guildenstern Are Dead"" was written by Tom Stoppard. Answer based on explanation: Yes."
+,who sang rip it up and start again,"['Orange Juice', 'Scottish post-punk band Orange Juice']","The song ""Rip It Up and Start Again"" was performed by the British band Orange Juice.",0,0.3157894736842105,1,"Explanation: The candidate provided the name of the band that performed the song ""Rip It Up and Start Again"", which is correct.
+
+Answer based on explanation: Yes."
+,where are alkali metals located on the periodic table,"['in the s-block', 'group 1']",Alkali metals are located in Group 1 of the periodic table.,0,0.3333333333333333,1,"Is the candidate correct?
+Explanation: Alkali metals are located in the s-block or group 1 of the periodic table.
+Answer based on explanation: Yes."
+,when was the canadian pacific railway started and finished,['between 1881 and 1885'],The Canadian Pacific Railway was started in 1881 and completed in 1885.,0,0.3999999999999999,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct start and end years for the Canadian Pacific Railway, but the exact start and end dates are not specified.
+
+Answer based on explanation: Yes."
+,what episode does goku give up against cell,"['165', '180']","Episode 31 of Dragon Ball Z, ""Silent Warrior"".",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate has provided the episode number for the ""Silent Warrior"" episode of Dragon Ball Z, which is episode 31. However, the ground-truth answer is either episode 165 or episode 180, depending on the source.
+
+Answer based on explanation: No."
+,when was the 50th star added to the united states flag,['1960'],"The 50th star was added to the United States flag on July 4, 1960, when Hawaii became the 50th state.",0,0.1111111111111111,1,"Is the candidate correct?
+Explanation: The candidate correctly provided the date when the 50th star was added to the United States flag and the reason for its addition. Answer based on explanation: Yes."
+,who made the poppies at tower of london,"['stage designer Tom Piper', 'Tom Piper', 'Paul Cummins']",The poppies at the Tower of London were created by artist Paul Cummins and designer Tom Piper.,0,0.3157894736842105,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that the poppies at the Tower of London were created by artist Paul Cummins and designer Tom Piper.
+Answer based on explanation: Yes."
+,when did the study of media effects begin,"['1919', '1975']",The study of media effects began in the 1920s with the publication of the book Public Opinion by Walter Lippmann.,0,0.0,1,"Is the candidate correct?
+Explanation: The study of media effects began in the 1920s with the publication of the book Public Opinion by Walter Lippmann. This book is considered to be one of the first works that explored the role of media in shaping public opinion.
+Answer based on explanation: Yes."
+,what does istj mean in a personality test,"['Extroverted Intuition (Ne)', 'Introverted Feeling (Fi)', 'Extroverted Thinking (Te)', 'Introverted Sensing (Si)']","ISTJ stands for Introverted, Sensing, Thinking, Judging. It is one of the 16 personality types in the Myers-Briggs Type Indicator (MBTI).",0,0.1818181818181818,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that ISTJ stands for Introverted, Sensing, Thinking, Judging, which is one of the 16 personality types in the Myers-Briggs Type Indicator (MBTI).
+Answer based on explanation: Yes."
+,who plays artemisia in 300 rise of an empire,"['Eva Green', 'Caitlin Carmichael', 'Jade Chynoweth']",Eva Green.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer. Eva Green played the role of Artemisia in the movie ""300: Rise of an Empire"".
+
+Answer based on explanation: Yes."
+,when did the east india company take control of india,"['1799', '1757', 'in 1757', '1612']",The East India Company took control of India in 1757.,0,0.3636363636363636,1,"Is the candidate correct?
+Explanation: The East India Company took control of India in 1757, during the Battle of Plassey.
+Answer based on explanation: Yes."
+,what is the setting of the book hoot,['Florida'],The setting of the book Hoot is Florida.,0,0.2857142857142857,0,"Yes, the candidate is correct. The setting of the book ""Hoot"" is indeed Florida."
+,who was in charge of the revolutionary war,"['the king', 'General George Washington']",George Washington was the commander-in-chief of the Continental Army during the American Revolutionary War.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that George Washington was the commander-in-chief of the Continental Army during the American Revolutionary War. Answer based on explanation: Yes."
+,when did the steel mills closed in youngstown ohio,"['September 19, 1977']","The steel mills in Youngstown, Ohio closed in 1977.",0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct as it matches the ground-truth answer.
+
+Answer based on explanation: Yes."
+,all the motor neurons that control the skeletal muscles are,"['Somatic motor neurons', 'efferent nerves', 'Somatic']",Motor neurons that control the skeletal muscles are known as alpha motor neurons.,0,0.2666666666666666,0,"Is the candidate correct?
+
+Explanation: The candidate provided a different type of motor neuron than the ground-truth answer.
+
+Answer based on explanation: No."
+,who became the king of ayodhya after ram,['Kusha'],"Bharata, the brother of Rama, became the king of Ayodhya after Rama.",0,0.0,1,"Explanation: The candidate provided the correct answer that Bharata, the brother of Rama, became the king of Ayodhya after Rama.
+
+Answer based on explanation: Yes."
+,who won the award for best goalkeeper in football world cup 2006,['Gianluigi Buffon'],Gianluigi Buffon of Italy.,0,0.6666666666666666,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer of Gianluigi Buffon, who won the award for best goalkeeper in the 2006 FIFA World Cup.
+Answer based on explanation: Yes."
+,who does april end up with on parks and rec,"['Andy Dwyer', 'Andy']",April Ludgate eventually marries Andy Dwyer.,0,0.5,0,"Is the candidate correct?
+Explanation: The candidate's answer is not entirely correct. April does end up with Andy Dwyer, but their relationship is not a marriage.
+Answer based on explanation: No."
+,animals that are active at dawn and dusk,"['Crepuscular animals', 'Crepuscular', 'crepuscular']",Crepuscular animals.,1,1.0,1,"Is the candidate correct?
+
+Explanation: Crepuscular animals are active during the twilight hours, which are the transitional periods between day and night, typically dawn and dusk.
+
+Answer based on explanation: Yes."
+,what is the name of the last episode of spongebob,"['The String', '""Bottle Burglars""']","The last episode of Spongebob is titled ""The Krusty Slammer"".",0,0.0,0,"Is the candidate correct?
+Explanation: The last episode of Spongebob Squarepants is titled ""The Krusty Krab"" not ""The Krusty Slammer"".
+Answer based on explanation: No."
+,who wrote antigone and what are the dates of his birth and death,"['winter 406/5 BC', 'Sophocles', 'c. 497/6']","The play Antigone was written by Sophocles, who was born in 496 BC and died in 406 BC.",0,0.1111111111111111,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct author of the play Antigone and the correct dates of his birth and death. However, the dates provided for Sophocles' birth and death are not exactly correct. Sophocles was born in c. 497/6 BC and died in c. 406/5 BC.
+
+Answer based on explanation: Yes."
+,who has the most yards per carry in nfl history,"['Jim Brown', 'Emmitt Smith']","Jim Brown has the most yards per carry in NFL history, with 5.22 yards per carry.",0,0.2352941176470588,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that Jim Brown has the most yards per carry in NFL history.
+Answer based on explanation: Yes."
+,when were birth certificates first issued in the united states,"['1902', '1900', 'From 1900 to 1946']",Birth certificates were first issued in the United States in the late 19th century.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is not specific enough to determine if it is correct or not. They mention that birth certificates were first issued in the United States in the late 19th century, but do not provide a specific year or range of years.
+
+Answer based on explanation: No."
+,name of the boundary line between india and bangladesh,['International Border (IB)'],The Radcliffe Line.,0,0.0,0,"Is the candidate correct?
+Explanation: The Radcliffe Line is a demarcation line between India and Pakistan, not between India and Bangladesh.
+Answer based on explanation: No."
+,who was the girl in the video brenda got a baby,"['Ethel ""Edy"" Proctor']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is ""Unknown"".
+
+Explanation for the answer based on the knowledge: The correct answer is Ethel ""Edy"" Proctor, who was a real person and the subject of a viral video in 2015.
+
+Answer based on explanation: No."
+,do you have to have a gun permit to shoot at a range,"['Typically, no']","Yes, you must have a valid gun permit to shoot at a range.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The ground-truth answer states that typically, one does not need a gun permit to shoot at a range. However, the candidate's answer states that one must have a valid gun permit to shoot at a range.
+
+Answer based on explanation: No."
+,when did last podcast on the left start,['2011'],"The Last Podcast on the Left premiered on March 6, 2011.",0,0.1999999999999999,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct start date for The Last Podcast on the Left, which premiered on March 6, 2011.
+
+Answer based on explanation: Yes."
+,who played major hochstetter in hogan's heroes,['Howard Caine'],Werner Klemperer.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer.
+
+Answer based on explanation: Yes."
+,when did athens emerges as wealthiest greek city state,['the late 6th century BCE'],Athens emerged as the wealthiest Greek city-state in the 6th century BC.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as it matches the ground-truth answer. Athens emerged as the wealthiest Greek city-state in the late 6th century BCE.
+Answer based on explanation: Yes."
+,when do you get your white coat in pharmacy school,['before the first year begins'],Most pharmacy schools hold a White Coat Ceremony at the beginning of the program to mark the transition from student to professional.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided an explanation that the White Coat Ceremony marks the transition from student to professional, which is correct. Answer based on explanation: Yes."
+,when did michael jordan return to the nba,"['March 1995', '2001', 'in March 1995', '1995']",Michael Jordan returned to the NBA in 1995.,0,0.4,1,"Is the candidate correct?
+Explanation: The candidate provided the correct year for Michael Jordan's return to the NBA.
+Answer based on explanation: Yes."
+,who sings the original windmills of your mind,['Noel Harrison'],Dusty Springfield.,0,0.0,0,"Is the candidate correct?
+Explanation: The original singer of ""Windmills of Your Mind"" is Noel Harrison, not Dusty Springfield.
+Answer based on explanation: No."
+,who played the female lead in the 1942 film casablanca,"['romantic drama', 'Ingrid Bergman']",Ingrid Bergman.,1,1.0,0,"Yes, the candidate is correct. Ingrid Bergman played the female lead in the 1942 film Casablanca."
+,3 candidates for the democratic nomination in 1960,"['George H. McLain', 'John F. Kennedy', 'Pat Brown']","John F. Kennedy, Hubert Humphrey, and Stuart Symington.",0,0.5454545454545454,1,"Is the candidate correct?
+Explanation: The candidate provided three candidates for the Democratic nomination in 1960, which is correct.
+Answer based on explanation: Yes."
+,where was the tv show friday night lights filmed,"['Pflugerville', 'Austin']","The TV show Friday Night Lights was filmed in Austin, Texas.",0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The TV show Friday Night Lights was filmed in Austin, Texas.
+
+Answer based on explanation: Yes."
+,who came out first batman or spider man,"['Superman', 'Batman']",Batman.,1,1.0,0,"Is the candidate correct?
+
+Explanation: The question asks which character came out first, Batman or Spider-Man. The ground-truth answer is Superman or Batman, which is incorrect.
+
+Answer based on explanation: No."
+,who won the oscar for best actor in 1975,['Art Carney'],Jack Nicholson won the Oscar for Best Actor in 1975 for his performance in One Flew Over the Cuckoo's Nest.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer for the question. Jack Nicholson won the Oscar for Best Actor in 1975 for his performance in One Flew Over the Cuckoo's Nest.
+
+Answer based on explanation: Yes."
+,when did the first ninja turtles come out,"['1984', 'May 1984']",The first Teenage Mutant Ninja Turtles comic book was released in May 1984.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate provided the correct month and year for the release of the first Teenage Mutant Ninja Turtles comic book. Answer based on explanation: Yes."
+,where does the show the path take place,['Upstate New York'],"The Path is an American drama television series created by Jessica Goldberg and starring Aaron Paul, Michelle Monaghan, and Hugh Dancy. It takes place in upstate New York.",0,0.2068965517241379,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as it mentions that the show ""The Path"" takes place in upstate New York.
+Answer based on explanation: Yes."
+,what type of speed does a speedometer measure,"['instantaneous speed', 'speed of a vehicle']",The speedometer measures the speed of a vehicle in miles per hour (mph).,0,0.4615384615384615,1,"Is the candidate correct?
+
+Explanation: The candidate provided a correct answer that the speedometer measures the speed of a vehicle in miles per hour (mph).
+
+Answer based on explanation: Yes."
+,which level of weight bearing often comes with a set number of pounds,['Partial weight-bearing'],Partial weight bearing typically comes with a set number of pounds.,0,0.1666666666666666,1,"Is the candidate correct?
+
+Explanation: Partial weight-bearing refers to a level of exercise where a person bears a partial load on the affected limb or limbs, while the other limbs support the body. This type of exercise is often used in rehabilitation after an injury or surgery.
+
+Answer based on explanation: Yes."
+,what is the name of the lymphatic vessels located in the small intestine,"['A lacteal', 'lacteals', 'lacteal']",The lymphatic vessels located in the small intestine are called lacteals.,0,0.1999999999999999,1,"Is the candidate correct?
+Explanation: The candidate provided the correct name of the lymphatic vessels located in the small intestine, which are called lacteals. Answer based on explanation: Yes."
+,who did the voiceover in michael jackson's thriller,"['Vincent Price', 'actor Vincent Price']",Vincent Price.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, as Vincent Price did the voiceover for Michael Jackson's ""Thriller"" music video.
+Answer based on explanation: Yes."
+,where's the pro bowl going to be this year,['Camping World Stadium in Orlando'],"The 2021 Pro Bowl will be held at Allegiant Stadium in Las Vegas, Nevada.",0,0.2222222222222222,0,"Is the candidate correct?
+
+Explanation: The candidate provided an incorrect answer. The Pro Bowl is not going to be held in Las Vegas, Nevada, but in Camping World Stadium in Orlando.
+
+Answer based on explanation: No."
+,who plays reggie the robot in justin's house,['Ben Faulks'],Reggie De Leon plays Reggie the Robot in Justin's House.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the name of the actor who plays Reggie the Robot in Justin's House, which is correct.
+
+Answer based on explanation: Yes."
+,what is the point of a menstrual cup,"['to collect menstrual flow', 'collect menstrual flow']",A menstrual cup is a reusable device worn inside the vagina during menstruation to collect menstrual fluid. It is an eco-friendly and cost-effective alternative to disposable pads and tampons.,0,0.2068965517241379,0,"Is the candidate correct?
+
+Explanation: The candidate provided a clear and accurate explanation of what a menstrual cup is used for, which is to collect menstrual fluid. The answer is ""yes""."
+,who began the age of exploration in portugal,"['Prince Henry', 'Afonso IV of Portugal', 'King Dinis of Portugal']",Prince Henry the Navigator began the age of exploration in Portugal.,0,0.3636363636363636,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that Prince Henry the Navigator began the age of exploration in Portugal.
+
+Answer based on explanation: Yes."
+,which is the lion's mane jellyfish's species within its genus,"['C.Â\xa0capillata', 'Cyanea capillata', 'capillata']",Cyanea capillata.,1,1.0,1,"Is the candidate correct?
+Explanation: The lion's mane jellyfish's scientific name is Cyanea capillata.
+Answer based on explanation: Yes."
+,how long prime minister stay in office canada,['four years'],The Prime Minister of Canada can stay in office for as long as they remain the leader of the party with the most seats in the House of Commons.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided a general explanation about the length of time a Prime Minister can stay in office in Canada, but did not provide an exact answer.
+Answer based on explanation: No."
+,who got the most rings in the nba,['Bill Russell'],"Bill Russell, with 11 NBA championships.",0,0.5,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, which is Bill Russell, with 11 NBA championships.
+Answer based on explanation: Yes."
+,who played ashley on the young and the restless,"['Shari Shattuck', 'Brenda Epperson', 'Eileen Davidson']",Eileen Davidson.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer. Eileen Davidson played Ashley on ""The Young and the Restless"".
+
+Answer based on explanation: Yes."
+,what does g stand for in ncis los angeles,['Grisha'],"G stands for Granger, the name of the character played by Eric Christian Olsen in NCIS: Los Angeles.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, as G stands for Granger in NCIS: Los Angeles. Answer based on explanation: Yes."
+,what is on a mcchicken sandwich from mcdonalds,"['a breaded chicken patty', 'a toasted wheat bun', 'breaded chicken patty', 'mayonnaise', 'shredded lettuce', 'toasted wheat bun']","A McDonald's McChicken sandwich consists of a crispy chicken patty, mayonnaise, and shredded lettuce on a toasted bun.",0,0.2352941176470588,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is mostly correct, but there is a small error. The McChicken sandwich from McDonald's does indeed consist of a breaded chicken patty, mayonnaise, and shredded lettuce on a toasted bun. However, the mayonnaise and lettuce are not the only ingredients on the sandwich. The sandwich also includes a breaded chicken patty.
+
+Answer based on explanation: Yes."
+,who were farmers who kept a small portion of their crops & gave the rest to the landowners,['Sharecropping'],Sharecroppers.,0,0.0,1,"Is the candidate correct?
+
+Explanation: Sharecropping was a system in which farmers who didn't own land would rent it from a landowner and keep a small portion of their crops as payment. The rest of the crops would go to the landowner.
+
+Answer based on explanation: Yes."
+,where is dakar located on the world map,['Senegal'],"Dakar is located in western Africa on the Atlantic coast, in the country of Senegal.",0,0.1428571428571428,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct location of Dakar in Senegal on the Atlantic coast of western Africa.
+
+Answer based on explanation: Yes."
+,when does boomer find out she a cylon,"[""Kobol's Last Gleaming""]",Unknown.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is ""Unknown,"" which means they do not have the information to answer the question.
+Answer based on explanation: No."
+,how many pages are in the book inside out and back again,['263'],224 pages.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided a different number of pages than the ground-truth answer.
+Answer based on explanation: No."
+,when did the song things that make you go hmmm come out,"['June 23, 1991', 'June 1991']",1991.,0,0.6666666666666666,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as it matches the ground-truth answer of June 23, 1991. Answer based on explanation: Yes."
+,when does season 18 of law and order svu start,"['September 21, 2016']","Season 18 of Law and Order: SVU is scheduled to premiere on November 11, 2020.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided a release date that is different from the ground-truth answer.
+Answer based on explanation: No."
+,where does us highway 1 start and end,"['Key West, Florida', 'Fort Kent, Maine', 'to Key West, Florida']","US Highway 1 starts in Key West, Florida and ends in Fort Kent, Maine.",0,0.3529411764705882,1,"Is the candidate correct?
+Explanation: The candidate provided the correct start and end points for US Highway 1.
+Answer based on explanation: Yes."
+,what is the collection of the districts to the east of the jordan river,"['Golan Heights', 'Jordan']",The collection of districts to the east of the Jordan River is known as the West Bank.,0,0.1428571428571428,1,"Is the candidate correct?
+Explanation: The West Bank is a term used to refer to the territories occupied by Israel in the 1967 Six-Day War and later annexed, while the Golan Heights is a region in the Levant that is currently under Israeli control.
+Answer based on explanation: Yes."
+,where is the university of wisconsin madison located,"['Madison, Wisconsin']","Madison, Wisconsin.",1,1.0,0,"Yes, the candidate is correct."
+,where are the highest average incomes found in north america,['Virginia'],"The highest average incomes in North America are found in the United States, with an average income of $57,617.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided a general answer about the highest average incomes in North America being found in the United States, but did not specify a location within the US.
+
+Answer based on explanation: No."
+,what was going on in the world in 1900,"['U.S. population exceeds 75 million', 'Galveston hurricane', 'Boxer Rebellion']","In 1900, the world was in the midst of the Second Industrial Revolution, with advances in technology, transportation, and communication. The Boxer Rebellion was taking place in China, and the Boer War was taking place in South Africa. The United States was in the midst of the Progressive Era, and the population of the world was estimated to be 1.6 billion.",0,0.0754716981132075,0,"Explanation: The candidate provided a detailed answer that mentions several events and historical contexts that occurred in 1900. However, the ground-truth answer is not one of the options provided. Therefore, the candidate's answer is not correct.
+
+Answer based on explanation: No."
+,who were the twins that played for kentucky,"['Andrew Michael Harrison', 'Aaron Harrison']","The Morris twins, Marcus and Markieff, played for the University of Kentucky from 2008 to 2011.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the names of the Morris twins, Marcus and Markieff, who played for the University of Kentucky from 2008 to 2011. However, the question asked for the twins who played for Kentucky, and the candidate did not provide their names.
+
+Answer based on explanation: No."
+,the type of display that google glass presents to its users is called what,"['head-up display', 'Prism projector', 'optical head-mounted display']","Google Glass uses a prism-based display technology called ""Head-Up Display"" (HUD).",0,0.3333333333333333,1,"Is the candidate correct?
+Explanation: Google Glass uses a head-up display (HUD) technology, which projects information onto a transparent glass screen that is positioned in front of the user's line of sight.
+Answer based on explanation: Yes."
+,what is the origin of the name marvin,"['Welsh', 'the Welsh name Mervyn']","The name Marvin is of English origin and is derived from the Old German name Mervin, which means ""famous friend"".",0,0.0952380952380952,0,"Is the candidate correct?
+Explanation: The candidate provided an incorrect answer about the origin of the name Marvin. The ground-truth answer is Welsh or the Welsh name Mervyn, which means ""sea protector.""
+Answer based on explanation: No."
+,what river flows through charleston west virginia’s capital,"['Elk', 'Kanawha', 'Kanawha River', 'the Elk and Kanawha Rivers']",The Kanawha River.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct answer, which is ""The Kanawha River"".
+
+Answer based on explanation: Yes."
+,how many books are in the one piece series,"['83', 'more than 80']",95 books.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate has provided an incorrect answer. The ground-truth answer is ""83 or more than 80"", which means that the number of books in the One Piece series is either exactly 83 or more than 80, but the candidate has provided a different number.
+
+Answer based on explanation: No."
+,when does the next episode of izombie air,"['May\xa07,\xa02018', 'May\xa014,\xa02018']","The next episode of iZombie will air on Thursday, April 2nd at 8/7c on The CW.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided a date that is not one of the ground-truth answers.
+
+Answer based on explanation: No."
+,what is the largest ethnic group in mexico today,"[""K'iche'""]","The largest ethnic group in Mexico today is the mestizo population, which makes up around 60% of the total population.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that the largest ethnic group in Mexico today is the mestizo population, which makes up around 60% of the total population.
+
+Answer based on explanation: Yes."
+,who sings gone gone gone she been gone so long,['Chilliwack'],Unknown.,0,0.0,0,"Is the candidate correct?
+Explanation: The question is asking for the artist who sings the song ""Gone, Gone, Gone (She's Gone So Long)"".
+Candidate: Unknown.
+Answer based on explanation: No."
+,when does the world cup of hockey start,['2020'],"The 2021 World Cup of Hockey is scheduled to begin on July 23, 2021.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct start date for the 2021 World Cup of Hockey.
+
+Answer based on explanation: Yes."
+,what was hawaii's primary export to the united states,"['macadamia nuts', 'pineapple', 'coffee', 'livestock', 'sugarcane', 'honey']","Hawaii's primary export to the United States is agricultural products, such as coffee, macadamia nuts, and pineapple.",0,0.2222222222222222,1,"Is the candidate correct?
+
+Explanation: The candidate provided a correct answer that Hawaii's primary export to the United States is agricultural products, which includes coffee, macadamia nuts, and pineapple.
+
+Answer based on explanation: Yes."
+,who plays rachel on jessie punch dumped love,['Isabella Palmieri'],Unknown.,0,0.0,0,"Explanation: The candidate is unknown because the show ""Jessie"" was a Disney Channel sitcom that aired from 2011 to 2015, and the character ""Rachel"" was played by a different actress named Peyton Clark in the show.
+
+Answer based on explanation: No."
+,where does the light reaction of photosynthesis occur,['on the thylakoid membranes'],The light reaction of photosynthesis occurs in the thylakoid membrane of the chloroplast.,0,0.1538461538461538,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as it mentions the thylakoid membranes, which is where the light reaction of photosynthesis occurs.
+Answer based on explanation: Yes."
+,what happens when an air mass is pushed up and over a mountain range,['Orographic lift'],"When an air mass is pushed up and over a mountain range, it is forced to cool and condense, resulting in precipitation.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. Orographic lift is one of the effects that can occur when an air mass is pushed up and over a mountain range. However, the candidate's answer does not mention that.
+Answer based on explanation: No."
+,when did the dallas cowboys win their last playoff game,"['2014', '2016']","The Dallas Cowboys last won a playoff game on January 15, 2017.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided a specific date which is not in the given ground-truth answers.
+Answer based on explanation: No."
+,where did the ancestors of the domestic goat originate,['Iran'],The ancestors of the domestic goat originated in the Middle East and Central Asia.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. The ancestors of the domestic goat originated in the Middle East and Central Asia, but not specifically in Iran.
+Answer based on explanation: No."
+,where are the washington redskins based out of,"['FedExField in Landover, Maryland', 'the Washington metropolitan area']","The Washington Redskins are based out of Landover, Maryland.",0,0.3333333333333333,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct location for the Washington Redskins, which is FedExField in Landover, Maryland.
+
+Answer based on explanation: Yes."
+,where is the love meaning of the song,['lament on various worldwide problems'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The song ""Where Is the Love?"" by The Black Eyed Peas is a commentary on various worldwide problems such as war, corruption, and prejudice.
+
+Answer based on explanation: No."
+,5 cities with the highest population in europe,"['Moscow', 'Berlin', 'Saint Petersburg', 'Istanbul', 'London']","The five cities with the highest population in Europe are Istanbul, Moscow, London, Saint Petersburg, and Berlin.",0,0.2352941176470588,1,"Is the candidate correct?
+Explanation: The candidate provided the correct five cities with the highest population in Europe. Answer based on explanation: Yes."
+,who dies in the lost city of z,['Manley'],Unknown.,0,0.0,0,"Is the candidate correct?
+Explanation: The Lost City of Z is a 2016 film based on the novel of the same name by David Grann. In the film, the character of Percy Fawcett dies while searching for the city.
+Answer based on explanation: No."
+,when was the letter j introduced to the alphabet,"['1524', 'in Middle High German']",The letter J was introduced to the English alphabet in the 16th century.,0,0.1428571428571428,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is incorrect because the letter J was not introduced to the English alphabet in the 16th century. The letter J was first used in the English language in the late 16th century, but it was not officially added to the alphabet until the late 17th century.
+
+Answer based on explanation: No."
+,when were cigarette ads banned from tv uk,['1 August 1965'],Cigarette ads were banned from UK television in 1965.,0,0.1666666666666666,1,"Is the candidate correct?
+Explanation: The candidate provided the correct date for when cigarette ads were banned from TV in the UK. Answer based on explanation: Yes."
+,who won the silver medal in womens figure skating,['Evgenia Medvedeva'],Alina Zagitova of Russia won the silver medal in women's figure skating at the 2018 Winter Olympics.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer for the given question.
+Answer based on explanation: Yes."
+,who votes to elect a rajya sabha memmber,['state legislatures'],Rajya Sabha members are elected by the elected members of the State Legislative Assemblies.,0,0.1428571428571428,1,"Is the candidate correct?
+
+Explanation: The candidate provided a correct explanation for how Rajya Sabha members are elected.
+
+Answer based on explanation: Yes."
+,who played lionel in as time goes by,"['Geoffrey Dyson Palmer, OBE', 'Geoffrey Dyson Palmer']",Judi Dench.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate has provided the name of an actress who played a character named Lionel in the TV series ""As Time Goes By"". However, the ground-truth answer is actually Geoffrey Dyson Palmer, OBE, who played the character Lionel.
+
+Answer based on explanation: No."
+,a good that can be used in place of another good,"['substitute good', 'A substitute good']",Substitute good.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate's answer ""Substitute good"" is correct as it matches the ground-truth answer ""a good that can be used in place of another good"".
+
+Answer based on explanation: Yes."
+,when does jo come in grey's anatomy,"['2012', 'season 9', 'July 2012']",Jo Wilson (formerly Brooke Stadler) first appears in the Season 9 premiere of Grey's Anatomy.,0,0.25,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer by mentioning the season and the character's name. Answer based on explanation: Yes."
+,who took control of jamestown and made new rules that made everyone work,['John Smith'],The Virginia Company of London took control of Jamestown and instituted a new set of rules that required all colonists to work in order to receive food and supplies.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. They mention that the Virginia Company of London took control of Jamestown and instituted new rules, but they did not mention the name of the person who made those rules.
+Answer based on explanation: Yes."
+,who presides over the highest criminal court in a district,['District Judge'],The presiding judge of the highest criminal court in a district is typically the Chief Justice of the district.,0,0.25,0,"Is the candidate correct?
+
+Explanation: The candidate provided an incorrect answer. The presiding judge of the highest criminal court in a district is typically the District Judge, not the Chief Justice of the district.
+
+Answer based on explanation: No."
+,where does the largest amount of federal tax revenue come from,['California'],The largest amount of federal tax revenue comes from individual income taxes.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The largest amount of federal tax revenue comes from individual income taxes, which are collected from individuals' wages and salaries. California is a state and does not generate federal tax revenue.
+
+Answer based on explanation: No."
+,when was i look at the world poem written,['30â€“31 October 2000'],"""I Look at the World"" was written by Rabindranath Tagore in 1921.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided the incorrect year for the poem being written.
+Answer based on explanation: No."
+,where does the last name cintron come from,"['Spanish-French', 'Portuguese']","Cintron is a Spanish surname derived from the word cinto, meaning ""belt"".",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct origin of the last name Cintron, which is Spanish-French or Portuguese.
+Answer based on explanation: Yes."
+,when does the new adventure time come out,"['April 21, 2017']","The new season of Adventure Time is set to premiere on June 20, 2021.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided a different release date for the new season of Adventure Time than the ground-truth answer.
+Answer based on explanation: No."
+,who played tom on as the world turns,"['Tom Tammi', 'Scott Holmes', 'others', 'Peter Galman', 'C. David Colson', 'Gregg Marx', 'Justin Deas', 'Jason Kincaid (1984)', 'Jason Kincaid']",Scott Holmes played Tom Hughes on As the World Turns from 1985 to 1986.,0,0.2666666666666667,1,"Is the candidate correct?
+Explanation: The candidate provided the correct actor's name and the correct time period in which he played the character. Answer based on explanation: Yes."
+,who won the ncaa women's championship last year 2017,"['South Carolina Gamecocks', 'South Carolina']",The South Carolina Gamecocks won the 2017 NCAA Women's Basketball Championship.,0,0.5,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, which is ""The South Carolina Gamecocks won the 2017 NCAA Women's Basketball Championship.""
+Answer based on explanation: Yes."
+,who plays the queen in victoria and abdul,['Judi Dench'],Judi Dench.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct answer.
+
+Answer based on explanation: Yes."
+,when is last time the astros won the world series,['2017'],The Houston Astros won the 2017 World Series.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate correctly stated the year the Houston Astros won the World Series.
+Answer based on explanation: Yes."
+,what is mercy mercy me by marvin gaye about,"['sorrow regarding the environment', 'the environment']","""Mercy Mercy Me (The Ecology)"" by Marvin Gaye is a song about the environmental destruction of the Earth and the need for conservation.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct as ""Mercy Mercy Me (The Ecology)"" by Marvin Gaye is indeed a song about the environmental destruction of the Earth and the need for conservation.
+
+Answer based on explanation: Yes."
+,what is the name of the compound p4010,['Phosphorus pentoxide'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The compound p4010 is not mentioned in the ground-truth answers, so it is unknown.
+
+Answer based on explanation: No."
+,who is the sixth president of the united states,['John Quincy Adams'],John Quincy Adams.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate answered correctly.
+Answer based on explanation: Yes."
+,where did this case of product tampering occur,['the Chicago metropolitan area'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is ""Unknown"", which means they don't know the location of the product tampering.
+
+Answer based on explanation: No."
+,who is known as the father of indian constitution,['Bhimrao Ramji Ambedkar'],Dr. B.R. Ambedkar is known as the father of the Indian Constitution.,0,0.1538461538461538,1,"Yes, the candidate is correct. Dr. B.R. Ambedkar is indeed known as the father of the Indian Constitution.
+
+Explanation: Dr. B.R. Ambedkar is widely recognized as the architect of the Indian Constitution, having played a crucial role in drafting and implementing the document. Therefore, the candidate's answer is correct.
+
+Answer based on explanation: Yes."
+,how much venom can a king cobra produce,"['up to 7Â\xa0ml', '200 to 500Â\xa0mg', '420Â\xa0mg']",A king cobra can produce up to 200-500 mg of venom in a single bite.,0,0.2352941176470588,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is partially correct. They mentioned that a king cobra can produce up to 200-500 mg of venom in a single bite, which is true. However, they did not mention the exact amount of venom that a king cobra can produce.
+
+Answer based on explanation: Yes."
+,when did the name of bombay change to mumbai,['1995'],The name of Bombay officially changed to Mumbai in 1995.,0,0.1999999999999999,1,"Is the candidate correct?
+Explanation: The candidate provided the correct year when the name of Bombay changed to Mumbai. Answer based on explanation: Yes."
+,who starred in the film walk the line,"['Joaquin Phoenix', 'Ginnifer Goodwin', 'Dallas Roberts', 'Reese Witherspoon', 'Robert Patrick']",Joaquin Phoenix and Reese Witherspoon.,0,0.5714285714285715,1,"Explanation: The candidate provided two correct answers, Joaquin Phoenix and Reese Witherspoon, who starred in the film ""Walk the Line"".
+
+Answer based on explanation: Yes."
+,who was appointed to manage the national recovery administration,['Hugh S. Johnson'],Franklin D. Roosevelt was appointed to manage the National Recovery Administration.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the name of the person who was appointed to manage the National Recovery Administration, but it was not the correct answer.
+
+Answer based on explanation: No."
+,most consecutive games with 20+ points - nba history,['126'],"The record for most consecutive games with 20+ points in NBA history is held by Wilt Chamberlain, who scored 20 or more points in 126 consecutive games from 1964-1966.",0,0.0689655172413793,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer with the correct record holder and the time period. Answer based on explanation: Yes."
+,when did american idol end the first time,"['April 7, 2016']","American Idol ended for the first time on April 7, 2016.",0,0.4615384615384615,1,"Is the candidate correct?
+Explanation: The candidate correctly provided the date when American Idol ended for the first time. Answer based on explanation: Yes."
+,who hit 6 sixes in an over in test cricket,"['Ravi Shastri', 'Garfield Sobers']",Yuvraj Singh.,0,0.0,0,"Is the candidate correct?
+
+Explanation: Yuvraj Singh is a cricketer who has hit six sixes in an over in a Twenty20 International match. However, the question asks about test cricket.
+
+Answer based on explanation: No."
+,when did the first fleet arive in australia,"['18 January 1788', '1788']","The First Fleet arrived in Australia on January 26, 1788.",0,0.3333333333333333,1,"Is the candidate correct?
+Explanation: The candidate provided the correct date for the arrival of the First Fleet in Australia. Answer based on explanation: Yes."
+,what was the full name of the titanic,['RMS Titanic'],RMS Titanic.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,how many rooms is there in buckingham palace,"['775', '775 rooms']",There are 775 rooms in Buckingham Palace.,0,0.4444444444444445,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as Buckingham Palace has 775 rooms. Answer based on explanation: Yes."
+,how many countries in the world have scouts,"['216 countries and territories', '169', '216']",Unknown.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate did not provide a specific answer to the question.
+Answer based on explanation: No."
+,who sang smoke gets in your eyes first,"['Tamara Drasin', 'Gertrude Niesen']","The first recording of ""Smoke Gets in Your Eyes"" was by the American vocal group The Platters in 1958.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer. The first recording of ""Smoke Gets in Your Eyes"" was by The Platters in 1958.
+Answer based on explanation: Yes."
+,how many steps does the cn tower have,"['2,579', '2,579 steps']","The CN Tower has 2,579 steps.",0,0.5714285714285715,1,"Is the candidate correct?
+Explanation: The CN Tower has 2,579 steps.
+Answer based on explanation: Yes."
+,who sings the song you'll never find another love like mine,['Lou Rawls'],Lou Rawls.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,what state did they film daddy's home 2,"['Massachusetts', 'Concord, Massachusetts', 'Framingham, Massachusetts', 'Great Barrington, Massachusetts']",Daddy's Home 2 was filmed in Massachusetts.,0,0.25,0,"Explanation: The candidate's answer is incorrect because the ground-truth answer includes multiple locations in Massachusetts.
+
+Answer based on explanation: No."
+,when did earth's atmosphere change due to living organisms,['around 2.45Â\xa0billion years ago'],Approximately 2.45 billion years ago.,0,0.6,1,"Is the candidate correct?
+Explanation: The candidate's answer is not exact but it is close to the ground-truth answer. The ground-truth answer is ""around 2.45 billion years ago"" and the candidate's answer is ""Approximately 2.45 billion years ago."" The difference is only one word, so the answer is correct. Answer based on explanation: Yes."
+,who is responsible for establishing local licensing forum,"['unitary authorities', 'local authorities', 'district councils']",Local licensing forums are typically established by local governments or regulatory bodies.,0,0.1428571428571428,1,"Is the candidate correct?
+
+Explanation: Local licensing forums are typically established by local governments or regulatory bodies.
+
+Answer based on explanation: Yes."
+,who sang the most number of songs in the world,['Asha Bhosle'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is incorrect as it does not match any of the ground-truth answers.
+
+Answer based on explanation: No."
+,when did the right to buy scheme start,['1980'],The Right to Buy scheme was introduced in the United Kingdom in 1980.,0,0.1666666666666666,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct year for when the Right to Buy scheme started. Answer based on explanation: Yes."
+,when does the new episode of scorpion come on,"['January\xa015,\xa02018']","The new episode of Scorpion airs on Monday, April 6th at 10/9c on CBS.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct air date for the new episode of Scorpion.
+
+Answer based on explanation: Yes."
+,india south africa test series 2018 highest runs,"['AB de Villiers', '286']",Virat Kohli scored the highest runs in the India-South Africa Test series in 2018 with 558 runs.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, Virat Kohli scored the highest runs in the India-South Africa Test series in 2018 with 558 runs.
+Answer based on explanation: Yes."
+,when did teenage mutant ninja turtles come out,['1984'],The Teenage Mutant Ninja Turtles first appeared in an American comic book published in May 1984.,0,0.1333333333333333,1,"Is the candidate correct?
+Explanation: The candidate correctly provided the month and year when the Teenage Mutant Ninja Turtles first appeared in the comic book. Answer based on explanation: Yes."
+,when was the rock and roll hall of fame built in cleveland,"['1995', 'September 1995']",The Rock and Roll Hall of Fame was built in Cleveland in 1995.,0,0.1538461538461538,1,"Is the candidate correct?
+
+Explanation: The Rock and Roll Hall of Fame was built in Cleveland in 1995.
+
+Answer based on explanation: Yes."
+,when did virgin australia (formerly virgin blue) commence flying in australia,['November 1999'],Virgin Australia (formerly Virgin Blue) commenced flying in Australia in August 2000.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct month and year for the commencement of Virgin Australia's (formerly Virgin Blue) flying in Australia.
+
+Answer based on explanation: Yes."
+,how many episodes of sabrina the teenage witch are there,['163'],There are a total of 7 seasons and 163 episodes of Sabrina the Teenage Witch.,0,0.1428571428571428,1,"Is the candidate correct?
+Explanation: The candidate provided the correct number of seasons and episodes of Sabrina the Teenage Witch. Answer based on explanation: Yes."
+,1. what was the precursor to the present day internet,['the ARPANET project'],"The precursor to the present day internet was the ARPANET, which was developed in the late 1960s.",0,0.1333333333333333,1,"Is the candidate correct?
+Explanation: The candidate correctly identified the precursor to the present-day internet as the ARPANET project.
+Answer based on explanation: Yes."
+,who was the first british team to win the european cup,['Celtic'],Liverpool FC in 1977.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct answer. Liverpool FC won the European Cup in 1977, making them the first British team to do so.
+
+Answer based on explanation: Yes."
+,where is the setting for beauty and the beast,"['France', 'Rococo-era France']",France.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The setting for Beauty and the Beast is in France, specifically in a castle.
+
+Answer based on explanation: Yes."
+,when was the japanese videogame company nintendo founded,['23 September 1889'],"Nintendo was founded on September 23, 1889.",0,0.6,1,"Is the candidate correct?
+Explanation: The candidate provided the correct date for the founding of Nintendo, which was established on September 23, 1889.
+Answer based on explanation: Yes."
+,who won last year's grand national 2017,['One For Arthur'],"One For Arthur, ridden by Derek Fox.",0,0.6,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer with the correct horse and jockey.
+Answer based on explanation: Yes."
+,what do mobile numbers start with in the uk,['0'],Mobile numbers in the UK typically start with 07.,0,0.0,1,"Is the candidate correct?
+
+Explanation: Mobile numbers in the UK typically start with 07, which is a special service number used for premium rate services.
+
+Answer based on explanation: Yes."
+,who plays kevins shrink on kevin probably saves the world,['Richard Masur'],Kimberly Hebert Gregory.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,where was the movie jeremiah johnson filmed at,['Utah'],"The movie Jeremiah Johnson was filmed in Utah, Colorado, and Wyoming.",0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The candidate provided multiple locations where the movie Jeremiah Johnson was filmed, which is correct.
+
+Answer based on explanation: Yes."
+,where did the potter's wheel first develop,"['the Near East', 'in the Near East']",The potter's wheel first developed in Mesopotamia around 3500 BCE.,0,0.1666666666666666,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer by stating that the potter's wheel first developed in Mesopotamia around 3500 BCE. This information is based on historical records and archaeological evidence.
+Answer based on explanation: Yes."
+,who sings i want to be a rockstar,"['Billy Gibbons of ZZ Top', 'Canadian rock band Nickelback', 'Nickelback']",Nickelback.,1,1.0,1,"Is the candidate correct?
+Explanation: The question is asking for the artist who sings ""I Want to Be a Rockstar."" The ground-truth answer is either Billy Gibbons of ZZ Top or Canadian rock band Nickelback. The candidate provided the name of the band Nickelback, which is one of the ground-truth answers.
+Answer based on explanation: Yes."
+,what is the main mineral in lithium batteries,"['Lithium', 'lithium']",Lithium cobalt oxide.,0,0.5,1,"Is the candidate correct?
+
+Explanation: The main mineral in lithium batteries is lithium.
+
+Answer based on explanation: Yes."
+,who played pink in pink floyd the wall,"['Bob Geldof', 'David Bingham as Little Pink', 'Bob Geldof as Pink', 'Kevin McKeon as Young Pink', 'Kevin McKeon', 'David Bingham']",Bob Geldof.,1,1.0,1,"Explanation: The candidate provided the correct answer, as Bob Geldof played the character of Pink in the movie ""Pink Floyd The Wall"".
+
+Answer based on explanation: Yes."
+,which president supported the creation of the environmental protection agency (epa),"['President Richard Nixon', 'Richard Nixon']",Richard Nixon.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer, as President Richard Nixon did support the creation of the Environmental Protection Agency (EPA).
+
+Answer based on explanation: Yes."
+,when did the song holiday road come out,"['June 24, 1983', '1983']",Holiday Road was released in 1983.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate provided the correct year for the release of the song ""Holiday Road.""
+Answer based on explanation: Yes."
+,what's the average lifespan of a basset hound,"['Median 10â€“12 years', '10â€“12 years']",The average lifespan of a basset hound is 10-12 years.,0,0.2,1,"Is the candidate correct?
+Explanation: The candidate provided the correct average lifespan of a basset hound.
+Answer based on explanation: Yes."
+,when does scully come back in season 2,"['8', 'One Breath']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is ""Unknown,"" which means they do not have the information to provide a correct answer.
+
+Answer based on explanation: No."
+,what is the breakdown product formed when one phosphate group is removed from atp,['adenosine diphosphate (ADP)'],ADP (Adenosine diphosphate).,0,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, which is adenosine diphosphate (ADP).
+Answer based on explanation: Yes."
+,what are the 5 boroughs of new york city,"['Brooklyn', 'Manhattan', 'Queens', 'Staten Island', 'the Bronx']","The five boroughs of New York City are Manhattan, Brooklyn, Queens, The Bronx, and Staten Island.",0,0.25,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct names of the five boroughs of New York City. Answer based on explanation: Yes."
+,surface area in many kinds of organs is important because the amount of surface determines,['effective gas exchange'],The amount of surface area determines the rate of exchange of materials between the organ and its environment.,0,0.1111111111111111,1,"Is the candidate correct?
+
+Explanation: The candidate's answer correctly states that the amount of surface area determines the rate of exchange of materials between the organ and its environment. This is important for effective gas exchange.
+
+Answer based on explanation: Yes."
+,who has the most green jackets from the masters,"['Jack Nicklaus (6)', 'Nicklaus']","Jack Nicklaus has the most green jackets from the Masters, with six.",0,0.3076923076923076,1,"Is the candidate correct?
+
+Explanation: The candidate correctly answered that Jack Nicklaus has the most green jackets from the Masters, with six.
+
+Answer based on explanation: Yes."
+,disagreements involving slavery and states' rights were two of the main causes of,['the American Civil War'],The American Civil War.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct as it accurately identifies the main causes of the American Civil War.
+
+Answer based on explanation: Yes."
+,what nba player has scored the most 3 pointers,['Ray Allen'],"Ray Allen has scored the most 3-pointers in NBA history with 2,973.",0,0.3076923076923077,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, Ray Allen, and the correct number of 3-pointers he scored, 2,973.
+Answer based on explanation: Yes."
+,list of strict nature reserve in the philippines,"['Calavite and FB Harrison', 'Palawan', 'Calauit Safari Park', 'Lake Malimanga', 'Lake Buluan', 'Olango Island']","The strict nature reserves in the Philippines are Apo Reef Natural Park, Mount Hamiguitan Range Wildlife Sanctuary, Northern Sierra Madre Natural Park, Tubbataha Reefs Natural Park, and Mount Kitanglad Range Natural Park.",0,0.0606060606060606,0,"Is the candidate correct?
+
+Explanation: The candidate provided a list of strict nature reserves in the Philippines, but it is not the same as the ground-truth answers.
+
+Answer based on explanation: No."
+,what was the city of beijing previously known as,['Peking'],Beijing was previously known as Peking.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that Beijing was previously known as Peking.
+Answer based on explanation: Yes."
+,what mlb teams did deion sanders play for,"['Atlanta Braves', 'Cincinnati Reds', 'New York Yankees', 'San Francisco Giants']","Deion Sanders played for the Atlanta Braves, San Francisco Giants, Cincinnati Reds, San Diego Padres, Baltimore Orioles, and the Washington Nationals.",0,0.2727272727272727,0,"Is the candidate correct?
+Explanation: The candidate listed several teams that Deion Sanders played for, but the ground-truth answers include multiple options.
+Answer based on explanation: No."
+,when do dwight and angela start dating again,"['Goodbye Toby', '""Goodbye Toby""', 'In ""A.A.R.M.""']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate did not provide a specific answer to the question.
+
+Answer based on explanation: No."
+,where does junior want to go to find hope,['off the rez'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is ""Unknown,"" which means they don't know the correct answer.
+
+Answer based on explanation: No."
+,when did scotland beat england in six nations,"['8 March 2008', '24 February 2018', '25 February 2006', '2 April 2000']",Scotland beat England in the 2020 Six Nations on February 8th.,0,0.1538461538461538,0,"Is the candidate correct?
+Explanation: The candidate provided a date that is not one of the ground-truth answers.
+Answer based on explanation: No."
+,gabbar is back is a remake of which telugu movie,['Tagore'],Gabbar Is Back is a remake of the Telugu movie Ramanaa.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that Gabbar Is Back is a remake of the Telugu movie Ramanaa.
+
+Answer based on explanation: Yes."
+,winner of the women's royal rumble match,['Asuka'],Bianca Belair.,0,0.0,1,"Is the candidate correct?
+Explanation: Bianca Belair is a professional wrestler who won the Women's Royal Rumble match in 2021.
+Answer based on explanation: Yes."
+,actress who plays penelope garcia on criminal minds,['Kirsten Simone Vangsness'],Kirsten Vangsness.,0,0.8,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,who became king of erebor after thorin dies,"['DÃ¡in', 'his cousin DÃ¡in']",Dáin Ironfoot.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct answer. Dáin Ironfoot became the King of Erebor after Thorin's death.
+
+Answer based on explanation: Yes."
+,where do pineapples come from in the world,"['Thailand', 'the Philippines', 'Brazil', 'Philippines', 'Indonesia', 'India', 'Costa Rica']","Pineapples are native to South America, but are now grown in tropical and subtropical regions around the world.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. Pineapples are indeed native to South America, but they are now grown in tropical and subtropical regions around the world, including Thailand, the Philippines, Brazil, Indonesia, India, Costa Rica, and others.
+Answer based on explanation: Yes."
+,what is the latest version of chrome for linux,"['67.0.3396', '67.0']",The latest version of Chrome for Linux is version 87.0.4280.66.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The latest version of Chrome for Linux is 87.0.4280.66, which is not mentioned in the ground-truth answers.
+
+Answer based on explanation: No."
+,who played anne in anne with an e,['Amybeth McNulty'],Amybeth McNulty.,1,1.0,0,"Yes, the candidate is correct. The answer is consistent with the ground-truth answer."
+,what is the oasis in ready player one,['a virtual reality simulator'],"The Oasis in Ready Player One is a virtual reality world created by James Halliday. It is a massive online universe where people can interact, play games, and explore.",0,0.1379310344827586,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that The Oasis in Ready Player One is a virtual reality world created by James Halliday. It is a massive online universe where people can interact, play games, and explore.
+Answer based on explanation: Yes."
+,what is the approximate volume of blood in your body,['approximately 5 liters'],The approximate volume of blood in the human body is 5 liters.,0,0.3076923076923076,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct. The approximate volume of blood in the human body is around 5 liters.
+
+Answer based on explanation: Yes."
+,where do they get the hair for a hair transplant,"['chest', 'shoulders', 'torso', 'back', 'legs', 'back of the head']","Hair for a hair transplant is typically taken from the back or sides of the scalp, where the hair is more resistant to balding.",0,0.1739130434782609,0,"Is the candidate correct?
+
+Explanation: The candidate's answer is partially correct. They mention that hair for a hair transplant is typically taken from the back or sides of the scalp, where the hair is more resistant to balding. However, they do not mention the other possible donor sites mentioned in the ground-truth answers, such as the chest, shoulders, torso, back, legs, or back of the head.
+
+Answer based on explanation: No."
+,where does the lincoln highway begin and end,['Lincoln Park in San Francisco'],"The Lincoln Highway begins in Times Square in New York City and ends in San Francisco, California.",0,0.3809523809523809,0,"Is the candidate correct?
+
+Explanation: The Lincoln Highway begins in Times Square in New York City and ends in San Francisco, California.
+
+Answer based on explanation: No."
+,when does the 2017 college football season end,"['December 9, 2017']","The 2017 college football season ends on January 8, 2018 with the College Football Playoff National Championship.",0,0.1111111111111111,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer for the end date of the 2017 college football season, which is January 8, 2018.
+
+Answer based on explanation: Yes."
+,what are some elements that are similar to silver,"['copper (Cu)', 'gold (Au)', 'Roentgenium (Rg)']","Elements similar to silver include gold, copper, and mercury.",0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The candidate correctly listed three elements that are similar to silver, which are gold (Au), copper (Cu), and mercury (Hg).
+
+Answer based on explanation: Yes."
+,who wrote were going on a bear hunt,['Michael Rosen'],Michael Rosen.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,when was son of a preacher man released,"['late 1968', 'November 8, 1968']","""Son of a Preacher Man"" was released in 1968 by Dusty Springfield.",0,0.1538461538461538,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct release date for ""Son of a Preacher Man"" by Dusty Springfield.
+
+Answer based on explanation: Yes."
+,who owns the delano hotel in las vegas,['MGM Resorts International'],The Delano Las Vegas is owned by MGM Resorts International.,0,0.5,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct. MGM Resorts International is the owner of The Delano Las Vegas.
+
+Answer based on explanation: Yes."
+,how many plane surfaces does a cylinder have,"['two', 'two parallel planes']",Two.,1,1.0,1,"Explanation: A cylinder has two plane surfaces, one circular and one parallel to the base.
+
+Answer based on explanation: Yes."
+,when was the miraculous journey of edward tulane published,"['2006', 'March 30, 2006']",The Miraculous Journey of Edward Tulane was published in 2006.,0,0.1999999999999999,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct as it matches the ground-truth answer of ""2006"".
+
+Answer based on explanation: Yes."
+,who came up with the first working periodic table,['Dmitri Mendeleev'],Dmitri Mendeleev.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct. Dmitri Mendeleev is indeed the person who came up with the first working periodic table.
+
+Answer based on explanation: Yes."
+,who proposed the virginia plan at the constitutional convention,"['Madison', 'James Madison']",Edmund Randolph proposed the Virginia Plan at the Constitutional Convention.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The Virginia Plan was proposed by Edmund Randolph at the Constitutional Convention.
+
+Answer based on explanation: Yes."
+,who become the ceo of it wipro company in 2016,['Abid Ali Neemuchwala'],Abidali Neemuchwala became the CEO of Wipro in 2016.,0,0.1818181818181818,1,"Is the candidate correct?
+Explanation: The candidate provided the correct name of the CEO who became the CEO of Wipro in 2016. Answer based on explanation: Yes."
+,where was the rise of the planet of the apes filmed,"['San Francisco, California', 'Vancouver, British Columbia', 'Oahu, Hawaii']","The Rise of the Planet of the Apes was filmed in Vancouver, British Columbia, Canada.",0,0.4,1,"Is the candidate correct?
+
+Explanation: The Rise of the Planet of the Apes was filmed in Vancouver, British Columbia, Canada.
+
+Answer based on explanation: Yes."
+,who is considered as architect of india constitution,['B. R. Ambedkar'],Dr. B. R. Ambedkar is considered the architect of the Indian Constitution.,0,0.4615384615384615,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer. Dr. B. R. Ambedkar is widely recognized as the architect of the Indian Constitution.
+Answer based on explanation: Yes."
+,who was the girl that played cindy lou who,['Taylor Michel Momsen'],Taylor Momsen.,0,0.8,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct name of the actress who played Cindy Lou Who in the movie ""How the Grinch Stole Christmas"".
+
+Answer based on explanation: Yes."
+,who plays the voice of johnny in sing,['Taron Egerton'],Matthew McConaughey.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided an incorrect answer.
+Answer based on explanation: No."
+,who sang the song oh what a lonely boy,['Andrew Gold'],"The song ""Oh What a Lonely Boy"" was sung by Jack Savoretti.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided an incorrect answer as the song ""Oh What a Lonely Boy"" was actually sung by Andrew Gold, not Jack Savoretti.
+
+Answer based on explanation: No."
+,who presides over the joint sessions of parliament,['President'],The President of India presides over the joint sessions of Parliament.,0,0.1999999999999999,1,"Is the candidate correct?
+
+Explanation: The President of India is the head of state and the ceremonial head of government of India. He/She presides over the joint sessions of Parliament, which is a session of both the Lok Sabha (the lower house of Parliament) and the Rajya Sabha (the upper house of Parliament).
+
+Answer based on explanation: Yes."
+,latest series of keeping up with the kardashians,['14'],The latest series of Keeping Up with the Kardashians is Season 18.,0,0.0,0,"Is the candidate correct?
+Explanation: The latest season of Keeping Up with the Kardashians is Season 19, which premiered on April 14, 2021.
+Answer based on explanation: No."
+,avatar the last airbender season 3 episode 12,['The Western Air Temple'],Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate did not provide a specific answer for the question.
+
+Answer based on explanation: No."
+,how many walker texas ranger seasons are there,"['Eight', '8']","There are nine seasons of Walker, Texas Ranger.",0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided an incorrect answer.
+Answer based on explanation: No."
+,when will the flash season 4 episode 14 coming out,"['February\xa027,\xa02018']","The Flash Season 4 Episode 14 will air on Tuesday, March 13, 2018.",0,0.1333333333333333,0,"Is the candidate correct?
+
+Explanation: The candidate provided a specific date for the release of The Flash Season 4 Episode 14, which is March 13, 2018. However, the ground-truth answer is February 27, 2018.
+
+Answer based on explanation: No."
+,where would a subcutaneous injection be made in the skin,['the subcutis'],Subcutaneous injections are typically made in the fatty tissue just below the skin.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate's answer correctly states that subcutaneous injections are made in the fatty tissue just below the skin. This is a correct answer as it accurately describes the location of subcutaneous injections.
+
+Answer based on explanation: Yes."
+,who was the author of the art of war,['Sun Tzu'],Sun Tzu.,1,1.0,1,"Yes, the candidate is correct. The author of ""The Art of War"" is indeed Sun Tzu.
+
+Explanation: The candidate's answer is correct because Sun Tzu is the author of ""The Art of War.""
+
+Answer based on explanation: Yes."
+,when did the movie peter pan come out,"['2003', '25\xa0December\xa02003']",The movie Peter Pan was released in 1953.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the incorrect year for the release of the movie Peter Pan. The correct year is either 2003 or 25 December 2003.
+
+Answer based on explanation: No."
+,who does luke skywalker fall in love with,['Mara Jade'],Princess Leia.,0,0.0,1,"Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,what is the definition of the word hosanna,"['savior', 'save, rescue, savior', 'save', 'rescue']","Hosanna is an expression of praise or adoration, especially in the form of a shout or song.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. Hosanna is indeed an expression of praise or adoration, but it is not limited to being a shout or song. It can also be used in a prayer or hymn.
+Answer based on explanation: Yes."
+,when is star vs the forces of evil coming back 2018,"['March\xa03,\xa02018']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate did not provide a specific date for the return of the show ""Star vs. the Forces of Evil"" in 2018.
+
+Answer based on explanation: No."
+,what is the meaning of molech in the bible,['king'],Molech is an ancient Canaanite god associated with child sacrifice.,0,0.0,0,"Is the candidate correct?
+
+Explanation: Molech is an ancient Canaanite god associated with child sacrifice, which is not the meaning of the word ""king"" in the Bible.
+
+Answer based on explanation: No."
+,who plays the doc in back to the future,['Christopher Allen Lloyd'],Christopher Lloyd.,0,0.8,1,"Explanation: Christopher Lloyd played the character ""Doc"" in the movie ""Back to the Future"".
+
+Answer based on explanation: Yes."
+,how did leo dalton die in silent witness,['in an explosion'],Leo Dalton died in Silent Witness after being shot by a sniper while trying to protect a witness.,0,0.1111111111111111,0,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. Leo Dalton died in an explosion in the TV series ""Silent Witness"". Answer based on explanation: No."
+,which battle ended britain's support for the south,"['Battle of Antietam', 'the Battle of Antietam']",The Battle of Appomattox Court House in April 1865 ended Britain's support for the Confederacy in the American Civil War.,0,0.2,0,"Is the candidate correct?
+Explanation: The Battle of Appomattox Court House in April 1865 is not the answer to the question. The question asks for the battle that ended Britain's support for the South in the American Civil War.
+Answer based on explanation: No."
+,when does panic at the disco album come out,"['December 15, 2017']","Panic at the Disco's sixth studio album, ""Pray for the Wicked,"" is set to be released on June 22, 2018.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided the incorrect release date for Panic at the Disco's album. The correct release date is December 15, 2017.
+
+Answer based on explanation: No."
+,who won the wwe championship elimination chamber 2018,['Roman Reigns'],The 2018 WWE Championship Elimination Chamber was won by Alexa Bliss.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided an incorrect answer.
+Answer based on explanation: No."
+,what is the 3rd largest state in usa,"['California', 'Alaska']","The third largest state in the United States is Florida, with an area of 170,312 square miles.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, Florida is the third largest state in the USA with an area of 170,312 square miles.
+Answer based on explanation: Yes."
+,the recipient of first jnanpith award was an author which language,['Malayalam'],"G. Sankara Kurup, an author from Malayalam, was the first recipient of the Jnanpith Award.",0,0.1538461538461538,1,"Explanation: The candidate correctly identified the language of the author who received the first Jnanpith Award.
+Answer based on explanation: Yes."
+,who has the most rushing yards in a super bowl,['Timmy Smith'],"The record for most rushing yards in a Super Bowl is held by San Francisco 49ers running back Raheem Mostert, who had 220 yards in Super Bowl LIV.",0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer for the question.
+Answer based on explanation: Yes."
+,who lived in jamestown before the arrival of the english,['uninhabited'],The Powhatan Native American tribe lived in Jamestown before the arrival of the English.,0,0.0,0,"Explanation: The Powhatan Native American tribe did not live in Jamestown before the arrival of the English. They were the indigenous people of the area, but they did not live in Jamestown itself. The correct answer is ""uninhabited"".
+
+Answer based on explanation: No."
+,what is the corporate tax rate in great britain,['20%'],The corporate tax rate in Great Britain is 19%.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided an incorrect answer. The correct corporate tax rate in Great Britain is 20%, not 19%.
+
+Answer based on explanation: No."
+,where are the organ mountains in new mexico,['southern New Mexico'],"The Organ Mountains are located in Doña Ana County, New Mexico.",0,0.3076923076923076,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct location of the Organ Mountains in New Mexico.
+
+Answer based on explanation: Yes."
+,term limits for house of representatives and senate,"['Unlimited six-year terms', 'Unlimited two-year terms']","The U.S. House of Representatives has a two-term limit, while the U.S. Senate has no term limits.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct information about the term limits for the House of Representatives and the Senate. The House of Representatives has a two-term limit, while the Senate has no term limits.
+
+Answer based on explanation: Yes."
+,what does ss stand for on naval ships,['Single-screw Steamship'],"SS stands for ""Steam Ship"" on naval ships.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that SS stands for ""Single-screw Steamship"" on naval ships.
+
+Answer based on explanation: Yes."
+,who has won the mens singles title in the australian open tennis tournament,['Roger Federer'],"Novak Djokovic has won the men's singles title in the Australian Open tennis tournament eight times, most recently in 2021.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate provided a statement that Novak Djokovic has won the men's singles title in the Australian Open tennis tournament eight times, most recently in 2021. However, the ground-truth answer is Roger Federer.
+
+Answer based on explanation: No."
+,what is an example of a government monopoly in the united states,"['State Bar of Arizona', 'West Virginia American Water']",The United States Postal Service is an example of a government monopoly in the United States.,0,0.125,0,"Is the candidate correct?
+
+Explanation: The United States Postal Service is a government-owned corporation, but it is not a monopoly. It faces competition from private mail delivery services such as FedEx and UPS.
+
+Answer based on explanation: No."
+,who introduced the first chrismas tree to the uk,['Charlotte of Mecklenburg-Strelitz'],"Prince Albert, husband of Queen Victoria, is credited with introducing the first Christmas tree to the UK in 1841.",0,0.1,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, Prince Albert, husband of Queen Victoria, is credited with introducing the first Christmas tree to the UK in 1841.
+Answer based on explanation: Yes."
+,who plays in the new mary poppins movie,"['Nathanael Saleh', 'Colin Firth', 'Joel Dawson', 'Emily Mortimer', 'Ben Whishaw', 'Pixie Davies', 'Lin-Manuel Miranda', 'Julie Walters', 'Emily Blunt', 'Meryl Streep']",Emily Blunt and Lin-Manuel Miranda star in the new Mary Poppins movie.,0,0.3076923076923077,1,"Is the candidate correct?
+Explanation: The candidate provided the names of two actors who star in the new Mary Poppins movie.
+Answer based on explanation: Yes."
+,when's the last time michigan won a national championship in basketball,['1989'],The last time Michigan won a national championship in basketball was in 1989.,0,0.1666666666666666,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct year for when Michigan last won a national championship in basketball.
+
+Answer based on explanation: Yes."
+,who dies in transformers revenge of the fallen,"['Ravage and the Decepticon Rampage', 'Jetfire']",Unknown.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate did not provide a specific answer regarding who dies in Transformers: Revenge of the Fallen.
+Answer based on explanation: No."
+,the boiling point of water is 100 degrees celsius express this in si units,['100\xa0°C'],100°C = 373.15 K,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate has correctly converted the temperature from Celsius to Kelvin using the formula C = (C \* 100) + 273.15. Answer based on explanation: Yes."
+,where does the last name tavarez come from,['Spanish'],"The last name Tavarez is of Spanish origin and is derived from the personal name Távarez, which is a combination of the Germanic elements taw (forest) and ric (power).",0,0.0769230769230769,1,"Is the candidate correct?
+Explanation: The candidate provided the correct explanation for the origin of the last name Tavarez. Answer based on explanation: Yes."
+,created propaganda to support the war effort & encourage the sale of war bonds,['the government'],The United States government created propaganda to support the war effort and encourage the sale of war bonds during World War II.,0,0.1,1,"Is the candidate correct?
+Explanation: The United States government created propaganda to support the war effort and encourage the sale of war bonds during World War II.
+Answer based on explanation: Yes."
+,when was the first time lebron went to the finals,['2007'],The first time LeBron James went to the NBA Finals was in 2007 with the Cleveland Cavaliers.,0,0.1333333333333333,1,"Is the candidate correct?
+Explanation: The candidate correctly states that the first time LeBron James went to the NBA Finals was in 2007 with the Cleveland Cavaliers. Answer based on explanation: Yes."
+,who has made the most premier league appearances,['Gareth Barry'],Gareth Barry has made the most Premier League appearances with 653.,0,0.3333333333333333,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer, which is Gareth Barry.
+
+Answer based on explanation: Yes."
+,when was the first star wars film released,"['1977', 'May\xa025,\xa01977']","The first Star Wars film was released on May 25, 1977.",0,0.4615384615384615,1,"Is the candidate correct?
+Explanation: The candidate provided the correct date for the release of the first Star Wars film. Answer based on explanation: Yes."
+,who commissioned the first christmas card in 1943,['Sir Henry Cole'],Sir Henry Cole.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The candidate has provided the correct answer.
+
+Answer based on explanation: Yes."
+,where is the nfl game in london played,"['Twickenham Stadium', 'Wembley Stadium']",The NFL game in London is usually played at Wembley Stadium.,0,0.3333333333333333,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is partially correct. The NFL game in London is indeed usually played at Wembley Stadium, but there have been instances where it has been played at Twickenham Stadium as well.
+
+Answer based on explanation: Yes."
+,what are the 5 pillars of faith of islam,"['life', 'prayer', 'the pilgrimage', 'self-purification', 'concern for the needy']","The five pillars of faith in Islam are Shahadah (declaration of faith), Salat (prayer), Zakat (almsgiving), Sawm (fasting during Ramadan), and Hajj (pilgrimage to Mecca).",0,0.0799999999999999,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer for the question.
+Answer based on explanation: Yes."
+,who was the oldest man elected president of usa,"['Ronald Reagan', 'Donald Trump']","Donald Trump, at age 70, was the oldest man elected president of the United States.",0,0.2666666666666667,1,"Is the candidate correct?
+
+Explanation: Donald Trump was indeed the oldest man elected president of the United States, at the age of 70.
+
+Answer based on explanation: Yes."
+,who played morticia in the addams family tv show,['Carolyn Sue Jones'],Carolyn Jones.,0,0.8,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer. Carolyn Jones played Morticia in the TV show ""The Addams Family"".
+
+Answer based on explanation: Yes."
+,which type of hematoma is a result of torn bridging meningeal veins,"['subdural hematoma (SDH)', 'A subdural hematoma', 'subdural hematoma']",Subdural hematoma.,1,1.0,1,"Is the candidate correct?
+Explanation: Subdural hematoma is a type of hematoma that occurs when there is bleeding between the dura mater and the arachnoid, which are two protective layers of the brain. Torn bridging meningeal veins can also cause subdural hematoma.
+Answer based on explanation: Yes."
+,criminal minds episode where jj becomes a profiler,"['The season seven premiere', 'season seven premiere']","""The Longest Night"" (Season 5, Episode 15).",0,0.2222222222222222,1,"Is the candidate correct?
+
+Explanation: The candidate provided the name of an episode where JJ becomes a profiler, which is ""The Longest Night"" (Season 5, Episode 15).
+
+Answer based on explanation: Yes."
+,who played doctor smith in lost in space,['Jonathan Harris'],Jonathan Harris.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,what was the main characteristic of post-world war ii american society,['strong economic growth'],The main characteristic of post-World War II American society was a period of economic prosperity and increased consumerism.,0,0.1052631578947368,1,"Is the candidate correct?
+Explanation: The candidate provided a correct answer that describes the main characteristic of post-World War II American society. Answer based on explanation: Yes."
+,who was the leader of the zulu in south africa who led the fight against the british,"['Cetshwayo kaMpande', 'Cetshwayo']",Shaka Zulu.,0,0.0,0,"Is the candidate correct?
+Explanation: The leader of the Zulu in South Africa who led the fight against the British was Cetshwayo kaMpande or Cetshwayo.
+Answer based on explanation: No."
+,cls bank deals with transactions arising out of,"['foreign exchange market', 'the foreign exchange market']",CLS Bank deals with foreign exchange transactions.,0,0.4,1,"Is the candidate correct?
+Explanation: CLS Bank deals with foreign exchange transactions.
+Answer based on explanation: Yes."
+,who made the first to record with the electric guitar,['George Warren Barnes'],The first electric guitar recording was made by George Barnes in 1938.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer that the first electric guitar recording was made by George Barnes in 1938. Answer based on explanation: Yes."
+,when does the new season of law and order svu come on,"['September 27, 2017']","The new season of Law & Order: SVU will premiere on Thursday, November 12th, 2020 at 9/8c on NBC.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct premiere date for the new season of Law & Order: SVU. Answer based on explanation: Yes."
+,who was involved in the mapp vs ohio case,['Dollree Mapp'],"The Mapp v. Ohio case was a landmark decision by the United States Supreme Court in 1961 that held that evidence obtained in violation of the Fourth Amendment, which protects against unreasonable searches and seizures, could not be used in state criminal prosecutions. The case was brought by Dollree Mapp, who was convicted of possessing obscene materials after police officers searched her home without a warrant.",0,0.064516129032258,0,"Is the candidate correct?
+
+Explanation: The candidate provided a detailed explanation of the Mapp v. Ohio case, including the facts of the case and the Supreme Court's decision. However, the candidate did not mention the name of the person who was involved in the case.
+
+Answer based on explanation: No."
+,what is the cross on a letter t called,"['arm', 'crossbar']",The cross on a letter t is called a crossbar.,0,0.25,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, ""The cross on a letter t is called a crossbar.""
+Answer based on explanation: Yes."
+,when do the walking dead comics come out,"['2003', 'October\xa02003\xa0– present']",The Walking Dead comics are released on the first Tuesday of each month.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The Walking Dead comics are released on the first Tuesday of each month, which is not the same as the year they were first published.
+
+Answer based on explanation: No."
+,who played truman capote in in cold blood,['Philip Seymour Hoffman'],Robert Blake.,0,0.0,0,"Is the candidate correct?
+Explanation: The correct answer is Philip Seymour Hoffman, who played Truman Capote in the movie ""In Cold Blood"".
+Answer based on explanation: No."
+,where was the film the remains of the day filmed,"['Limpley Stoke', 'Weston-super-Mare', 'Powderham Castle', 'Badminton House', 'Dyrham Park', 'Corsham Court']","The film The Remains of the Day was filmed in England, primarily in Oxfordshire and Gloucestershire.",0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate correctly mentioned that the film was filmed in England and specified the primary locations. However, the candidate did not mention any of the specific locations mentioned in the ground-truth answers.
+
+Answer based on explanation: No."
+,what is the name of the weapon the grim reaper carries,['scythe'],The Grim Reaper is often depicted carrying a scythe.,0,0.25,1,"Explanation: The candidate's answer is correct as it accurately describes the weapon that the Grim Reaper is often depicted carrying.
+
+Answer based on explanation: Yes."
+,who wrote shes always a woman to me,"['Billy Joel', 'Joel']",Billy Joel.,1,1.0,1,"Is the candidate correct?
+Explanation: The question is asking for the author of the song ""She's Always a Woman to Me.""
+Billy Joel is the correct answer as he is the author of the song.
+Answer based on explanation: Yes."
+,who played michael jackson in jackson 5 movie,"['Wylie Draper', 'Jason Weaver', 'Alex Burrall', 'Abolade David Olatunde']",Unknown.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate is correct as they have provided a possible answer among the ground-truth answers.
+Answer based on explanation: Yes."
+,when did it become law to stand for the national anthem,"['June 22, 1942']",It became law in the United States in 1942.,0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct.
+
+Answer based on explanation: Yes."
+,who was allowed to vote in the roman republic,"['citizens', 'unknown']","In the Roman Republic, only male citizens were allowed to vote.",0,0.1818181818181818,1,"Is the candidate correct?
+
+Explanation: The candidate's answer is correct. In the Roman Republic, only male citizens were allowed to vote.
+
+Answer based on explanation: Yes."
+,form from material that has accumulated on the earths surface,['Sedimentary rock'],Soil.,0,0.0,1,"Is the candidate correct?
+Explanation: The formation of sedimentary rock occurs from material that has accumulated on the Earth's surface.
+Answer based on explanation: Yes."
+,the sport psychology sub-field of performance enhancement deals primarily with,['Arousal regulation'],Enhancing an individual's performance in a sport or physical activity.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as the sport psychology sub-field of performance enhancement deals primarily with enhancing an individual's performance in a sport or physical activity.
+Answer based on explanation: Yes."
+,where was it happened at the world fair filmed,"['The Seattle Center', 'Seattle, Washington', 'Camarillo, California']","The World Fair was filmed in Los Angeles, California.",0,0.2,0,"Is the candidate correct?
+
+Explanation: The World Fair was not filmed in Los Angeles, California. It was filmed at the Seattle Center or Seattle, Washington or Camarillo, California.
+
+Answer based on explanation: No."
+,who won the men's ice skating 2018,['Yuzuru Hanyu'],Yuzuru Hanyu of Japan won the men's ice skating gold medal at the 2018 Winter Olympics.,0,0.25,0,"Yes, the candidate is correct.
+
+Explanation: The candidate provided the correct answer for the question. Yuzuru Hanyu is a Japanese figure skater who won the gold medal in the men's singles event at the 2018 Winter Olympics. Therefore, the answer is ""yes""."
+,who sings somebody's watching me with michael jackson,"['Jermaine Jackson', 'Rockwell']",Rockwell featuring Michael Jackson.,0,0.4,0,"Is the candidate correct?
+
+Explanation: The correct answer is ""Jermaine Jackson or Rockwell"".
+
+Answer based on explanation: No."
+,who played cory's older brother on boy meets world,['Will Friedle'],Will Friedle.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate has provided the correct answer.
+Answer based on explanation: Yes."
+,who is the present president of assam sahitya sabha,['Dhrubajyoti Bora'],The current president of Assam Sahitya Sabha is Dr. Nagen Saikia.,0,0.0,1,"Is the candidate correct?
+Explanation: The candidate provided the name of the current president of Assam Sahitya Sabha, which is correct.
+Answer based on explanation: Yes."
+,most home runs by 2 teammates in a season,"['a combined 115 home runs', 'Roger Maris', '115', 'Mickey Mantle']","The most home runs by two teammates in a single season is 115, set by Mark McGwire and Jose Canseco of the Oakland Athletics in 1987.",0,0.2222222222222221,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer for the most home runs by two teammates in a single season.
+
+Answer based on explanation: Yes."
+,who has the most 70 point games in nba history,"['Wilt Chamberlain', 'Chamberlain, Wilt', 'Booker, Devin', 'Wilt Chamberlain*']",Wilt Chamberlain has the most 70 point games in NBA history with 32.,0,0.2857142857142857,1,"Is the candidate correct?
+Explanation: The candidate has provided the correct answer. Wilt Chamberlain has the most 70 point games in NBA history with 32. Answer based on explanation: Yes."
+,list the seven gifts of the holy spirit,"['piety', 'knowledge', 'wisdom', 'fear', 'fortitude', 'fear of the Lord', 'understanding', 'counsel']","The seven gifts of the Holy Spirit are wisdom, understanding, counsel, fortitude, knowledge, piety, and fear of the Lord.",0,0.3157894736842105,1,"Is the candidate correct?
+Explanation: The candidate provided a list of seven gifts of the Holy Spirit, which is correct.
+Answer based on explanation: Yes."
+,who did kenny rogers sing mary did you know with,['Wynonna Judd'],"Kenny Rogers sang ""Mary, Did You Know?"" with Wynonna Judd.",0,0.3333333333333333,1,"Question: who did kenny rogers sing mary did you know with?
+Ground-Truth Answers: Wynonna Judd
+Candidate: Kenny Rogers sang ""Mary, Did You Know?"" with Wynonna Judd.
+
+Is the candidate correct?
+Explanation: Kenny Rogers did sing ""Mary, Did You Know?"" with Wynonna Judd.
+Answer based on explanation: Yes."
+,where is the world cup being held 2018,['Russia'],The 2018 FIFA World Cup is being held in Russia.,0,0.1999999999999999,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer, stating that the 2018 FIFA World Cup is being held in Russia.
+Answer based on explanation: Yes."
+,where do the astros play for spring training,"['West Palm Beach', 'Osceola County Stadium']","The Houston Astros play their spring training games at the Ballpark of the Palm Beaches in West Palm Beach, Florida.",0,0.3,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer.
+Answer based on explanation: Yes."
+,how do you spell padawan from star wars,['Padawan'],P-A-D-A-W-A-N.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate spelled the word correctly. Answer based on explanation: Yes."
+,who won the mens figure skating in 2018 olympics,"['Shoma Uno', 'Javier FernÃ¡ndez', 'Yuzuru Hanyu']",Yuzuru Hanyu of Japan.,0,0.6666666666666666,1,"Question: who won the men's figure skating in 2018 Olympics?
+
+Ground-Truth Answers: Yuzuru Hanyu
+
+Candidate: Yuzuru Hanyu of Japan.
+
+Is the candidate correct?
+
+Explanation: Yuzuru Hanyu won the men's figure skating event at the 2018 Winter Olympics held in Pyeongchang, South Korea.
+
+Answer based on explanation: Yes."
+,what is the most common cause of right ventricular heart failure,"['pulmonary heart disease', 'left-sided heart failure']",The most common cause of right ventricular heart failure is left ventricular systolic dysfunction.,0,0.25,0,"Is the candidate correct?
+Explanation: The most common cause of right ventricular heart failure is pulmonary hypertension, which is an increase in blood pressure in the pulmonary arteries. This can be caused by various factors such as chronic thromboembolic pulmonary hypertension, chronic obstructive pulmonary disease (COPD), and connective tissue diseases. Left-sided heart failure is a common cause of left ventricular heart failure, but it is not the most common cause of right ventricular heart failure.
+Answer based on explanation: No."
+,when did cristiano ronaldo go to manchester united,"['2003', 'at age 18 in 2003']",Cristiano Ronaldo joined Manchester United in 2003.,0,0.3333333333333333,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct year that Cristiano Ronaldo joined Manchester United, which was 2003.
+
+Answer based on explanation: Yes."
+,when is the last time the jaguars won a playoff game,['2017'],"The Jacksonville Jaguars last won a playoff game on January 14, 2018, when they defeated the Pittsburgh Steelers 45-42 in the AFC Divisional Round.",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer for the question. The Jacksonville Jaguars last won a playoff game on January 14, 2018, which is the same date mentioned in the ground-truth answer.
+
+Answer based on explanation: Yes."
+,what year did return of the mack come out,"['18\xa0March\xa01996', 'March 1996', '1996']",1996,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct year for the release of the movie ""Return of the Mack"".
+Answer based on explanation: Yes."
+,who told the story of the prodigal son,['Jesus Christ'],Jesus Christ.,1,1.0,0,"Yes, the candidate is correct. The story of the prodigal son is a parable told by Jesus Christ in the Bible."
+,when does elena turn into a vampire in the tv series,"['fourth season', 'season four']",Unknown.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The candidate did not provide a specific answer regarding when Elena turns into a vampire in the TV series.
+
+Answer based on explanation: No."
+,who won nfl football coach of the year,['Sean McVay'],The 2020 NFL Coach of the Year was Kevin Stefanski of the Cleveland Browns.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate provided the name of the 2020 NFL Coach of the Year, which is Kevin Stefanski of the Cleveland Browns. However, the ground-truth answer is Sean McVay.
+Answer based on explanation: No."
+,christmas though a christian holiday began as a celebration of,['the winter solstice'],The winter solstice.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate provided the correct answer. Christmas is a Christian holiday that originated as a celebration of the birth of Jesus Christ, but it was also influenced by the winter solstice, a pagan festival celebrating the return of the sun. Answer based on explanation: Yes."
+,who played susanna in legends of the fall,['Julia Ormond'],Julia Ormond.,1,1.0,1,"Is the candidate correct?
+Explanation: The candidate's answer is correct as they have provided the correct name of the actress who played Susanna in the movie ""Legends of the Fall"".
+Answer based on explanation: Yes."
+,who sang buddy can you spare a dime,"['Rudy Vallee', 'Bing Crosby']",Bing Crosby.,1,1.0,1,"Is the candidate correct?
+
+Explanation: The question asks for the singer of the song ""Buddy, Can You Spare a Dime?"" The ground-truth answer is either Rudy Vallee or Bing Crosby.
+
+Bing Crosby was a popular singer and actor during the 1930s and 1940s, and he did record ""Buddy, Can You Spare a Dime?"" in 1931. Therefore, the candidate's answer is correct.
+
+Answer based on explanation: Yes."
+,what is the first covenant in the old testament,['the Noahic Covenant'],The first covenant in the Old Testament is the Covenant of Abraham.,0,0.1818181818181818,0,"Is the candidate correct?
+Explanation: The candidate provided the wrong answer. The first covenant in the Old Testament is the Noahic Covenant, which was made with Noah after the flood.
+Answer based on explanation: No."
+,when was the us department of homeland security created,"['November 25, 2002', 'November\xa025, 2002']","The United States Department of Homeland Security was created on November 25, 2002.",0,0.4,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct date for the creation of the US Department of Homeland Security.
+
+Answer based on explanation: Yes."
+,where can i get a state issued id,"['DMV', ""each state's DMV""]",You can get a state-issued ID from your local Department of Motor Vehicles.,0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct answer that a person can get a state-issued ID from the local Department of Motor Vehicles (DMV) or each state's DMV.
+
+Answer based on explanation: Yes."
+,what was the date of the signing of the declaration of independence,"['August\xa02,\xa01776']","July 4, 1776.",0,0.3333333333333333,0,"Is the candidate correct?
+Explanation: The candidate provided the incorrect date for the signing of the Declaration of Independence. The correct date is August 2, 1776.
+Answer based on explanation: No."
+,who did the dominican republic gain its independence from,['Haiti'],The Dominican Republic gained its independence from Spain in 1821.,0,0.0,0,"Is the candidate correct?
+
+Explanation: The Dominican Republic gained its independence from Spain in 1821, not Haiti.
+
+Answer based on explanation: No."
+,who is rose in the fall season 2,['Valene Kane'],Rose is a new character introduced in the second season of the show Fall. She is a mysterious woman who is connected to the supernatural events occurring in the town.,0,0.0,0,"Is the candidate correct?
+Explanation: The candidate's answer is partially correct. Rose is a new character introduced in the second season of the show Fall, but the ground-truth answer is Valene Kane.
+Answer based on explanation: No."
+,oklahoma's 10 geographic regions are defined by surface features called,['ecological regions'],Physiographic regions.,0,0.5,1,"Is the candidate correct?
+
+Explanation: The correct answer is ""ecological regions"".
+
+Explanation for the answer based on the knowledge: The 10 geographic regions of Oklahoma are defined by surface features called ecological regions.
+
+Answer based on explanation: Yes."
+,what is the meaning of the name comanche,['enemy'],"Comanche is a Native American tribe from the Great Plains region of the United States. The name is derived from the Ute word kɨmantsi meaning ""anyone who wants to fight me all the time"".",0,0.0,1,"Is the candidate correct?
+
+Explanation: The candidate provided the correct meaning of the name Comanche, which is a Native American tribe from the Great Plains region of the United States. The name is derived from the Ute word kɨmantsi meaning ""anyone who wants to fight me all the time"".
+
+Answer based on explanation: Yes."
