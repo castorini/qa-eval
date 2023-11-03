@@ -161,7 +161,8 @@ def _prepare_data(
             logger.warning(f"Question with no annotated answers skipped: `{question.text}`")
             continue
 
-        question.update_answers(annotated_answers[qkey])
+        if annotated_answers:
+            question.update_answers(annotated_answers[qkey])
         candidates.append(Candidate(predicted_dict[qkey], question))
 
     return candidates
