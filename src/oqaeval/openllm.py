@@ -144,6 +144,7 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
         cpu_offloading=cpu_offloading,
         revision="main",
         debug=False,
+        offload_folder="offload",
     )
 
     responses = run_inference(examples, model, **kwargs)
