@@ -242,7 +242,7 @@ def evaluate_file(
             eval_output = llm_eval(
                 model_name,
                 candidates,
-                prompt_file,
+                prompt_file=prompt_file,
                 context_file=context_file,
                 max_new_tokens=max_new_tokens,
                 batch_size=batch_size,
