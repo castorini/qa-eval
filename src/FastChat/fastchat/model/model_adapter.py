@@ -202,7 +202,7 @@ def load_model(
                 ] = "sequential"  # This is important for not the same VRAM sizes
                 available_gpu_memory = get_gpu_memory(num_gpus)
                 kwargs["max_memory"] = {
-                    i: str(int(available_gpu_memory[i] * 0.85)) + "GiB"
+                    i: str(int(available_gpu_memory[i] * 0.9)) + "GiB"
                     for i in range(num_gpus)
                 }
             else:
