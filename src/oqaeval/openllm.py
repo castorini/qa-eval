@@ -41,11 +41,13 @@ def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.Pat
         if not question.endswith("?"):
             question += "?"
 
-        prompt = prompt_template.format(q=question, answers=gold_answers, candidate_answer=candidate_answer)
-
         if context_passage:
             passage = context_passage[question].get("contents")
-            prompt = prompt.format(passage=passage)
+            prompt = prompt_template.format(
+                q=question, answers=gold_answers, candidate_answer=candidate_answer, passage=passage
+            )
+        else:
+            prompt = prompt_template.format(q=question, answers=gold_answers, candidate_answer=candidate_answer)
 
         prompts.append(prompt)
     return prompts
