@@ -17,7 +17,7 @@ from .data_utils import read_questions, read_predict_file, read_annotations, Que
 from .gpt import gpt_eval
 from .openllm import llm_eval
 from .squad_evaluate import metric_max_over_ground_truths, regex_match, exact_match_score, f1_score
-from .vicuna_llm import infer_vicuna
+# from .vicuna_llm import infer_vicuna
 
 logger = logging.getLogger("eval")
 
@@ -32,67 +32,67 @@ def _is_openai_model(model_name: str) -> bool:
     return model_name in OPENAI_MODELS
 
 
-def vicuna_eval(question: Question, candidate_answer: str) -> Tuple[int, str]:
-    answers = " or ".join(question.answers)
-    q = question.text
-
-    with open("../passage_dpr.json", "r") as json_file:
-        context_passage = json.load(json_file)
-
-    passage = context_passage.get(q, {}).get("contents")
-
-    if not q.endswith("?"):
-        q += "?"
-
-    prompt = f"""
-        You are an expert judge of a content. You'll be give a question, ground-truth answers
-        and a candidate answer. Using your inbuilt knowledge, given context and given ground-truth answers try to 
-        verify if the candidate is correct or not. Provide explanation for the comparison and provide
-        answer based on the explanation as "yes" or "no". Here, "yes" represents that the candidate answer
-        is relevant and correct based on either inbuilt knowledge, given context or given ground-truth answers. If not,
-        the answer based on the explanation would be "no".
-        
-        Here are some of the sample examples:
-
-        Question: how long have we been celebrating pi day
-        Ground-Truth Answers: "1988", "2009"
-        Candidate: We have been celebrating pi day since 1988.
-        
-        Is the candidate correct?
-        Since 1998 we have been celebrating pi day. Answer based on explanation: yes.
-        
-        ###
-        Question: who plays dylan in daddy's home 2
-        Ground-Truth Answers: "Owen Vaccaro"
-        Candidate: Vaccaro
-        
-        Is the candidate correct?
-        Owen Vaccaro plays Dylan in the movie "Daddy's Home 2". Vaccaro is the last name. Answer based on explanation: yes.
-                
-        ###
-        Now make prediction for following data.
-        Compulsory format for the `Is the candidate correct?` question's answer: 
-        "Explanation: `Explanation for the answer based on the knowledge`. Answer based on explanation: `yes or no`.".
-
-        Comprehend following context: {context_passage}
-
-        Question: {q}
-        Ground-Truth Answers: {answers}
-        Candidate: {candidate_answer}
-        
-        Is the candidate correct?
-    """
-    response = infer_vicuna(prompt)
-    if response.lower().rstrip(".").endswith("yes") or response.lower().startswith("yes"):
-        acceptable = "Yes"
-    elif response.lower().rstrip(".").endswith("no") or response.lower().startswith("no"):
-        acceptable = "No"
-    else:
-        acceptable = ""
-        logger.warning(f"Invalid response to `{q}` & `{candidate_answer}`: {response}")
-        logger.warning(f"Prompt: {prompt}")
-
-    return int(acceptable == "Yes"), response
+# def vicuna_eval(question: Question, candidate_answer: str) -> Tuple[int, str]:
+#     answers = " or ".join(question.answers)
+#     q = question.text
+#
+#     with open("../passage_dpr.json", "r") as json_file:
+#         context_passage = json.load(json_file)
+#
+#     passage = context_passage.get(q, {}).get("contents")
+#
+#     if not q.endswith("?"):
+#         q += "?"
+#
+#     prompt = f"""
+#         You are an expert judge of a content. You'll be give a question, ground-truth answers
+#         and a candidate answer. Using your inbuilt knowledge, given context and given ground-truth answers try to
+#         verify if the candidate is correct or not. Provide explanation for the comparison and provide
+#         answer based on the explanation as "yes" or "no". Here, "yes" represents that the candidate answer
+#         is relevant and correct based on either inbuilt knowledge, given context or given ground-truth answers. If not,
+#         the answer based on the explanation would be "no".
+#
+#         Here are some of the sample examples:
+#
+#         Question: how long have we been celebrating pi day
+#         Ground-Truth Answers: "1988", "2009"
+#         Candidate: We have been celebrating pi day since 1988.
+#
+#         Is the candidate correct?
+#         Since 1998 we have been celebrating pi day. Answer based on explanation: yes.
+#
+#         ###
+#         Question: who plays dylan in daddy's home 2
+#         Ground-Truth Answers: "Owen Vaccaro"
+#         Candidate: Vaccaro
+#
+#         Is the candidate correct?
+#         Owen Vaccaro plays Dylan in the movie "Daddy's Home 2". Vaccaro is the last name. Answer based on explanation: yes.
+#
+#         ###
+#         Now make prediction for following data.
+#         Compulsory format for the `Is the candidate correct?` question's answer:
+#         "Explanation: `Explanation for the answer based on the knowledge`. Answer based on explanation: `yes or no`.".
+#
+#         Comprehend following context: {context_passage}
+#
+#         Question: {q}
+#         Ground-Truth Answers: {answers}
+#         Candidate: {candidate_answer}
+#
+#         Is the candidate correct?
+#     """
+    # response = infer_vicuna(prompt)
+    # if response.lower().rstrip(".").endswith("yes") or response.lower().startswith("yes"):
+    #     acceptable = "Yes"
+    # elif response.lower().rstrip(".").endswith("no") or response.lower().startswith("no"):
+    #     acceptable = "No"
+    # else:
+    #     acceptable = ""
+    #     logger.warning(f"Invalid response to `{q}` & `{candidate_answer}`: {response}")
+    #     logger.warning(f"Prompt: {prompt}")
+    #
+    # return int(acceptable == "Yes"), response
 
 
 def em_eval(

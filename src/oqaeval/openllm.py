@@ -42,7 +42,7 @@ def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.Pat
             question += "?"
 
         if context_passage:
-            passage = context_passage.get(question, context_passage.get(question[:-1], None))["contents"]
+            passage = context_passage.get(question, context_passage.get(question[:-1], None))
             prompt = prompt_template.format(
                 q=question, answers=gold_answers, candidate_answer=candidate_answer, passage=passage
             )
