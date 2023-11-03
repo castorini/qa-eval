@@ -130,6 +130,12 @@ class Question:
         )
 
 
+@dataclass
+class Candidate:
+    answer: str
+    question: Question
+
+
 def read_json(dataset_path: os.PathLike) -> Iterable[Question]:
     tokenizer = SimpleTokenizer()
 

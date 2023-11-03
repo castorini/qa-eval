@@ -25,6 +25,18 @@ def main():
         "--annotation", type=str, default=None, help="tsv file including additional answer annotations"
     )
     parser.add_argument(
+        "--contexts",
+        type=str,
+        default=None,
+        help="Context file containing retrieved passages (used only for public models)",
+    )
+    parser.add_argument(
+        "--prompt",
+        type=str,
+        default="prompts/eval-v1.0.txt",
+        help="Prompt template file (used only for public models)",
+    )
+    parser.add_argument(
         "--model",
         type=str,
         default=None,
@@ -32,15 +44,13 @@ def main():
             "text-davinci-003",
             "gpt-3.5-turbo",
             "gpt-4",
-            "vicuna"
+            "lmsys/vicuna-13b-v1.5-16k",
+            "lmsys/vicuna-7b-v1.5-16k",
+            "mistralai/Mistral-7B-v0.1",
+            "meta-llama/Llama-2-7b-hf",
+            "meta-llama/Llama-2-13b-hf",
         ),
-        help="OpenAI GPT flavours",
-    )
-    parser.add_argument(
-        "--openai_model",
-        action="store_true",
-        default=False,
-        help="Is open AI model selected?",
+        help="Model names",
     )
     parser.add_argument(
         "--max_tokens",
@@ -53,6 +63,24 @@ def main():
         type=float,
         default=0.0,
         help="Temperature used in generation (used in OpenAI API)",
+    )
+    parser.add_argument(
+        "--batch_size",
+        type=int,
+        default=1,
+        help="Batch size for running inference on public models",
+    )
+    parser.add_argument(
+        "--do_greedy",
+        action="store_true",
+        default=False,
+        help="Whether to disable sampling in decoding (used only for public models)",
+    )
+    parser.add_argument(
+        "--top_p",
+        type=float,
+        default=1.0,
+        help="Probability mass for nucleus sampling (used only for public models)",
     )
     parser.add_argument(
         "--output",
@@ -73,10 +101,14 @@ def main():
         args.dataset,
         args.annotation,
         args.output,
+        args.prompt,
+        args.contexts,
         args.model,
-        args.openai_model,
         args.max_tokens,
         args.temperature,
+        args.batch_size,
+        args.do_greedy,
+        args.top_p,
         args.overwrite_cache,
         return_per_sample=True,
     )

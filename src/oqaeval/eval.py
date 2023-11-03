@@ -8,47 +8,38 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import List, Mapping, Optional, Sequence, Set, Tuple, Union
+from typing import Iterable, List, Mapping, Optional, Sequence, Set, Tuple, Union
 
 import numpy as np
 from tqdm import tqdm
 
-from .data_utils import read_questions, read_predict_file, read_annotations, Question, SimpleTokenizer
-from .llm import OpenAIProxy
-from .vicuna_llm import infer_vicuna
+from .data_utils import read_questions, read_predict_file, read_annotations, Question, Candidate
+from .gpt import gpt_eval
+from .openllm import llm_eval
 from .squad_evaluate import metric_max_over_ground_truths, regex_match, exact_match_score, f1_score
+from .vicuna_llm import infer_vicuna
 
 logger = logging.getLogger("eval")
 
+OPENAI_MODELS = (
+    "text-davinci-003",
+    "gpt-3.5-turbo",
+    "gpt-4",
+)
 
-def gpt_eval(question: Question, candidate_answer: str, openai_proxy: OpenAIProxy) -> Tuple[int, str]:
-    answers = " or ".join(question.answers)
-    q = question.text
 
-    if not q.endswith("?"):
-        q += "?"
+def _is_openai_model(model_name: str) -> bool:
+    return model_name in OPENAI_MODELS
 
-    prompt = f"Question: {q}\nAnswer: {answers}\nCandidate: {candidate_answer}\n\nIs candidate correct?"
-    response = openai_proxy(prompt)
-    if response.lower().startswith("yes"):
-        acceptable = "Yes"
-    elif response.lower().startswith("no"):
-        acceptable = "No"
-    else:
-        acceptable = ""
-        logger.warning(f"Invalid response to `{q}` & `{candidate_answer}`: {response}")
-        logger.warning(f"Prompt: {prompt}")
-
-    return int(acceptable == "Yes"), response
 
 def vicuna_eval(question: Question, candidate_answer: str) -> Tuple[int, str]:
     answers = " or ".join(question.answers)
     q = question.text
 
-    with open('../passage_dpr.json', 'r') as json_file:
+    with open("../passage_dpr.json", "r") as json_file:
         context_passage = json.load(json_file)
 
-    passage = context_passage.get(q, {}).get('contents')
+    passage = context_passage.get(q, {}).get("contents")
 
     if not q.endswith("?"):
         q += "?"
@@ -104,9 +95,11 @@ def vicuna_eval(question: Question, candidate_answer: str) -> Tuple[int, str]:
     return int(acceptable == "Yes"), response
 
 
-def em_eval(question: Question, candidate_answer: str, match: str = "string") -> int:
-    if not question.gold_answers:
-        if question.is_unacceptable(candidate_answer):
+def em_eval(
+    gold_answers: Iterable[str], candidate_answer: str, match: str = "string", unacceptable_answers: Set[str] = None
+) -> int:
+    if not gold_answers:
+        if unacceptable_answers and candidate_answer in unacceptable_answers:
             return 0
         else:
             return -1
@@ -115,14 +108,14 @@ def em_eval(question: Question, candidate_answer: str, match: str = "string") ->
         metric_max_over_ground_truths(
             regex_match if match == "regex" else exact_match_score,
             candidate_answer,
-            question.gold_answers,
+            gold_answers,
         )
     )
 
 
-def f1_eval(question: Question, candidate_answer: str) -> float:
-    if not question.gold_answers:
-        if question.is_unacceptable(candidate_answer):
+def f1_eval(gold_answers: Iterable[str], candidate_answer: str, unacceptable_answers: Set[str] = None) -> float:
+    if not gold_answers:
+        if unacceptable_answers and candidate_answer in unacceptable_answers:
             return 0
         else:
             return -1
@@ -130,51 +123,77 @@ def f1_eval(question: Question, candidate_answer: str) -> float:
     return metric_max_over_ground_truths(
         f1_score,
         candidate_answer,
-        question.gold_answers,
+        gold_answers,
     )
 
 
-def _load_evaluated(output_file: os.PathLike) -> Mapping[str, Tuple[int, str]]:
-    tokenizer = SimpleTokenizer()
+def _prepare_data(
+    predict_file: os.PathLike,
+    dataset_file: Optional[os.PathLike] = None,
+    annotation_file: Optional[os.PathLike] = None,
+) -> List[Candidate]:
+    if dataset_file is not None:
+        questions = list(read_questions(dataset_file))
+    else:
+        questions = None
 
-    cached = {}
-    with open(output_file, "r") as f:
-        r = csv.reader(f, delimiter="\t")
-        next(r)
+    if annotation_file and os.path.exists(annotation_file):
+        annotated_answers = read_annotations(annotation_file)
+    else:
+        annotated_answers = {}
 
-        for row in r:
-            if len(row) < 8:
-                continue
+    predicted_dict, questions = read_predict_file(
+        predict_file,
+        questions,
+    )
 
-            gpt = int(row[6])
-            resp = row[7]
+    candidates = []
+    for question in tqdm(questions):
+        qkey = question.tokenized_text.lower()
+        if annotated_answers and qkey not in annotated_answers:
+            continue
 
-            q = tokenizer.tokenize(row[1], as_string=True).lower()
-            ans = row[2]
-            cached[f"{q}|{ans}"] = (gpt, resp)
+        if qkey not in predicted_dict:
+            logger.warning(f"Question not found in prediction file and thus skipped: `{question.text}`")
+            continue
 
-    return cached
+        if not question.has_annotated_answers:
+            logger.warning(f"Question with no annotated answers skipped: `{question.text}`")
+            continue
+
+        question.update_answers(annotated_answers[qkey])
+        candidates.append(Candidate(predicted_dict[qkey], question))
+
+    return candidates
 
 
 def evaluate(
     question: str,
     candidate_answer: str,
     gold_answers: Union[Set[str], Sequence[str]],
-    openai_proxy: Optional[OpenAIProxy] = None,
-    openai_model: str = "text-davinci-003",
-    max_tokens: int = 100,
+    model_name: Optional[str] = None,
+    max_new_tokens: int = 100,
     temperature: float = 1.0,
 ) -> Mapping[str, float]:
-
-    if openai_proxy is None:
-        openai_proxy = OpenAIProxy(openai_model, max_tokens, temperature)
-
     q = Question(question, gold_answers)
-    gpt_result, gpt_response = gpt_eval(q, candidate_answer, openai_proxy)
-    em = em_eval(q, candidate_answer)
-    f1 = f1_eval(q, candidate_answer)
+    candidate = Candidate(candidate_answer, q)
 
-    return {"em": em, "f1": f1, openai_proxy.model_name: gpt_result}
+    em = em_eval(gold_answers, candidate_answer)
+    f1 = f1_eval(gold_answers, candidate_answer)
+
+    result = dict(em=em, f1=f1)
+
+    if model_name:
+        if _is_openai_model(model_name):
+            output = gpt_eval(model_name, [candidate], max_new_tokens=max_new_tokens, temperature=temperature)
+        else:
+            output = llm_eval(model_name, [candidate], max_new_tokens=max_new_tokens)
+
+        acceptable, response = output[0]
+        result[model_name] = acceptable
+        result["response"] = response
+
+    return result
 
 
 def evaluate_file(
@@ -182,161 +201,153 @@ def evaluate_file(
     dataset_file: Optional[os.PathLike] = None,
     annotation_file: Optional[os.PathLike] = None,
     output_file: Optional[os.PathLike] = None,
-    openai_model: Optional[str] = None,
-    openai_model_bool: Optional[bool] = False,
-    max_tokens: int = 100,
+    prompt_file: Optional[str] = None,
+    context_file: Optional[str] = None,
+    model_name: Optional[str] = None,
+    max_new_tokens: int = 100,
     temperature: float = 0.0,
+    batch_size: int = 1,
+    do_greedy: bool = False,
+    top_p: float = 1.0,
     overwrite_cache: bool = False,
     return_per_sample: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
     predict_file = Path(predict_file)
-
     if output_file:
         output_path = Path(output_file)
     else:
         output_name = f"{predict_file.stem}_eval"
-        if openai_model:
-            output_name += f"-{openai_model}"
+        if model_name:
+            output_name += f"-{model_name}"
         if annotation_file:
             annotation_name = Path(annotation_file).stem
             output_name += f"-{annotation_name[annotation_name.index('_') + 1:]}"
 
         output_path = predict_file.parent / f"{output_name}.tsv"
 
-    if openai_model and openai_model_bool:
-        openai_proxy = OpenAIProxy(openai_model, max_tokens, temperature)
-    elif openai_model:
-        openai_proxy = openai_model
+    candidates = _prepare_data(predict_file, dataset_file, annotation_file)
+    if model_name:
+        if _is_openai_model(model_name):
+            eval_output = gpt_eval(
+                model_name,
+                candidates,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                experiment_name=output_path.stem,
+                cache_dir=predict_file.parent,
+                overwrite_cache=overwrite_cache,
+            )
+        else:
+            eval_output = llm_eval(
+                model_name,
+                candidates,
+                prompt_file,
+                context_file=context_file,
+                max_new_tokens=max_new_tokens,
+                batch_size=batch_size,
+                do_sample=not do_greedy,
+                top_p=top_p,
+            )
     else:
-        openai_proxy = None
+        eval_output = None
 
-    if dataset_file is not None:
-        questions = list(read_questions(dataset_file))
-    else:
-        questions = None
-
-    eval_result = _evaluate(predict_file, questions, openai_proxy, output_path, annotation_file, overwrite_cache)
-    questions = eval_result.pop("questions")
-
-    if openai_proxy and openai_model_bool:
-        logger.info(f"OpenAI API call stats: {openai_proxy.get_stats()}")
-
-    if "AnnotatedEM" in eval_result and len(eval_result["EM"]) < len(questions):
+    eval_result = _calc_metrics(
+        candidates, eval_output, model_name, annotation_file and os.path.exists(annotation_file)
+    )
+    if "AnnotatedEM" in eval_result and len(eval_result["EM"]) < len(candidates):
         logger.info(
-            f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(questions)}"
+            f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(candidates)}"
         )
+
+    _save_output(candidates, eval_output, eval_result, output_path)
 
     return {metric: scores if return_per_sample else np.mean(scores) for metric, scores in eval_result.items()}
 
 
-def _evaluate(
-    predict_file: os.PathLike,
-    questions: Optional[Sequence[Question]],
-    openai_proxy: Optional[OpenAIProxy],
-    output_file: os.PathLike,
-    annotation_file: Optional[os.PathLike] = None,
-    overwrite_cache: bool = False,
-) -> Mapping[str, list]:
-    predicted_dict, questions = read_predict_file(
-        predict_file,
-        questions,
-    )
-
-    if annotation_file and os.path.exists(annotation_file):
-        annotated_answers = read_annotations(annotation_file)
-    else:
-        annotated_answers = {}
-
-    cached_output = {}
-    if os.path.exists(output_file) and not overwrite_cache:
-        cached_output = _load_evaluated(output_file)
-
+def _calc_metrics(candidates: Sequence[Candidate], eval_output, model_name: str, has_annotated_file: bool = False):
     em_scores, f1_scores = [], []
     annotated_em_scores = []
-    gpt_scores = []
+    acceptables = []
 
+    for i, candidate in enumerate(candidates):
+        question = candidate.question
+
+        em = em_eval(question.answers, candidate.answer)
+        f1 = f1_eval(question.answers, candidate.answer)
+
+        if em < 0 or f1 < 0:
+            logger.warning(
+                f"Predicted answer could not be evaluated: "
+                f"`{question.text}` -> `{candidate.answer}` vs. {question.gold_answers}"
+            )
+            # continue
+
+        if has_annotated_file:
+            annotated_em = em_eval(question.gold_answers, candidate.answer, question.unacceptable_answers)
+            if annotated_em < 0:
+                logger.warning(
+                    f"Predicted answer could not be evaluated after applying annotations: "
+                    f"`{question.text}` -> `{candidate.answer}` vs. {question.gold_answers}"
+                )
+                # continue
+
+            annotated_em_scores.append(annotated_em)
+
+        em_scores.append(em)
+        f1_scores.append(f1)
+
+        if eval_output:
+            acceptable = eval_output[i]
+            acceptables.append(acceptable)
+
+    eval_result = {
+        "EM": em_scores,
+        "F1": f1_scores,
+        model_name: acceptables,
+    }
+
+    if annotated_em_scores:
+        eval_result["AnnotatedEM"] = annotated_em_scores
+
+    return eval_result
+
+
+def _save_output(
+    candidates: Sequence[Candidate],
+    eval_result,
+    model_output,
+    output_file: os.PathLike,
+):
     with open(output_file, "w") as f:
         w = csv.writer(f, delimiter="\t")
         headers = ["id", "Question", "Gold answers", "Model answer", "EM", "F1"]
-        if annotated_answers:
+        if "AnnotatedEM" in eval_result:
             headers.append("AnnotatedEM")
 
-        if isinstance(openai_proxy, OpenAIProxy):
-            headers.extend([openai_proxy.model_name, "Response"])
-        elif isinstance(openai_proxy, str):
-            headers.extend([openai_proxy, "Response"])
+        for m in sorted(eval_result.keys()):
+            if m not in ("EM", "F1", "AnnotatedEM"):
+                headers.append(m)
+
+        if model_output:
+            headers.append("Response")
 
         w.writerow(headers)
 
-        for question in tqdm(questions):
-            qkey = question.tokenized_text.lower()
-            if annotated_answers and qkey not in annotated_answers:
-                continue
+        for i, (candidate, result) in tqdm(enumerate(zip(candidates, eval_result))):
+            question = candidate.question
+            predicted_answer = candidate.answer
 
-            if qkey not in predicted_dict:
-                logger.warning(f"Question not found in prediction file and thus skipped: `{question.text}`")
-                continue
+            row = [question.id, question.text, question.answers, predicted_answer, result["EM"], result["F1"]]
 
-            if not question.has_annotated_answers:
-                logger.warning(f"Question with no annotated answers skipped: `{question.text}`")
-                continue
+            if "AnnotatedEM" in eval_result:
+                row.append(result["AnnotatedEM"])
 
-            predicted_answer = predicted_dict[qkey]
-            em = em_eval(question, predicted_answer)
-            f1 = f1_eval(question, predicted_answer)
+            for m in sorted(eval_result.keys()):
+                if m not in ("EM", "F1", "AnnotatedEM"):
+                    row.append(eval_result[m])
 
-            if em < 0 or f1 < 0:
-                logger.warning(
-                    f"Predicted answer could not be evaluated: `{question.text}` -> `{predicted_answer}` vs. {question.gold_answers}"
-                )
-                continue
-
-            row = [question.id, question.text, question.answers, predicted_answer, em, f1]
-
-            if annotated_answers and qkey in annotated_answers:
-                question.update_answers(annotated_answers[qkey])
-                annotated_em = em_eval(question, predicted_answer)
-                if annotated_em < 0:
-                    logger.warning(
-                        f"Predicted answer could not be evaluated after applying annotations: `{question.text}` -> `{predicted_answer}` vs. {question.gold_answers}"
-                    )
-                    continue
-
-                annotated_em_scores.append(annotated_em)
-                row.append(annotated_em)
-
-            if openai_proxy:
-                cache_key = f"{question.text}|{predicted_answer}"
-                if cache_key not in cached_output:
-                    if isinstance(openai_proxy, OpenAIProxy):
-                        gpt_result, gpt_response = gpt_eval(question, predicted_answer, openai_proxy)
-                    else:
-                        gpt_result, gpt_response = vicuna_eval(question, predicted_answer)
-                else:
-                    gpt_result, gpt_response = cached_output[cache_key]
-
-                gpt_scores.append(gpt_result)
-                row.extend((gpt_result, gpt_response))
-
-            em_scores.append(em)
-            f1_scores.append(f1)
+            if model_output:
+                _, out = model_output[i]
+                row.append(out)
 
             w.writerow(row)
-            f.flush()
-
-    eval_result = {
-        "questions": questions,
-        "EM": em_scores,
-        "F1": f1_scores,
-    }
-
-    if annotated_answers:
-        eval_result["AnnotatedEM"] = annotated_em_scores
-
-    if openai_proxy:
-        if isinstance(openai_proxy, OpenAIProxy):
-            eval_result[openai_proxy.model_name] = gpt_scores
-        else:
-            eval_result[openai_proxy] = gpt_scores
-
-    return eval_result
