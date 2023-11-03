@@ -46,6 +46,7 @@ def main():
             "gpt-4",
             "lmsys/vicuna-13b-v1.5-16k",
             "lmsys/vicuna-7b-v1.5-16k",
+            "lmsys/vicuna-7b-v1.5",
             "mistralai/Mistral-7B-v0.1",
             "meta-llama/Llama-2-7b-hf",
             "meta-llama/Llama-2-13b-hf",
@@ -69,6 +70,12 @@ def main():
         type=int,
         default=1,
         help="Batch size for running inference on public models",
+    )
+    parser.add_argument(
+        "--num_gpu",
+        type=int,
+        default=None,
+        help="Number of GPUs for inference, default is all available GPUs (used only for public models)",
     )
     parser.add_argument(
         "--do_greedy",

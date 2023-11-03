@@ -121,8 +121,7 @@ def run_inference(
 
 
 def llm_eval(model_name_or_path: str, candidates, **kwargs):
-    max_new_tokens = kwargs.pop("max_new_tokens", 100)
-    num_gpus = kwargs.pop("num_gpus", 1)
+    num_gpus = kwargs.pop("num_gpus", None)
     cpu_offloading = kwargs.pop("cpu_offloading", False)
 
     prompt_file = kwargs.pop("prompt_file", None)
@@ -130,6 +129,9 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
     examples = _prepare(candidates, prompt_file, context_file)
+
+    if num_gpus is None:
+        num_gpus = torch.cuda.device_count()
 
     model, tokenizer = load_model(
         model_name_or_path,
@@ -142,7 +144,7 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
         debug=False,
     )
 
-    responses = run_inference(examples, model, max_new_tokens)
+    responses = run_inference(examples, model, **kwargs)
 
     outputs = []
     for response, candidate in zip(responses, candidates):
