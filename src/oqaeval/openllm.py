@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 from transformers import DataCollatorWithPadding
 from FastChat.fastchat.model import load_model
 
-from data_utils import Candidate
+from .data_utils import Candidate
 
 logger = logging.getLogger("openllm")
 
