@@ -149,9 +149,9 @@ def run_inference(
 
         for b in range(batch_size):
             if model.config.is_encoder_decoder:
-                output_ids = output_ids[0][b]
+                output_ids = output_ids[b]
             else:
-                output_ids = output_ids[0][b, input_lengths[b] :]
+                output_ids = output_ids[b, input_lengths[b] :]
 
             outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
 
