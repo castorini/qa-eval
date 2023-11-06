@@ -1,6 +1,6 @@
 """
 Basic usage:
-python -m oqaeval /path/to/predict_file.jsonl
+python -m qaeval /path/to/predict_file.jsonl
 """
 import argparse
 import logging

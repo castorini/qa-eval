@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 from typing import List
 
 VERSION = {}  # type: ignore
-with open("src/oqaeval/version.py", "r") as version_file:
+with open("src/qaeval/version.py", "r") as version_file:
     exec(version_file.read(), VERSION)
 
 _PROJECT_ROOT = os.path.dirname(__file__)
