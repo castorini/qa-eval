@@ -102,9 +102,9 @@ def run_inference(
 
             chat = []
             if instructions:
-                chat.append({"role": "system", "message": instructions})
+                chat.append({"role": "system", "content": instructions})
 
-            chat.append({"role": "user", "message": example})
+            chat.append({"role": "user", "content": example})
             converted_texts.append(
                 {"text": tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)}
             )
@@ -156,17 +156,11 @@ def run_inference(
 
 
 def llm_eval(model_name_or_path: str, candidates, **kwargs):
-    num_gpus = kwargs.pop("num_gpus", None)
-    cpu_offloading = kwargs.pop("cpu_offloading", False)
-
     prompt_file = kwargs.pop("prompt_file", None)
     context_file = kwargs.pop("context_file", None)
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
     examples = _prepare(candidates, prompt_file, context_file)
-
-    if num_gpus is None:
-        num_gpus = torch.cuda.device_count()
 
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="auto", low_cpu_mem_usage=True)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
