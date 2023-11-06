@@ -219,7 +219,7 @@ def evaluate_file(
     else:
         output_name = f"{predict_file.stem}_eval"
         if model_name:
-            output_name += f"-{model_name}"
+            output_name += f"-{Path(model_name).name}"
         if annotation_file:
             annotation_name = Path(annotation_file).stem
             output_name += f"-{annotation_name[annotation_name.index('_') + 1:]}"
