@@ -4,6 +4,8 @@ python -m qaeval /path/to/predict_file.jsonl
 """
 import argparse
 import logging
+import os
+
 import numpy as np
 
 from .eval import evaluate_file
@@ -11,7 +13,7 @@ from .eval import evaluate_file
 logging.basicConfig(
     level=logging.INFO, format="%(levelname).1s %(asctime)s [ %(message)s ]", handlers=[logging.StreamHandler()]
 )
-
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 def main():
     parser = argparse.ArgumentParser()

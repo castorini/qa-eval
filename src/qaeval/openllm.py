@@ -119,6 +119,9 @@ def run_inference(
         remove_columns=list(dataset.features),
     )
 
+    if not tokenizer.pad_token:
+        tokenizer.pad_token = tokenizer.eos_token
+
     test_dataloader = DataLoader(
         dataset,
         batch_size=batch_size,
