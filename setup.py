@@ -31,13 +31,11 @@ def _load_requirements(path_dir: str, file_name: str = "requirements.txt", comme
 
 
 setup(
-    name="oqaeval",
+    name="qaeval",
     version=VERSION["VERSION"],
-    url="https://github.com/ehsk/OpenQA-eval",
+    url="https://github.com/ehsk/QA-eval",
     license="MIT",
-    author="Ehsan Kamalloo",
-    author_email="ekamalloo@uwaterloo.ca",
-    description="Evaluating Open-Domain Question Answering using Large Language Models",
+    description="Evaluating Question Answering using Large Language Models",
     package_dir={"": "src"},
     packages=find_packages("src", exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=_load_requirements(_PROJECT_ROOT),

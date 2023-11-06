@@ -72,7 +72,7 @@ def main():
         help="Batch size for running inference on public models",
     )
     parser.add_argument(
-        "--num_gpu",
+        "--num_gpus",
         type=int,
         default=None,
         help="Number of GPUs for inference, default is all available GPUs (used only for public models)",
@@ -116,6 +116,7 @@ def main():
         args.batch_size,
         args.do_greedy,
         args.top_p,
+        args.num_gpus,
         args.overwrite_cache,
         return_per_sample=True,
     )
