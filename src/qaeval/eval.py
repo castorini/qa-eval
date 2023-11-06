@@ -260,7 +260,7 @@ def evaluate_file(
             f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(candidates)}"
         )
 
-    _save_output(candidates, eval_output, eval_result, output_path)
+    _save_output(candidates, eval_result, eval_output, output_path)
 
     return {metric: scores if return_per_sample else np.mean(scores) for metric, scores in eval_result.items()}
 
@@ -352,3 +352,5 @@ def _save_output(
                 row.append(out)
 
             w.writerow(row)
+
+    logger.info(f"output saved to `{output_file}`")
