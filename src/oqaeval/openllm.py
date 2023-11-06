@@ -7,12 +7,23 @@ from tqdm import tqdm
 import datasets
 import torch
 from torch.utils.data import DataLoader
-from transformers import DataCollatorWithPadding
-from FastChat.fastchat.model import load_model
+from transformers import AutoModelForCausalLM, AutoTokenizer, DataCollatorWithPadding
 
 from .data_utils import Candidate
 
 logger = logging.getLogger("openllm")
+
+
+CONVERSATIONAL_MODELS = {
+    "meta-llama/Llama-2-7b-chat-hf",
+    "meta-llama/Llama-2-13b-chat-hf",
+    "mistralai/Mistral-7B-Instruct-v0.1",
+    "HuggingFaceH4/zephyr-7b-beta",
+}
+
+
+def _is_conversational(model_name_or_path):
+    return model_name_or_path in CONVERSATIONAL_MODELS
 
 
 def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.PathLike] = None):
@@ -72,6 +83,7 @@ def run_inference(
     max_new_tokens: int = 100,
     do_sample: bool = True,
     top_p: float = 1.0,
+    num_beams: int = 1,
     batch_size: int = 1,
     num_workers: int = 16,
 ):
@@ -80,7 +92,27 @@ def run_inference(
 
     model.eval()
 
-    dataset = datasets.Dataset.from_list([{"text": t} for t in texts])
+    if _is_conversational(model.config.name_or_path):
+        tokenizer.use_default_system_prompt = False
+        converted_texts = []
+        for t in texts:
+            sections = t.split("###")
+            instructions = "###".join(sections[:-1]) if len(sections) > 1 else None
+            example = sections[-1].strip()
+
+            chat = []
+            if instructions:
+                chat.append({"role": "system", "message": instructions})
+
+            chat.append({"role": "user", "message": example})
+            converted_texts.append(
+                {"text": tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)}
+            )
+    else:
+        converted_texts = [{"text": t} for t in texts]
+
+    dataset = datasets.Dataset.from_list(converted_texts)
+
     dataset = dataset.map(
         lambda sample: tokenizer(sample["text"]),
         batched=True,
@@ -109,6 +141,7 @@ def run_inference(
                 do_sample=do_sample,
                 max_new_tokens=max_new_tokens,
                 top_p=top_p,
+                num_beams=num_beams,
             )
 
         for b in range(batch_size):
@@ -135,18 +168,20 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     if num_gpus is None:
         num_gpus = torch.cuda.device_count()
 
-    model, tokenizer = load_model(
-        model_name_or_path,
-        device="cuda",
-        num_gpus=num_gpus,
-        max_gpu_memory=None,
-        load_8bit=False,
-        cpu_offloading=cpu_offloading,
-        revision="main",
-        debug=False,
-    )
+    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="auto", low_cpu_mem_usage=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+    # model, tokenizer = load_model(
+    #     model_name_or_path,
+    #     device="cuda",
+    #     num_gpus=num_gpus,
+    #     max_gpu_memory=None,
+    #     load_8bit=False,
+    #     cpu_offloading=cpu_offloading,
+    #     revision="main",
+    #     debug=False,
+    # )
 
-    responses = run_inference(examples, model, **kwargs)
+    responses = run_inference(examples, model, tokenizer, **kwargs)
 
     outputs = []
     for response, candidate in zip(responses, candidates):

@@ -47,9 +47,12 @@ def main():
             "lmsys/vicuna-13b-v1.5-16k",
             "lmsys/vicuna-7b-v1.5-16k",
             "lmsys/vicuna-7b-v1.5",
-            "mistralai/Mistral-7B-v0.1",
             "meta-llama/Llama-2-7b-hf",
             "meta-llama/Llama-2-13b-hf",
+            "meta-llama/Llama-2-7b-chat-hf",
+            "meta-llama/Llama-2-13b-chat-hf",
+            "mistralai/Mistral-7B-Instruct-v0.1",
+            "HuggingFaceH4/zephyr-7b-beta",
         ),
         help="Model names",
     )
