@@ -4,11 +4,10 @@
 OPENAI_API_KEY env variable should be set to run this script
 """
 import csv
-import json
 import logging
 import os
 from pathlib import Path
-from typing import Iterable, List, Mapping, Optional, Sequence, Set, Tuple, Union
+from typing import Iterable, List, Mapping, Optional, Sequence, Set, Union
 
 import numpy as np
 from tqdm import tqdm
@@ -17,6 +16,7 @@ from .data_utils import read_questions, read_predict_file, read_annotations, Que
 from .gpt import gpt_eval
 from .openllm import llm_eval
 from .squad_evaluate import metric_max_over_ground_truths, regex_match, exact_match_score, f1_score
+
 # from .vicuna_llm import infer_vicuna
 
 logger = logging.getLogger("eval")
@@ -210,7 +210,6 @@ def evaluate_file(
     batch_size: int = 1,
     do_greedy: bool = False,
     top_p: float = 1.0,
-    num_gpus: Optional[int] = None,
     overwrite_cache: bool = False,
     return_per_sample: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
@@ -249,7 +248,6 @@ def evaluate_file(
                 batch_size=batch_size,
                 do_sample=not do_greedy,
                 top_p=top_p,
-                num_gpus=num_gpus,
             )
     else:
         eval_output = None
