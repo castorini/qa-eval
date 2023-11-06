@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import re
 from typing import Optional, Sequence, Union
 from tqdm import tqdm
 
@@ -65,10 +66,14 @@ def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.Pat
 
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
+    tail_matched = re.match(r".*['\"]?(yes|no)['\"]?[.!]?$", response, re.IGNORECASE)
+
     if response.lower().startswith("yes"):
         acceptable = "Yes"
     elif response.lower().startswith("no"):
         acceptable = "No"
+    elif tail_matched:
+        acceptable = tail_matched.group(1).capitalize()
     else:
         acceptable = ""
         logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
@@ -80,7 +85,7 @@ def run_inference(
     texts: Union[str, Sequence[str]],
     model,
     tokenizer,
-    max_new_tokens: int = 100,
+    max_new_tokens: int = 256,
     do_sample: bool = True,
     top_p: float = 1.0,
     num_beams: int = 1,

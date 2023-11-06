@@ -61,7 +61,7 @@ def main():
     parser.add_argument(
         "--max_tokens",
         type=int,
-        default=100,
+        default=256,
         help="Maximum number of tokens to generate (used in OpenAI API)",
     )
     parser.add_argument(

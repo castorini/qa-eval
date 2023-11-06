@@ -173,7 +173,7 @@ def evaluate(
     candidate_answer: str,
     gold_answers: Union[Set[str], Sequence[str]],
     model_name: Optional[str] = None,
-    max_new_tokens: int = 100,
+    max_new_tokens: int = 256,
     temperature: float = 1.0,
 ) -> Mapping[str, float]:
     q = Question(question, gold_answers)
@@ -205,7 +205,7 @@ def evaluate_file(
     prompt_file: Optional[str] = None,
     context_file: Optional[str] = None,
     model_name: Optional[str] = None,
-    max_new_tokens: int = 100,
+    max_new_tokens: int = 256,
     temperature: float = 0.0,
     batch_size: int = 1,
     do_greedy: bool = False,
