@@ -10,4 +10,4 @@ Question: {q}
 Ground-Truth Answers: {answers}
 Candidate: {candidate_answer}
 
-Is the candidate correct?
+Explanation:
