@@ -217,9 +217,22 @@ def evaluate_file(
     if output_file:
         output_path = Path(output_file)
     else:
-        output_name = f"{predict_file.stem}_eval"
+        output_name = f"{predict_file.stem}"
+
+        if prompt_file and os.path.exists(prompt_file):
+            output_name += f"_{Path(prompt_file).stem}"
+        else:
+            output_name += "_eval"
+
         if model_name:
             output_name += f"-{Path(model_name).name}"
+
+            if not _is_openai_model(model_name):
+                if do_greedy:
+                    output_name += "_greedy"
+                elif top_p < 1.0:
+                    output_name += f"_topp{top_p}"
+
         if annotation_file:
             annotation_name = Path(annotation_file).stem
             output_name += f"-{annotation_name[annotation_name.index('_') + 1:]}"
