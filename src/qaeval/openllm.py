@@ -144,7 +144,7 @@ def run_inference(
         batch_size = input_lengths.shape[0]
 
         with torch.no_grad():
-            output_ids = model.generate(
+            output = model.generate(
                 **batch,
                 do_sample=do_sample,
                 max_new_tokens=max_new_tokens,
@@ -154,9 +154,9 @@ def run_inference(
 
         for b in range(batch_size):
             if model.config.is_encoder_decoder:
-                output_ids = output_ids[b]
+                output_ids = output[b]
             else:
-                output_ids = output_ids[b, input_lengths[b] :]
+                output_ids = output[b, input_lengths[b] :]
 
             outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
 
