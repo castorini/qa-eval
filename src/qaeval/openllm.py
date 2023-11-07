@@ -71,6 +71,8 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
         r".*I can answer\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I would say\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I must say\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*my judgment is\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
     ]
 
@@ -80,7 +82,7 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
         acceptable = "No"
     else:
         for pattern in patterns:
-            matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE)
+            matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
             if matched:
                 acceptable = matched.group(1).capitalize()
