@@ -29,7 +29,8 @@ Compulsory format for the `Is the candidate correct?` question's answer:
 Note: If candidate answer is 'unknown' then it is incorrect. Please remember do not answer it correct or yes.
 Now make prediction for following data.
 
-Comprehend following context: {passage}
+Comprehend following context:
+{passage}
 
 Question: {q}
 Ground-Truth Answers: {answers}
