@@ -74,15 +74,20 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
     ]
 
-    for pattern in patterns:
-        matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE)
-
-        if matched:
-            acceptable = matched.group(1).capitalize()
-            break
+    if response.lower().startswith("yes"):
+        acceptable = "Yes"
+    elif response.lower().startswith("no"):
+        acceptable = "No"
     else:
-        acceptable = ""
-        logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
+        for pattern in patterns:
+            matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE)
+
+            if matched:
+                acceptable = matched.group(1).capitalize()
+                break
+        else:
+            acceptable = ""
+            logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
 
     return int(acceptable == "Yes")
 

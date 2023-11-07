@@ -298,7 +298,7 @@ def _calc_metrics(candidates: Sequence[Candidate], eval_output, model_name: str,
         f1_scores.append(f1)
 
         if eval_output:
-            acceptable = eval_output[i]
+            acceptable = eval_output[i][0]
             acceptables.append(acceptable)
 
     eval_result = {
