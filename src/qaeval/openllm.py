@@ -114,9 +114,13 @@ def run_inference(
         tokenizer.use_default_system_prompt = False
         converted_texts = []
         for t in texts:
-            sections = t.split("###")
-            instructions = "###".join(sections[:-1]) if len(sections) > 1 else None
-            example = sections[-1].strip()
+            if "Mistral" in model.config.name_or_path:
+                instructions = None
+                example = t
+            else:
+                sections = t.split("###")
+                instructions = "###".join(sections[:-1]) if len(sections) > 1 else None
+                example = sections[-1].strip()
 
             chat = []
             if instructions:
