@@ -27,7 +27,9 @@ def _is_conversational(model_name_or_path):
     return model_name_or_path in CONVERSATIONAL_MODELS
 
 
-def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.PathLike] = None):
+def _prepare(
+    candidates, prompt_file: os.PathLike, model_name_or_path: str, context_file: Optional[os.PathLike] = None
+):
     with open(prompt_file) as p:
         prompt_template = "".join(p.readlines()).strip()
 
@@ -61,8 +63,39 @@ def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.Pat
         else:
             prompt = prompt_template.format(q=question, answers=gold_answers, candidate_answer=candidate_answer)
 
-        prompts.append(prompt)
+        if _is_conversational(model_name_or_path):
+            if "Mistral" in model_name_or_path:
+                instruction = None
+                content = prompt
+            else:
+                sections = prompt.split("###")
+                instruction = "###".join(sections[:-1]) if len(sections) > 1 else None
+                content = sections[-1].strip()
+
+            chat = []
+            if instruction:
+                chat.append({"role": "system", "content": instruction})
+
+            chat.append({"role": "user", "content": content})
+            prompts.append(chat)
+        else:
+            prompts.append(prompt)
+
     return prompts
+
+
+def _prepare_second_pass(chats, model_responses):
+    new_chats = []
+    for chat, resp in zip(chats, model_responses):
+        new_chats.append(
+            list(chat)
+            + [
+                {"role": "assistant", "content": resp},
+                {"role": "user", "content": "Tell me your final judgment in only 'yes' or 'no'"},
+            ]
+        )
+
+    return new_chats
 
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
@@ -110,30 +143,18 @@ def run_inference(
 
     model.eval()
 
-    if _is_conversational(model.config.name_or_path):
-        tokenizer.use_default_system_prompt = False
-        converted_texts = []
-        for t in texts:
-            if "Mistral" in model.config.name_or_path:
-                instructions = None
-                example = t
-            else:
-                sections = t.split("###")
-                instructions = "###".join(sections[:-1]) if len(sections) > 1 else None
-                example = sections[-1].strip()
-
-            chat = []
-            if instructions:
-                chat.append({"role": "system", "content": instructions})
-
-            chat.append({"role": "user", "content": example})
-            converted_texts.append(
-                {"text": tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)}
-            )
-    else:
-        converted_texts = [{"text": t} for t in texts]
-
-    dataset = datasets.Dataset.from_list(converted_texts)
+    dataset = datasets.Dataset.from_list(
+        [
+            {
+                "text": (
+                    tokenizer.apply_chat_template(t, tokenize=False, add_generation_prompt=True)
+                    if _is_conversational(model.config.name_or_path)
+                    else t
+                )
+            }
+            for t in texts
+        ]
+    )
 
     dataset = dataset.map(
         lambda sample: tokenizer(sample["text"]),
@@ -185,26 +206,23 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     context_file = kwargs.pop("context_file", None)
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
-    examples = _prepare(candidates, prompt_file, context_file)
 
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="auto", low_cpu_mem_usage=True)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-    # model, tokenizer = load_model(
-    #     model_name_or_path,
-    #     device="cuda",
-    #     num_gpus=num_gpus,
-    #     max_gpu_memory=None,
-    #     load_8bit=False,
-    #     cpu_offloading=cpu_offloading,
-    #     revision="main",
-    #     debug=False,
-    # )
+    tokenizer.use_default_system_prompt = False
 
+    examples = _prepare(candidates, prompt_file, model.config.name_or_path, context_file)
     responses = run_inference(examples, model, tokenizer, **kwargs)
+    original_responses = responses
+
+    # second step for chat models to collect judgments
+    if _is_conversational(model.config.name_or_path):
+        second_examples = _prepare_second_pass(examples, responses)
+        responses = run_inference(second_examples, model, tokenizer, do_sample=False)
 
     outputs = []
-    for response, candidate in zip(responses, candidates):
+    for original_response, response, candidate in zip(original_responses, responses, candidates):
         acceptable = _parse_response(response, candidate.answer, candidate.question.text)
-        outputs.append((acceptable, response))
+        outputs.append((acceptable, original_response))
 
     return outputs
