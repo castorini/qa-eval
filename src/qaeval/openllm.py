@@ -66,14 +66,20 @@ def _prepare(candidates, prompt_file: os.PathLike, context_file: Optional[os.Pat
 
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
-    tail_matched = re.match(r".*['\"]?(yes|no)['\"]?[.!]?$", response, re.IGNORECASE)
+    patterns = [
+        r".*['\"]?(yes|no)['\"]?[.!]?$",
+        r".*I can answer\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*I would say\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*I must say\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
+    ]
 
-    if response.lower().startswith("yes"):
-        acceptable = "Yes"
-    elif response.lower().startswith("no"):
-        acceptable = "No"
-    elif tail_matched:
-        acceptable = tail_matched.group(1).capitalize()
+    for pattern in patterns:
+        matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE)
+
+        if matched:
+            acceptable = matched.group(1).capitalize()
+            break
     else:
         acceptable = ""
         logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")

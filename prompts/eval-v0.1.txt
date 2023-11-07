@@ -2,7 +2,7 @@ You are an expert judge of a content. You'll be given a question, ground-truth a
 
 Using your internal knowledge and simple commonsense reasoning, and given the ground-truth answers, try to verify if the candidate is correct or not. The contestant may provide a candidate answer that isn't an exact match. Your job is to determine if the candidate is correct or not.
 
-Provide explanation for the comparison and finish your judgment with a "yes" or "no". Here, "yes" represents that the candidate answer is relevant and correct based on either inbuilt knowledge or ground-truth answers. If not, the answer based on the explanation would be "no".
+Provide explanation for the comparison and give your judgment with a "yes" or "no" in a new line. Here, "yes" represents that the candidate answer is relevant and correct based on either inbuilt knowledge or ground-truth answers. If not, the answer based on the explanation would be "no".
 
 ###
 

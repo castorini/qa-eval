@@ -82,17 +82,17 @@ def _is_openai_model(model_name: str) -> bool:
 #
 #         Is the candidate correct?
 #     """
-    # response = infer_vicuna(prompt)
-    # if response.lower().rstrip(".").endswith("yes") or response.lower().startswith("yes"):
-    #     acceptable = "Yes"
-    # elif response.lower().rstrip(".").endswith("no") or response.lower().startswith("no"):
-    #     acceptable = "No"
-    # else:
-    #     acceptable = ""
-    #     logger.warning(f"Invalid response to `{q}` & `{candidate_answer}`: {response}")
-    #     logger.warning(f"Prompt: {prompt}")
-    #
-    # return int(acceptable == "Yes"), response
+# response = infer_vicuna(prompt)
+# if response.lower().rstrip(".").endswith("yes") or response.lower().startswith("yes"):
+#     acceptable = "Yes"
+# elif response.lower().rstrip(".").endswith("no") or response.lower().startswith("no"):
+#     acceptable = "No"
+# else:
+#     acceptable = ""
+#     logger.warning(f"Invalid response to `{q}` & `{candidate_answer}`: {response}")
+#     logger.warning(f"Prompt: {prompt}")
+#
+# return int(acceptable == "Yes"), response
 
 
 def em_eval(
@@ -334,18 +334,25 @@ def _save_output(
 
         w.writerow(headers)
 
-        for i, (candidate, result) in tqdm(enumerate(zip(candidates, eval_result))):
+        for i, candidate in tqdm(enumerate(candidates)):
             question = candidate.question
             predicted_answer = candidate.answer
 
-            row = [question.id, question.text, question.answers, predicted_answer, result["EM"], result["F1"]]
+            row = [
+                question.id,
+                question.text,
+                question.answers,
+                predicted_answer,
+                eval_result["EM"][i],
+                eval_result["F1"][i],
+            ]
 
             if "AnnotatedEM" in eval_result:
-                row.append(result["AnnotatedEM"])
+                row.append(eval_result["AnnotatedEM"][i])
 
             for m in sorted(eval_result.keys()):
                 if m not in ("EM", "F1", "AnnotatedEM"):
-                    row.append(eval_result[m])
+                    row.append(eval_result[m][i])
 
             if model_output:
                 _, out = model_output[i]
