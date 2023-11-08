@@ -178,7 +178,7 @@ def run_inference(
         for key in batch.keys():
             batch[key] = batch[key].to("cuda")
 
-        input_lengths = (batch["input_ids"] != tokenizer.pad_token_id).int().sum(-1)
+        input_lengths = torch.nonzero((batch["input_ids"] != tokenizer.pad_token_id).int(), as_tuple=False).max(dim=-1)[0] + 1
         batch_size = input_lengths.shape[0]
 
         with torch.no_grad():
