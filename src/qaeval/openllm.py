@@ -178,8 +178,7 @@ def run_inference(
         for key in batch.keys():
             batch[key] = batch[key].to("cuda")
 
-        input_lengths = torch.nonzero((batch["input_ids"] != tokenizer.pad_token_id).int(), as_tuple=False).max(dim=-1)[0] + 1
-        batch_size = input_lengths.shape[0]
+        batch_size, seq_length = batch["input_ids"].shape
 
         with torch.no_grad():
             output = model.generate(
@@ -194,7 +193,7 @@ def run_inference(
             if model.config.is_encoder_decoder:
                 output_ids = output[b]
             else:
-                output_ids = output[b, input_lengths[b] :]
+                output_ids = output[b, seq_length:]
 
             outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
 
