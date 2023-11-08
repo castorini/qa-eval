@@ -70,12 +70,12 @@ The evaluation script takes a prediction file in a jsonl format as below and mea
 
 The following command computes only two lexical matching metrics: EM (Exact-Match accuracy) and macro-averaged F1.
 ```bash
-python -m oqaeval /path/to/prediction_file.jsonl
+python -m qaeval /path/to/prediction_file.jsonl
 ```
 
 To evaluate using an LLM like InstructGPT-eval in the paper, the model name (`text-davinci-003` or `gpt-4`) argument should be passed:
 ```bash
-python -m oqaeval /path/to/prediction_file.jsonl --model text-davinci-003
+python -m qaeval /path/to/prediction_file.jsonl --model text-davinci-003
 ```
 which calls OpenAI APIs. The environment variable `OPENAI_API_KEY` needs to be set first. 
 *Bear in mind that running this command will result in charges to your OpenAI account.* 
@@ -83,7 +83,7 @@ We did not see a significant difference between GPT-4 and InstructGPT, so we rec
 
 To evaluate using our provided annotated files including human judgment, you can simply run:
 ```bash
-python -m oqaeval /path/to/prediction_file.jsonl --annotation data/NQ301_human.tsv
+python -m qaeval /path/to/prediction_file.jsonl --annotation data/NQ301_human.tsv
 ```
 The above command evaluates only 301 annotated questions and skips the rest in the prediction file.
 

@@ -1,0 +1,93 @@
+You are an expert judge of a content. You'll be given a question, ground-truth answers, and a candidate that you will judge.
+
+Using your internal knowledge and simple commonsense reasoning, and given the ground-truth answers, try to verify if the candidate is correct or not. The contestant may provide a candidate answer that isn't an exact match. Your job is to determine if the candidate is correct or not.
+
+Provide explanation for the comparison and give your judgment with a "yes" or "no" in a new line. Here, "yes" represents that the candidate answer is relevant and correct based on either inbuilt knowledge or ground-truth answers. If not, the judgment based on the explanation should be "no".
+
+###
+
+Question: how long have we been celebrating pi day?
+Ground-Truth Answers: "1988", "2009"
+Candidate: We have been celebrating pi day since 1988.
+
+Explanation: Since 1998 we have been celebrating pi day, so the candidate answer is correct.
+Judgment: yes.
+
+###
+
+Question: who plays dylan in daddy's home 2?
+Ground-Truth Answers: "Owen Vaccaro"
+Candidate: Vaccaro
+
+Explanation: Owen Vaccaro plays Dylan in the movie "Daddy's Home 2". Vaccaro is the last name. Therefore, the candidate answer is correct.
+Judgment: yes.
+
+###
+
+Question: yo la tengo theres a riot going on release date
+Ground-Truth Answers: March 16, 2018
+Candidate: March 2018
+
+Explanation: The actual release date is March 16, 2018 and the candidate answer correctly says March 2018. Although it does not refer to a specific date, the candidate answer is correct.
+Judgment: yes.
+
+###
+
+Question: what is it called when you believe in greek gods?
+Ground-Truth Answers: "Hellenism", "Hellenic polytheist", "Hellenic Polytheism"
+Candidate: Alatrism
+
+Explanation: Believing in Greek Gods can be called Hellenism. However, Alatrism is the recognition of the existence of one or more gods, but with a deliberate lack of worship of any deity. Therefore, the candidate is incorrect.
+Judgment: no.
+
+###
+
+Question: how many wins does tiger woods have on the pga tour?
+Ground-Truth Answers: 79
+Candidate: Around 80
+
+Explanation: The candidate answer provides approximately 80 which can be acceptable given the actual number is 79. Therefore, the candidate answer is correct.
+Judgment: yes.
+
+###
+
+Question: when did world war 2 officially start and end?
+Ground-Truth Answers: "1939", "1945", "2 September 1945", "1 September 1939"
+Candidate: from 1939 to 1945
+
+Explanation: The candidate answer correctly provides the start and end years for world war 2, based on the provided ground-truth answers.
+Judgment: yes.
+
+###
+
+Question: yo la tengo theres a riot going on release date
+Ground-Truth Answers: March 16, 2018
+Candidate: March 23 2018
+
+Explanation: The candidate answer refers to March 23 but the ground-truth date is March 16. Therefore, the candidate answer cannot be accepted.
+Judgment: no.
+
+###
+
+Question: where was the first t20 cricket match played?
+Ground-Truth Answers: Lord's
+Candidate: England
+Explanation: The first Twenty20 (T20) match held at Lord's, on 15 July 2004. Lord's refers to Lord's Cricket Ground and is a historic and iconic cricket stadium located in St John's Wood, London, England. The candidate answer correctly refers to the country, so it is correct.
+Judgment: yes.
+
+###
+
+Question: what is the salary of us secretary of state
+Ground-Truth Answers: "$205,700", "$205,700 annually"
+Candidate: $210,700
+
+Explanation: The annual salary for the United States Secretary of State was $205,700 in 2016, as the ground-truth suggests. However, in 2018, the U.S. Secretary of State earned $210,700 annually. Therefore, since the question does not specify the year, the candidate answer can be considered correct.
+Judgment: yes.
+
+###
+
+Question: {q}
+Ground-Truth Answers: {answers}
+Candidate: {candidate_answer}
+
+Explanation:

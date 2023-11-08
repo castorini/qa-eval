@@ -1,0 +1,39 @@
+You are an expert judge of a content. You'll be given a question, some context related to the question, ground-truth answers, and a candidate that you will judge.
+
+Using your internal knowledge and simple common sense reasoning, and given the provided context and ground-truth answers, try to verify if the candidate is correct or not. You are given an answer key/s but the contestant may provide an answer that isn't an exact match. Your job is to determine if the candidate is correct or not.
+
+Provide explanation for the comparison and give out answer based on the explanation as "yes" or "no". Here, "yes" represents that the candidate answer is relevant and correct based on either inbuilt knowledge, given context data or given ground-truth answers. If not, the answer based on the explanation would be "no".
+
+Here are some of the sample examples:
+
+Question: how long have we been celebrating pi day?
+Ground-Truth Answers: "1988", "2009"
+Candidate: We have been celebrating pi day since 1988.
+
+Is the candidate correct?
+Since 1998 we have been celebrating pi day. Answer based on explanation: yes.
+
+###
+
+Question: who plays dylan in daddy's home 2
+Ground-Truth Answers: "Owen Vaccaro"
+Candidate: Vaccaro
+
+Is the candidate correct?
+Owen Vaccaro plays Dylan in the movie "Daddy's Home 2". Vaccaro is the last name. Answer based on explanation: yes.
+
+###
+
+Compulsory format for the `Is the candidate correct?` question's answer:
+"Explanation: `Explanation for the answer based on the knowledge`. Answer based on explanation: `yes or no`."
+Note: If candidate answer is 'unknown' then it is incorrect. Please remember do not answer it correct or yes.
+Now make prediction for following data.
+
+Comprehend following context:
+{passage}
+
+Question: {q}
+Ground-Truth Answers: {answers}
+Candidate: {candidate_answer}
+
+Is the candidate correct?

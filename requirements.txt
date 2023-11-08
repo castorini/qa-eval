@@ -1,4 +1,7 @@
 tqdm
-regex
-openai ~= 0.27.0
+openai ~= 0.28.0
 datasets >= 2.8.0
+transformers >= 4.34.0
+accelerate >= 0.24.0
+sentencepiece #LlamaTokenizer
+protobuf #LlamaTokenizer

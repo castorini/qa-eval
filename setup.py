@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 from typing import List
 
 VERSION = {}  # type: ignore
-with open("src/oqaeval/version.py", "r") as version_file:
+with open("src/qaeval/version.py", "r") as version_file:
     exec(version_file.read(), VERSION)
 
 _PROJECT_ROOT = os.path.dirname(__file__)
@@ -31,13 +31,11 @@ def _load_requirements(path_dir: str, file_name: str = "requirements.txt", comme
 
 
 setup(
-    name="oqaeval",
+    name="qaeval",
     version=VERSION["VERSION"],
-    url="https://github.com/ehsk/OpenQA-eval",
+    url="https://github.com/ehsk/QA-eval",
     license="MIT",
-    author="Ehsan Kamalloo",
-    author_email="ekamalloo@uwaterloo.ca",
-    description="Evaluating Open-Domain Question Answering using Large Language Models",
+    description="Evaluating Question Answering using Large Language Models",
     package_dir={"": "src"},
     packages=find_packages("src", exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=_load_requirements(_PROJECT_ROOT),
