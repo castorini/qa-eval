@@ -87,6 +87,9 @@ def _prepare(
 def _prepare_second_pass(chats, model_responses):
     new_chats = []
     for chat, resp in zip(chats, model_responses):
+        if "###" in resp:
+            resp = resp.split("###")[0].strip()
+
         new_chats.append(
             list(chat)
             + [
@@ -216,7 +219,7 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
 
     # second step for chat models to collect judgments
     if _is_conversational(model.config.name_or_path):
-        second_examples = _prepare_second_pass(examples, responses)
+        second_examples = _prepare_second_pass(examples, original_responses)
         responses = run_inference(second_examples, model, tokenizer, do_sample=False)
 
     outputs = []
