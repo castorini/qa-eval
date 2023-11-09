@@ -212,6 +212,7 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="auto", low_cpu_mem_usage=True)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
     tokenizer.use_default_system_prompt = False
+    tokenizer.deprecation_warnings["Asking-to-pad-a-fast-tokenizer"] = True
 
     examples = _prepare(candidates, prompt_file, model.config.name_or_path, context_file)
     responses = run_inference(examples, model, tokenizer, **kwargs)
