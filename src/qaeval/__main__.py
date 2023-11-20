@@ -99,6 +99,12 @@ def main():
         default=False,
         help="Whether to overwrite cached evaluation results from a previous run (only when OpenAI API used)",
     )
+    parser.add_argument(
+        "--num_samples",
+        type=int,
+        default=1,
+        help="Number samples to try for each question. Preferably an odd number.",
+    )
 
     args = parser.parse_args()
 
@@ -116,6 +122,7 @@ def main():
         args.do_greedy,
         args.top_p,
         args.overwrite_cache,
+        args.num_samples,
         return_per_sample=True,
     )
 

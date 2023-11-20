@@ -247,6 +247,7 @@ def evaluate_file(
     do_greedy: bool = False,
     top_p: float = 1.0,
     overwrite_cache: bool = False,
+    num_samples: int = 1,
     return_per_sample: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
     predict_file = Path(predict_file)
@@ -297,6 +298,7 @@ def evaluate_file(
                 batch_size=batch_size,
                 do_sample=not do_greedy,
                 top_p=top_p,
+                num_samples=num_samples,
             )
     else:
         eval_output = None
