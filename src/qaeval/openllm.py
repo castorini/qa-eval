@@ -135,8 +135,8 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
                 if matched:
                     acceptable = "Yes"
                     break
-        else:
-            acceptable = ""
+
+        if not acceptable:
             logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
 
     return int(acceptable == "Yes")
