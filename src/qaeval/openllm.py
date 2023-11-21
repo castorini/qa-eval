@@ -264,6 +264,6 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
             acceptable_count += _parse_response(
                 responses[sample_index], candidates[index].answer, candidates[index].question.text
             )
-            temp_list.append(original_responses[sample_index])
+            temp_list.append(original_responses[index][sample_index - index * num_return_sequences])
         outputs.append((round(acceptable_count / num_return_sequences), temp_list))
     return outputs
