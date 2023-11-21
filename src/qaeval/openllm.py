@@ -91,13 +91,13 @@ def _prepare_second_pass(chats, model_responses):
             resp = [resp]
 
         for r in resp:
-            if "###" in resp:
-                resp = resp.split("###")[0].strip()
+            if "###" in r:
+                r = r.split("###")[0].strip()
 
             new_chats.append(
                 list(chat)
                 + [
-                    {"role": "assistant", "content": resp},
+                    {"role": "assistant", "content": r},
                     {"role": "user", "content": "Tell me your final judgment in only 'yes' or 'no'"},
                 ]
             )
