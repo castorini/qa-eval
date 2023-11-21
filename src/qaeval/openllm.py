@@ -258,12 +258,12 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     outputs = []
     total_count = len(candidates)
     for index in range(total_count):
-        temp_list = []
         acceptable_count = 0
-        for sample_index in range(index * num_return_sequences, (index + 1) * num_return_sequences - 1):
+        for j in range(len(original_responses[index])):
             acceptable_count += _parse_response(
-                responses[sample_index], candidates[index].answer, candidates[index].question.text
+                responses[index * num_return_sequences + j], candidates[index].answer, candidates[index].question.text
             )
-            temp_list.append(original_responses[index][sample_index - index * num_return_sequences])
-        outputs.append((round(acceptable_count / num_return_sequences), temp_list))
+
+        outputs.append((round(acceptable_count / len(original_responses[index])), original_responses[index]))
+
     return outputs
