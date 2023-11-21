@@ -204,18 +204,20 @@ def run_inference(
                 num_return_sequences=num_return_sequences,
             )
 
+        output = output.reshape(batch_size, num_return_sequences, -1)
+
         for b in range(batch_size):
             output_ids = output[b]
 
             if num_return_sequences > 1:
                 for s in range(num_return_sequences):
-                    if model.config.is_encoder_decoder:
-                        _ids = output_ids[s]
-                    else:
-                        _ids = output_ids[s, seq_length:]
+                    _ids = output_ids[s]
+                    if not model.config.is_encoder_decoder:
+                        _ids = output_ids[seq_length:]
 
                     outputs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
             else:
+                output_ids = output_ids[0]
                 if not model.config.is_encoder_decoder:
                     output_ids = output_ids[seq_length:]
 
