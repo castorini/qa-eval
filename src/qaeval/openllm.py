@@ -87,16 +87,20 @@ def _prepare(
 def _prepare_second_pass(chats, model_responses):
     new_chats = []
     for chat, resp in zip(chats, model_responses):
-        if "###" in resp:
-            resp = resp.split("###")[0].strip()
+        if isinstance(resp, str):
+            resp = [resp]
 
-        new_chats.append(
-            list(chat)
-            + [
-                {"role": "assistant", "content": resp},
-                {"role": "user", "content": "Tell me your final judgment in only 'yes' or 'no'"},
-            ]
-        )
+        for r in resp:
+            if "###" in resp:
+                resp = resp.split("###")[0].strip()
+
+            new_chats.append(
+                list(chat)
+                + [
+                    {"role": "assistant", "content": resp},
+                    {"role": "user", "content": "Tell me your final judgment in only 'yes' or 'no'"},
+                ]
+            )
 
     return new_chats
 
@@ -210,12 +214,14 @@ def run_inference(
             output_ids = output[b]
 
             if num_return_sequences > 1:
+                _outs = []
                 for s in range(num_return_sequences):
                     _ids = output_ids[s]
                     if not model.config.is_encoder_decoder:
                         _ids = output_ids[seq_length:]
 
-                    outputs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
+                    _outs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
+                outputs.append(_outs)
             else:
                 output_ids = output_ids[0]
                 if not model.config.is_encoder_decoder:
