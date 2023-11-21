@@ -111,10 +111,7 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
         r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
     ]
-    correct_patterns = [
-        r"candidate( answer)? is correct",
-        r"candidate's correct"
-    ]
+    correct_patterns = [r"candidate( answer)? is correct", r"candidate's correct"]
 
     if response.lower().startswith("yes"):
         acceptable = "Yes"
@@ -151,12 +148,12 @@ def run_inference(
     num_beams: int = 1,
     batch_size: int = 1,
     num_workers: int = 16,
-    num_samples: int = 1,
+    num_return_sequences: int = 1,
 ):
     if isinstance(texts, str):
         texts = [texts]
 
-    texts = [text for text in texts for _ in range(num_samples)]
+    # texts = [text for text in texts for _ in range(num_samples)]
 
     model.eval()
 
@@ -204,15 +201,25 @@ def run_inference(
                 max_new_tokens=max_new_tokens,
                 top_p=top_p,
                 num_beams=num_beams,
+                num_return_sequences=num_return_sequences,
             )
 
         for b in range(batch_size):
-            if model.config.is_encoder_decoder:
-                output_ids = output[b]
-            else:
-                output_ids = output[b, seq_length:]
+            output_ids = output[b]
 
-            outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
+            if num_return_sequences > 1:
+                for s in range(num_return_sequences):
+                    if model.config.is_encoder_decoder:
+                        _ids = output_ids[s]
+                    else:
+                        _ids = output_ids[s, seq_length:]
+
+                    outputs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
+            else:
+                if not model.config.is_encoder_decoder:
+                    output_ids = output_ids[seq_length:]
+
+                outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
 
     return outputs
 
@@ -220,7 +227,7 @@ def run_inference(
 def llm_eval(model_name_or_path: str, candidates, **kwargs):
     prompt_file = kwargs.pop("prompt_file", None)
     context_file = kwargs.pop("context_file", None)
-    num_samples = kwargs.pop("num_samples", 1)
+    num_return_sequences = kwargs.pop("num_return_sequences", 1)
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
 
@@ -232,22 +239,23 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     is_conversational_true = _is_conversational(model.config.name_or_path)
 
     examples = _prepare(candidates, prompt_file, model.config.name_or_path, context_file)
-    responses = run_inference(examples, model, tokenizer, **kwargs, num_samples=num_samples)
+    responses = run_inference(examples, model, tokenizer, **kwargs, num_return_sequences=num_return_sequences)
     original_responses = responses
 
     # second step for chat models to collect judgments
     if is_conversational_true:
         second_examples = _prepare_second_pass(examples, original_responses)
-        responses = run_inference(second_examples, model, tokenizer, do_sample=False, num_samples=num_samples)
+        responses = run_inference(second_examples, model, tokenizer, do_sample=False)
 
     outputs = []
     total_count = len(candidates)
     for index in range(total_count):
         temp_list = []
         acceptable_count = 0
-        for sample_index in range(index * num_samples, (index + 1) * num_samples - 1):
-            acceptable_count += _parse_response(responses[sample_index], candidates[index].answer,
-                                         candidates[index].question.text)
+        for sample_index in range(index * num_return_sequences, (index + 1) * num_return_sequences - 1):
+            acceptable_count += _parse_response(
+                responses[sample_index], candidates[index].answer, candidates[index].question.text
+            )
             temp_list.append(original_responses[sample_index])
-        outputs.append((round(acceptable_count / num_samples), temp_list))
+        outputs.append((round(acceptable_count / num_return_sequences), temp_list))
     return outputs
