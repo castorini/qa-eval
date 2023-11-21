@@ -218,7 +218,7 @@ def run_inference(
                 for s in range(num_return_sequences):
                     _ids = output_ids[s]
                     if not model.config.is_encoder_decoder:
-                        _ids = output_ids[seq_length:]
+                        _ids = _ids[seq_length:]
 
                     _outs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
                 outputs.append(_outs)
