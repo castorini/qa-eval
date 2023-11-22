@@ -55,6 +55,8 @@ def main():
             "meta-llama/Llama-2-13b-chat-hf",
             "mistralai/Mistral-7B-Instruct-v0.1",
             "HuggingFaceH4/zephyr-7b-beta",
+            "allenai/tulu-2-7b",
+            "allenai/tulu-2-dpo-7b",
         ),
         help="Model names",
     )
