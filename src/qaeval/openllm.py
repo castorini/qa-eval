@@ -87,6 +87,10 @@ def _prepare(
 def _prepare_second_pass(chats, model_responses):
     new_chats = []
     for chat, resp in zip(chats, model_responses):
+        history = []
+        if chat and chat[0]["role"] == "system":
+            history.append(chat[1:])
+
         if isinstance(resp, str):
             resp = [resp]
 
@@ -95,7 +99,8 @@ def _prepare_second_pass(chats, model_responses):
                 r = r.split("###")[0].strip()
 
             new_chats.append(
-                [
+                history
+                + [
                     {"role": "assistant", "content": r},
                     {"role": "user", "content": "Please tell me your final judgment in only 'yes' or 'no'"},
                 ]
