@@ -90,6 +90,8 @@ def _prepare_second_pass(chats, model_responses):
         history = []
         if chat and chat[0]["role"] == "system":
             history.append(chat[1:])
+        else:
+            history.extend(chat)
 
         if isinstance(resp, str):
             resp = [resp]
