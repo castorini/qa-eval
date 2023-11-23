@@ -5,6 +5,17 @@ import streamlit as st
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+st.set_page_config(page_title="Chat with LLMs", page_icon="🧘", layout="wide")
+st.subheader("Welcome to the GWF anthology chatbot")
+
+st.markdown(
+    """
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    """,
+    unsafe_allow_html=True,
+)
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--model",
@@ -39,12 +50,17 @@ tokenizer, model = load_model()
 with st.sidebar:
     max_new_tokens = st.slider("Max new tokens", min_value=50, max_value=512, value=256)
     num_return_sequences = st.slider("Num return sequences", min_value=1, max_value=11, value=1)
-    do_sample = st.checkbox("Whether to sampling?")
-    top_p = st.slider("Num return sequences", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
-    num_beams = st.slider("Beam width", min_value=1, max_value=100, value=1)
+    do_sample = st.checkbox("Sampling?")
+
+    top_p = 1.0
+    num_beams = 1
+    if do_sample:
+        top_p = st.slider("Top-p", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
+    else:
+        num_beams = st.slider("Beam width", min_value=1, max_value=100, value=1)
 
     if do_sample:
-        st.write(f"Sampling with top-p: {top_p}")
+        st.write(f"Nucleus sampling with top-p: {top_p}")
     elif num_beams > 1:
         st.write(f"Beam search with {num_beams} beams")
     else:
@@ -134,18 +150,6 @@ def respond(msg: str, system_msg: str):
     st.session_state.history.append({"message": resps, "is_user": False})
 
     return resps
-
-
-st.set_page_config(page_title="Chat with LLMs", page_icon="🧘", layout="wide")
-st.subheader("Welcome to the GWF anthology chatbot")
-
-st.markdown(
-    """
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    """,
-    unsafe_allow_html=True,
-)
 
 
 user_template = """
