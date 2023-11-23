@@ -50,7 +50,7 @@ st.markdown(
 with st.sidebar:
     max_new_tokens = st.slider("Max new tokens", min_value=50, max_value=512, value=256)
     num_return_sequences = st.slider("Num return sequences", min_value=1, max_value=11, value=1)
-    do_sample = st.checkbox("Sampling?")
+    do_sample = st.checkbox("Sampling?", value=True)
 
     top_p = 1.0
     num_beams = 1
