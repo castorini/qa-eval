@@ -122,6 +122,7 @@ def _parse_response(response: str, candidate_answer: str, question: str) -> int:
         r".*my judgment is\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
+        r".*[jJ]udgment:\s+['\"]?(yes|no)['\"]?",
     ]
     correct_patterns = [r"candidate( answer)? is correct", r"candidate's correct"]
 
