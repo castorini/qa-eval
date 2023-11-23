@@ -246,6 +246,7 @@ def evaluate_file(
     batch_size: int = 1,
     do_greedy: bool = False,
     top_p: float = 1.0,
+    num_beams: int = 1,
     overwrite_cache: bool = False,
     num_return_sequences: int = 1,
     return_per_sample: bool = False,
@@ -298,6 +299,7 @@ def evaluate_file(
                 batch_size=batch_size,
                 do_sample=not do_greedy,
                 top_p=top_p,
+                num_beams=num_beams,
                 num_return_sequences=num_return_sequences,
             )
     else:

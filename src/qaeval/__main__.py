@@ -85,6 +85,12 @@ def main():
         help="Whether to disable sampling in decoding (used only for public models)",
     )
     parser.add_argument(
+        "--num_beams",
+        type=int,
+        default=1,
+        help="Beam width",
+    )
+    parser.add_argument(
         "--top_p",
         type=float,
         default=1.0,
@@ -123,6 +129,7 @@ def main():
         args.batch_size,
         args.do_greedy,
         args.top_p,
+        args.num_beams,
         args.overwrite_cache,
         args.num_samples,
         return_per_sample=True,
