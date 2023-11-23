@@ -6,15 +6,6 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 st.set_page_config(page_title="Chat with LLMs", page_icon="🧘", layout="wide")
-st.subheader("Welcome to the GWF anthology chatbot")
-
-st.markdown(
-    """
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    """,
-    unsafe_allow_html=True,
-)
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -46,6 +37,15 @@ def load_model():
 
 
 tokenizer, model = load_model()
+
+st.subheader("Inference")
+st.markdown(
+    """
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    """,
+    unsafe_allow_html=True,
+)
 
 with st.sidebar:
     max_new_tokens = st.slider("Max new tokens", min_value=50, max_value=512, value=256)
