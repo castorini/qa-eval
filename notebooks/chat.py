@@ -50,8 +50,11 @@ st.markdown(
 
 def clear_history():
     st.session_state.history = []
-    st.session_state.system_msg = ""
     st.session_state.user_message = ""
+
+
+def clear_system_msg():
+    st.session_state.system_msg = ""
 
 
 with st.sidebar:
@@ -64,7 +67,7 @@ with st.sidebar:
     if do_sample:
         top_p = st.slider("Top-p", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
     else:
-        num_beams = st.slider("Beam width", min_value=1, max_value=100, value=1)
+        num_beams = st.slider("Beam width", min_value=1, max_value=20, value=1)
 
     if do_sample:
         st.write(f"Nucleus sampling with top-p: {top_p}")
@@ -73,10 +76,14 @@ with st.sidebar:
     else:
         st.write("Greedy decoding")
 
+    clear = st.button("Clear history")
     reset = st.button("Reset", type="primary")
 
-    if reset:
+    if reset or clear:
         clear_history()
+
+        if reset:
+            clear_system_msg()
 
 
 def respond(msg: str, system_msg: str):
