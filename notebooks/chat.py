@@ -67,28 +67,6 @@ with st.sidebar:
         st.write("Greedy decoding")
 
 
-def summary(article) -> str:
-    s = f"Title: {article['title']}\n"
-
-    a = article.get("abstract", None)
-    if a:
-        s += f"Abstract: {a}\n"
-
-    y = article.get("year", None)
-    if y is not None:
-        s += f"Publication year: {y}\n"
-
-    authors = article.get("authors", None)
-    if authors:
-        s += f"Authors: {authors}\n"
-
-    kw = article.get("keywords", None)
-    if kw:
-        s += f"Keywords: {', '.join(kw)}\n"
-
-    return s.strip()
-
-
 def respond(msg: str, system_msg: str):
     chat = []
     if system_msg:
@@ -120,7 +98,8 @@ def respond(msg: str, system_msg: str):
     #     st.session_state.history.pop(0)
     #     st.session_state.history.pop(0)
 
-    inputs = tokenizer.apply_chat_template(chat, tokenize=True, add_generation_prompt=True)
+    input_text = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+    inputs = tokenizer(input_text, return_tensors="pt")
     for key in inputs.keys():
         inputs[key] = inputs[key].to("cuda")
 
