@@ -50,10 +50,7 @@ st.markdown(
 
 def clear_history():
     st.session_state.history = []
-    clear_msg()
-
-
-def clear_msg():
+    st.session_state.system_msg = ""
     st.session_state.user_message = ""
 
 
@@ -96,7 +93,7 @@ def respond(msg: str, system_msg: str):
         [
             {
                 "role": "user" if h["is_user"] else "assistant",
-                "content": h["message"] if isinstance(h["message"], str) else h["message"[0]],
+                "content": h["message"] if isinstance(h["message"], str) else h["message"][0],
             }
             for h in st.session_state.history
         ]
