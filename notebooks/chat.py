@@ -47,6 +47,16 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
+def clear_history():
+    st.session_state.history = []
+    clear_msg()
+
+
+def clear_msg():
+    st.session_state.user_message = ""
+
+
 with st.sidebar:
     max_new_tokens = st.slider("Max new tokens", min_value=50, max_value=512, value=256)
     num_return_sequences = st.slider("Num return sequences", min_value=1, max_value=11, value=1)
@@ -65,6 +75,11 @@ with st.sidebar:
         st.write(f"Beam search with {num_beams} beams")
     else:
         st.write("Greedy decoding")
+
+    reset = st.button("Reset", type="primary")
+
+    if reset:
+        clear_history()
 
 
 def respond(msg: str, system_msg: str):
@@ -146,18 +161,7 @@ bot_template = """
 if "history" not in st.session_state:
     st.session_state.history = []
 
-system_col, chat_col = st.columns((0.7, 1))
-
-
-def clear_history():
-    st.session_state.history = []
-    clear_msg()
-
-
-def clear_msg():
-    st.session_state.user_message = ""
-
-system_msg = st.text_area("Enter system message", key="system_msg", on_change=clear_history)
+system_msg = st.text_area("Enter system message", key="system_msg")
 conversation_container = st.container()
 
 st.write("<br/>", unsafe_allow_html=True)
