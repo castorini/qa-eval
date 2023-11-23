@@ -132,19 +132,13 @@ def respond(msg: str, system_msg: str):
 
 
 user_template = """
-        <div class="card border-warning col-md-6">
+        <div class="card border-warning col-md-12">
             <p class="card-text text-secondary mb-1"><span class="fs-4">🧑‍💻</span> {msg}</p>
         </div>
 """
 
 bot_template = """
-        <div class="card text-bg-light border-info col-md-6 offset-md-6">
-            <p class="card-text mb-1"><span class="fs-4">🤖</span> {msg}</p>
-        </div>
-"""
-
-multi_bot_template = """
-        <div class="card text-bg-light border-info col-md-6 offset-md-6">
+        <div class="card text-bg-light border-info col-md-12">
             <p class="card-text mb-1"><span class="fs-4">🤖</span> {msg}</p>
         </div>
 """
@@ -163,25 +157,21 @@ def clear_history():
 def clear_msg():
     st.session_state.user_message = ""
 
+conversation_container = st.container()
+system_msg = st.text_area("Enter system message", key="system_msg", on_change=clear_history)
 
-with system_col:
-    system_msg = st.text_area("Enter system message", key="system_msg", on_change=clear_history)
+msg = st.text_area("Enter your message", value="", key="user_message")
+if msg:
+    with st.spinner("Running..."):
+        resps = respond(msg, system_msg)
 
-with chat_col:
-    conversation_container = st.container()
+    for chat in st.session_state.history:
+        if isinstance(chat["message"], str):
+            messages = chat["message"]
+        else:
+            messages = "<hr/>\n".join(chat["message"])
 
-    msg = st.text_area("Enter your message", value="", key="user_message")
-    if msg:
-        with st.spinner("Running..."):
-            resps = respond(msg, system_msg)
-
-        for chat in st.session_state.history:
-            if isinstance(chat["message"], str):
-                messages = chat["message"]
-            else:
-                messages = "<hr/>\n".join(chat["message"])
-
-            conversation_container.write(
-                (user_template if chat["is_user"] else bot_template).format(msg=messages),
-                unsafe_allow_html=True,
-            )
+        conversation_container.write(
+            (user_template if chat["is_user"] else bot_template).format(msg=messages),
+            unsafe_allow_html=True,
+        )
