@@ -165,6 +165,7 @@ if msg:
     with st.spinner("Running..."):
         resps = respond(msg, system_msg)
 
+    msg = ""
     for chat in st.session_state.history:
         if isinstance(chat["message"], str):
             messages = chat["message"]
