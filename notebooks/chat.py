@@ -63,11 +63,11 @@ with st.sidebar:
     do_sample = st.checkbox("Sampling?", value=True)
 
     top_p = 1.0
-    num_beams = 1
+    num_beams = 10
     if do_sample:
         top_p = st.slider("Top-p", min_value=0.0, max_value=1.0, value=0.9, step=0.1)
     else:
-        num_beams = st.slider("Beam width", min_value=1, max_value=20, value=1)
+        num_beams = st.slider("Beam width", min_value=1, max_value=20, value=10)
 
     if do_sample:
         st.write(f"Nucleus sampling with top-p: {top_p}")
