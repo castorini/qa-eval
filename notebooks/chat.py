@@ -160,7 +160,11 @@ def clear_msg():
 system_msg = st.text_area("Enter system message", key="system_msg", on_change=clear_history)
 conversation_container = st.container()
 
-msg = st.text_area("Enter your message", value="", key="user_message")
+st.write("<br/>", unsafe_allow_html=True)
+
+with st.empty():
+    msg = st.text_area("Enter your message", value="", key="user_message")
+
 if msg:
     with st.spinner("Running..."):
         resps = respond(msg, system_msg)
@@ -175,4 +179,3 @@ if msg:
             (user_template if chat["is_user"] else bot_template).format(msg=messages),
             unsafe_allow_html=True,
         )
-    clear_msg()
