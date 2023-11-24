@@ -177,7 +177,7 @@ def _load_existing(output_file: os.PathLike):
             else:
                 raise ValueError("No model name detected")
 
-            judgment = row[model_name]
+            judgment = int(row[model_name])
             response = row.get("Response", None)
             outputs.append((judgment, response))
 
