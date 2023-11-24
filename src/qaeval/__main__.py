@@ -113,6 +113,12 @@ def main():
         default=1,
         help="Number samples to try for each question. Preferably an odd number.",
     )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        default=False,
+        help="Whether to overwrite existing output file",
+    )
 
     args = parser.parse_args()
 
@@ -133,6 +139,7 @@ def main():
         args.overwrite_cache,
         args.num_samples,
         return_per_sample=True,
+        overwrite=args.overwrite,
     )
 
     em_scores = result["EM"]
