@@ -115,14 +115,14 @@ def _prepare_second_pass(chats, model_responses):
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
     patterns = [
-        r".*['\"]?(yes|no)['\"]?[.!]?$",
+        r".*['\"]?(yes|no)\.?['\"]?[.!]?$",
         r".*I can answer\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I would say\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I must say\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*my judgment is\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
-        r".*[jJ]udgment:\s+['\"]?(yes|no)['\"]?",
+        r".*[jJ]udgment:\s+['\"]?(yes|no)\.?['\"]?",
     ]
     correct_patterns = [r"candidate( answer)? is correct", r"candidate's correct"]
 
