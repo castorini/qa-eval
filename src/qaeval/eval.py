@@ -293,6 +293,9 @@ def evaluate_file(
                 elif top_p < 1.0:
                     output_name += f"_topp{top_p}"
 
+        if num_return_sequences > 1:
+            output_name += f"_n{num_return_sequences}"
+
         if annotation_file:
             annotation_name = Path(annotation_file).stem
             output_name += f"-{annotation_name[annotation_name.index('_') + 1:]}"
