@@ -188,6 +188,7 @@ def _prepare_data(
     predict_file: os.PathLike,
     dataset_file: Optional[os.PathLike] = None,
     annotation_file: Optional[os.PathLike] = None,
+    compare_only: bool = False,
 ) -> List[Candidate]:
     if dataset_file is not None:
         questions = list(read_questions(dataset_file))
@@ -218,9 +219,14 @@ def _prepare_data(
             logger.warning(f"Question with no annotated answers skipped: `{question.text}`")
             continue
 
-        if annotated_answers:
+        if not compare_only and annotated_answers:
             question.update_answers(annotated_answers[qkey])
-        candidates.append(Candidate(predicted_dict[qkey], question))
+
+        if isinstance(predicted_dict[qkey], (list, tuple)):
+            for predicted_ans in predicted_dict[qkey]:
+                candidates.append(Candidate(predicted_ans, question))
+        else:
+            candidates.append(Candidate(predicted_dict[qkey], question))
 
     return candidates
 
@@ -270,6 +276,7 @@ def evaluate_file(
     num_beams: int = 1,
     overwrite_cache: bool = False,
     num_return_sequences: int = 1,
+    compare_only: bool = False,
     return_per_sample: bool = False,
     overwrite: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
@@ -302,7 +309,7 @@ def evaluate_file(
 
         output_path = predict_file.parent / f"{output_name}.tsv"
 
-    candidates = _prepare_data(predict_file, dataset_file, annotation_file)
+    candidates = _prepare_data(predict_file, dataset_file, annotation_file, compare_only)
 
     eval_output = None
     if overwrite or not os.path.exists(output_path):
