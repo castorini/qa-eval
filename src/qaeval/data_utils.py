@@ -254,7 +254,7 @@ def read_predict_file(
             reader = csv.DictReader(p, delimiter="\t")
 
             for predicted_row in reader:
-                q_tokens = tokenizer.tokenize(predicted_row["Question"]).lower()
+                q_tokens = tokenizer.tokenize(predicted_row["Question"], as_string=True).lower()
                 if q_tokens not in predicted_dict:
                     predicted_dict[q_tokens] = []
 
