@@ -316,9 +316,14 @@ def read_annotations(annotation_file: os.PathLike) -> Mapping[str, Mapping[str, 
             if "Acceptable?" not in row or not row["Acceptable?"].strip():
                 continue
 
-            annotated_answers[question][row["Acceptable?"].strip().lower()].add(row["Model answer"])
+            acceptable = row["Acceptable?"].strip().lower()
+
+            if acceptable in ("1", "0"):
+                acceptable = "yes" if acceptable == "1" else "no"
+
+            annotated_answers[question][acceptable].add(row["Model answer"])
             if question.endswith("?"):
-                annotated_answers[question[:-1].strip()][row["Acceptable?"].strip().lower()].add(row["Model answer"])
+                annotated_answers[question[:-1].strip()][acceptable].add(row["Model answer"])
 
     logger.info(f"Annotations loaded with {len(annotated_answers)} entries")
     return dict(annotated_answers)
