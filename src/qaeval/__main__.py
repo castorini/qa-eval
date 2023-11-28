@@ -119,12 +119,6 @@ def main():
         default=False,
         help="Whether to overwrite existing output file",
     )
-    parser.add_argument(
-        "--compare_only",
-        action="store_true",
-        default=False,
-        help="Whether to use annotations only for comparison (only when `--annotation` passed)",
-    )
 
     args = parser.parse_args()
 
@@ -144,7 +138,6 @@ def main():
         args.num_beams,
         args.overwrite_cache,
         args.num_samples,
-        args.compare_only,
         return_per_sample=True,
         overwrite=args.overwrite,
     )

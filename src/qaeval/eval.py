@@ -188,7 +188,6 @@ def _prepare_data(
     predict_file: os.PathLike,
     dataset_file: Optional[os.PathLike] = None,
     annotation_file: Optional[os.PathLike] = None,
-    compare_only: bool = False,
 ) -> List[Candidate]:
     if dataset_file is not None:
         questions = list(read_questions(dataset_file))
@@ -219,7 +218,7 @@ def _prepare_data(
             logger.warning(f"Question with no annotated answers skipped: `{question.text}`")
             continue
 
-        if not compare_only and annotated_answers:
+        if annotated_answers:
             question.update_answers(annotated_answers[qkey])
 
         if isinstance(predicted_dict[qkey], (list, tuple)):
@@ -276,7 +275,6 @@ def evaluate_file(
     num_beams: int = 1,
     overwrite_cache: bool = False,
     num_return_sequences: int = 1,
-    compare_only: bool = False,
     return_per_sample: bool = False,
     overwrite: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
@@ -309,7 +307,7 @@ def evaluate_file(
 
         output_path = predict_file.parent / f"{output_name}.tsv"
 
-    candidates = _prepare_data(predict_file, dataset_file, annotation_file, compare_only)
+    candidates = _prepare_data(predict_file, dataset_file, annotation_file)
 
     eval_output = None
     if overwrite or not os.path.exists(output_path):
@@ -393,8 +391,10 @@ def _calc_metrics(candidates: Sequence[Candidate], eval_output, model_name: str,
     eval_result = {
         "EM": em_scores,
         "F1": f1_scores,
-        model_name: acceptables,
     }
+
+    if model_name:
+        eval_result[model_name] = acceptables
 
     if annotated_em_scores:
         eval_result["AnnotatedEM"] = annotated_em_scores
