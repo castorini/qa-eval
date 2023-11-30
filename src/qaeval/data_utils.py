@@ -212,7 +212,7 @@ def read_questions(dataset_file: os.PathLike, split: str = "validation") -> Iter
 def read_predict_file(
     predict_file: os.PathLike,
     questions: Optional[Sequence[Question]] = None,
-) -> Tuple[Mapping[str, str], Sequence[Question]]:
+) -> Tuple[Mapping[str, Union[str, List[str]]], Sequence[Question]]:
     """
     Loading predictions from file
 
@@ -231,7 +231,7 @@ def read_predict_file(
     jsonl format:
     {"question": "when was the first hunger games book published", "prediction": "September 14, 2008"}
 
-    tsv/csv format (should be aligned with questions from dataset file):
+    csv/txt format (should be aligned with questions from dataset file):
     1       May 18, 2018
     """
     tokenizer = SimpleTokenizer()
@@ -239,7 +239,7 @@ def read_predict_file(
 
     collected_questions = []
     predicted_dict = {}
-    if predict_file.suffix in (".tsv", ".csv", ".txt"):
+    if predict_file.suffix in (".csv", ".txt"):
         assert questions, "dataset file must be provided"
 
         with predict_file.open("r") as p:
@@ -247,6 +247,18 @@ def read_predict_file(
 
             for predicted_row, q in zip(reader, questions):
                 predicted_dict[q.tokenized_text.lower()] = predicted_row[1].strip()
+    elif predict_file.suffix == ".tsv":
+        assert questions, "dataset file must be provided"
+
+        with predict_file.open("r") as p:
+            reader = csv.DictReader(p, delimiter="\t")
+
+            for predicted_row in reader:
+                q_tokens = tokenizer.tokenize(predicted_row["Question"], as_string=True).lower()
+                if q_tokens not in predicted_dict:
+                    predicted_dict[q_tokens] = []
+
+                predicted_dict[q_tokens].append(predicted_row["Model answer"].strip())
     else:
         if predict_file.suffix == ".json":
             with predict_file.open("r") as p:
@@ -304,9 +316,14 @@ def read_annotations(annotation_file: os.PathLike) -> Mapping[str, Mapping[str, 
             if "Acceptable?" not in row or not row["Acceptable?"].strip():
                 continue
 
-            annotated_answers[question][row["Acceptable?"].strip().lower()].add(row["Model answer"])
+            acceptable = row["Acceptable?"].strip().lower()
+
+            if acceptable in ("1", "0"):
+                acceptable = "yes" if acceptable == "1" else "no"
+
+            annotated_answers[question][acceptable].add(row["Model answer"])
             if question.endswith("?"):
-                annotated_answers[question[:-1].strip()][row["Acceptable?"].strip().lower()].add(row["Model answer"])
+                annotated_answers[question[:-1].strip()][acceptable].add(row["Model answer"])
 
     logger.info(f"Annotations loaded with {len(annotated_answers)} entries")
     return dict(annotated_answers)

@@ -20,6 +20,8 @@ CONVERSATIONAL_MODELS = {
     "meta-llama/Llama-2-13b-chat-hf",
     "mistralai/Mistral-7B-Instruct-v0.1",
     "HuggingFaceH4/zephyr-7b-beta",
+    "allenai/tulu-2-7b",
+    "allenai/tulu-2-dpo-7b",
 }
 
 
@@ -87,44 +89,67 @@ def _prepare(
 def _prepare_second_pass(chats, model_responses):
     new_chats = []
     for chat, resp in zip(chats, model_responses):
-        if "###" in resp:
-            resp = resp.split("###")[0].strip()
+        history = []
+        if chat and chat[0]["role"] == "system":
+            history.append(chat[1:])
+        else:
+            history.extend(chat)
 
-        new_chats.append(
-            list(chat)
-            + [
-                {"role": "assistant", "content": resp},
-                {"role": "user", "content": "Tell me your final judgment in only 'yes' or 'no'"},
-            ]
-        )
+        if isinstance(resp, str):
+            resp = [resp]
+
+        for r in resp:
+            if "###" in r:
+                r = r.split("###")[0].strip()
+
+            new_chats.append(
+                history
+                + [
+                    {"role": "assistant", "content": r},
+                    {"role": "user", "content": "Please tell me your final judgment in only 'yes' or 'no'"},
+                ]
+            )
 
     return new_chats
 
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
     patterns = [
-        r".*['\"]?(yes|no)['\"]?[.!]?$",
+        r".*['\"]?(yes|no)\.?['\"]?[.!]?$",
         r".*I can answer\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I would say\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*I must say\s+['\"]?(yes|no)['\"]?[.!]?",
-        r".*my judgment is\s+['\"]?(yes|no)['\"]?[.!]?",
+        (r".*my (final )?judgment is\s+['\"]?(yes|no)['\"]?[.!]?", 2),
         r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
         r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
+        r".*[jJ]udgment:\s+['\"]?(yes|no)\.?['\"]?",
     ]
+    correct_patterns = [r"candidate( answer)? is correct", r"candidate's correct"]
 
     if response.lower().startswith("yes"):
         acceptable = "Yes"
     elif response.lower().startswith("no"):
         acceptable = "No"
     else:
+        acceptable = ""
         for pattern in patterns:
+            match_idx = 1
+            if isinstance(pattern, (list, tuple)):
+                pattern, match_idx = pattern
+
             matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
             if matched:
-                acceptable = matched.group(1).capitalize()
+                acceptable = matched.group(match_idx).capitalize()
                 break
-        else:
-            acceptable = ""
+        if not acceptable:
+            for pattern in correct_patterns:
+                matched = re.search(pattern, response, re.IGNORECASE | re.MULTILINE | re.DOTALL)
+                if matched:
+                    acceptable = "Yes"
+                    break
+
+        if not acceptable:
             logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
 
     return int(acceptable == "Yes")
@@ -140,9 +165,12 @@ def run_inference(
     num_beams: int = 1,
     batch_size: int = 1,
     num_workers: int = 16,
+    num_return_sequences: int = 1,
 ):
     if isinstance(texts, str):
         texts = [texts]
+
+    # texts = [text for text in texts for _ in range(num_samples)]
 
     model.eval()
 
@@ -190,15 +218,29 @@ def run_inference(
                 max_new_tokens=max_new_tokens,
                 top_p=top_p,
                 num_beams=num_beams,
+                num_return_sequences=num_return_sequences,
             )
 
-        for b in range(batch_size):
-            if model.config.is_encoder_decoder:
-                output_ids = output[b]
-            else:
-                output_ids = output[b, seq_length:]
+        output = output.reshape(batch_size, num_return_sequences, -1)
 
-            outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
+        for b in range(batch_size):
+            output_ids = output[b]
+
+            if num_return_sequences > 1:
+                _outs = []
+                for s in range(num_return_sequences):
+                    _ids = output_ids[s]
+                    if not model.config.is_encoder_decoder:
+                        _ids = _ids[seq_length:]
+
+                    _outs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
+                outputs.append(_outs)
+            else:
+                output_ids = output_ids[0]
+                if not model.config.is_encoder_decoder:
+                    output_ids = output_ids[seq_length:]
+
+                outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
 
     return outputs
 
@@ -206,6 +248,7 @@ def run_inference(
 def llm_eval(model_name_or_path: str, candidates, **kwargs):
     prompt_file = kwargs.pop("prompt_file", None)
     context_file = kwargs.pop("context_file", None)
+    num_return_sequences = kwargs.pop("num_return_sequences", 1)
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
 
@@ -214,18 +257,26 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     tokenizer.use_default_system_prompt = False
     tokenizer.deprecation_warnings["Asking-to-pad-a-fast-tokenizer"] = True
 
+    is_conversational_true = _is_conversational(model.config.name_or_path)
+
     examples = _prepare(candidates, prompt_file, model.config.name_or_path, context_file)
-    responses = run_inference(examples, model, tokenizer, **kwargs)
+    responses = run_inference(examples, model, tokenizer, **kwargs, num_return_sequences=num_return_sequences)
     original_responses = responses
 
     # second step for chat models to collect judgments
-    if _is_conversational(model.config.name_or_path):
+    if is_conversational_true:
         second_examples = _prepare_second_pass(examples, original_responses)
         responses = run_inference(second_examples, model, tokenizer, do_sample=False)
 
     outputs = []
-    for original_response, response, candidate in zip(original_responses, responses, candidates):
-        acceptable = _parse_response(response, candidate.answer, candidate.question.text)
-        outputs.append((acceptable, original_response))
+    total_count = len(candidates)
+    for index in range(total_count):
+        acceptable_count = 0
+        for j in range(len(original_responses[index])):
+            acceptable_count += _parse_response(
+                responses[index * num_return_sequences + j], candidates[index].answer, candidates[index].question.text
+            )
+
+        outputs.append((round(acceptable_count / len(original_responses[index])), original_responses[index]))
 
     return outputs

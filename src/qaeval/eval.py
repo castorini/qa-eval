@@ -163,6 +163,27 @@ def f1_eval(gold_answers: Iterable[str], candidate_answer: str, unacceptable_ans
     )
 
 
+def _load_existing(output_file: os.PathLike):
+    outputs = []
+    with open(output_file) as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            Candidate(row["Model answer"], Question(row["Question"], eval(row["Gold answers"]), row["id"]))
+
+            for k in row.keys():
+                if k not in ("id", "Model answer", "Question", "Gold answers", "EM", "F1", "AnnotatedEM", "Response"):
+                    model_name = k
+                    break
+            else:
+                raise ValueError("No model name detected")
+
+            judgment = int(row[model_name])
+            response = row.get("Response", None)
+            outputs.append((judgment, response))
+
+    return outputs
+
+
 def _prepare_data(
     predict_file: os.PathLike,
     dataset_file: Optional[os.PathLike] = None,
@@ -199,7 +220,12 @@ def _prepare_data(
 
         if annotated_answers:
             question.update_answers(annotated_answers[qkey])
-        candidates.append(Candidate(predicted_dict[qkey], question))
+
+        if isinstance(predicted_dict[qkey], (list, tuple)):
+            for predicted_ans in predicted_dict[qkey]:
+                candidates.append(Candidate(predicted_ans, question))
+        else:
+            candidates.append(Candidate(predicted_dict[qkey], question))
 
     return candidates
 
@@ -246,8 +272,11 @@ def evaluate_file(
     batch_size: int = 1,
     do_greedy: bool = False,
     top_p: float = 1.0,
+    num_beams: int = 1,
     overwrite_cache: bool = False,
+    num_return_sequences: int = 1,
     return_per_sample: bool = False,
+    overwrite: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
     predict_file = Path(predict_file)
     if output_file:
@@ -269,6 +298,9 @@ def evaluate_file(
                 elif top_p < 1.0:
                     output_name += f"_topp{top_p}"
 
+        if num_return_sequences > 1:
+            output_name += f"_n{num_return_sequences}"
+
         if annotation_file:
             annotation_name = Path(annotation_file).stem
             output_name += f"-{annotation_name[annotation_name.index('_') + 1:]}"
@@ -276,30 +308,35 @@ def evaluate_file(
         output_path = predict_file.parent / f"{output_name}.tsv"
 
     candidates = _prepare_data(predict_file, dataset_file, annotation_file)
-    if model_name:
-        if _is_openai_model(model_name):
-            eval_output = gpt_eval(
-                model_name,
-                candidates,
-                max_new_tokens=max_new_tokens,
-                temperature=temperature,
-                experiment_name=output_path.stem,
-                cache_dir=predict_file.parent,
-                overwrite_cache=overwrite_cache,
-            )
-        else:
-            eval_output = llm_eval(
-                model_name,
-                candidates,
-                prompt_file=prompt_file,
-                context_file=context_file,
-                max_new_tokens=max_new_tokens,
-                batch_size=batch_size,
-                do_sample=not do_greedy,
-                top_p=top_p,
-            )
+
+    eval_output = None
+    if overwrite or not os.path.exists(output_path):
+        if model_name:
+            if _is_openai_model(model_name):
+                eval_output = gpt_eval(
+                    model_name,
+                    candidates,
+                    max_new_tokens=max_new_tokens,
+                    temperature=temperature,
+                    experiment_name=output_path.stem,
+                    cache_dir=predict_file.parent,
+                    overwrite_cache=overwrite_cache,
+                )
+            else:
+                eval_output = llm_eval(
+                    model_name,
+                    candidates,
+                    prompt_file=prompt_file,
+                    context_file=context_file,
+                    max_new_tokens=max_new_tokens,
+                    batch_size=batch_size,
+                    do_sample=not do_greedy,
+                    top_p=top_p,
+                    num_beams=num_beams,
+                    num_return_sequences=num_return_sequences,
+                )
     else:
-        eval_output = None
+        eval_output = _load_existing(output_path)
 
     eval_result = _calc_metrics(
         candidates, eval_output, model_name, annotation_file and os.path.exists(annotation_file)
@@ -309,7 +346,8 @@ def evaluate_file(
             f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(candidates)}"
         )
 
-    _save_output(candidates, eval_result, eval_output, output_path)
+    if overwrite or not os.path.exists(output_path):
+        _save_output(candidates, eval_result, eval_output, output_path)
 
     return {metric: scores if return_per_sample else np.mean(scores) for metric, scores in eval_result.items()}
 
@@ -353,8 +391,10 @@ def _calc_metrics(candidates: Sequence[Candidate], eval_output, model_name: str,
     eval_result = {
         "EM": em_scores,
         "F1": f1_scores,
-        model_name: acceptables,
     }
+
+    if model_name:
+        eval_result[model_name] = acceptables
 
     if annotated_em_scores:
         eval_result["AnnotatedEM"] = annotated_em_scores

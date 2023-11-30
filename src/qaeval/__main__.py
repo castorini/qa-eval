@@ -55,6 +55,8 @@ def main():
             "meta-llama/Llama-2-13b-chat-hf",
             "mistralai/Mistral-7B-Instruct-v0.1",
             "HuggingFaceH4/zephyr-7b-beta",
+            "allenai/tulu-2-7b",
+            "allenai/tulu-2-dpo-7b",
         ),
         help="Model names",
     )
@@ -83,6 +85,12 @@ def main():
         help="Whether to disable sampling in decoding (used only for public models)",
     )
     parser.add_argument(
+        "--num_beams",
+        type=int,
+        default=1,
+        help="Beam width",
+    )
+    parser.add_argument(
         "--top_p",
         type=float,
         default=1.0,
@@ -98,6 +106,18 @@ def main():
         action="store_true",
         default=False,
         help="Whether to overwrite cached evaluation results from a previous run (only when OpenAI API used)",
+    )
+    parser.add_argument(
+        "--num_samples",
+        type=int,
+        default=1,
+        help="Number samples to try for each question. Preferably an odd number.",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        default=False,
+        help="Whether to overwrite existing output file",
     )
 
     args = parser.parse_args()
@@ -115,8 +135,11 @@ def main():
         args.batch_size,
         args.do_greedy,
         args.top_p,
+        args.num_beams,
         args.overwrite_cache,
+        args.num_samples,
         return_per_sample=True,
+        overwrite=args.overwrite,
     )
 
     em_scores = result["EM"]

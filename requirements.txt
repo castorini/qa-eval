@@ -5,3 +5,4 @@ transformers >= 4.34.0
 accelerate >= 0.24.0
 sentencepiece #LlamaTokenizer
 protobuf #LlamaTokenizer
+streamlit # interactive chat
