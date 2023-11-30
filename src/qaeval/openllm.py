@@ -8,7 +8,14 @@ from tqdm import tqdm
 import datasets
 import torch
 from torch.utils.data import DataLoader
-from transformers import AutoModelForCausalLM, AutoTokenizer, DataCollatorWithPadding
+from transformers import (
+    AutoConfig,
+    AutoModelForCausalLM,
+    AutoModelForSeq2SeqLM,
+    AutoTokenizer,
+    DataCollatorWithPadding,
+    DataCollatorForSeq2Seq,
+)
 
 from .data_utils import Candidate
 
@@ -22,6 +29,16 @@ CONVERSATIONAL_MODELS = {
     "HuggingFaceH4/zephyr-7b-beta",
     "allenai/tulu-2-7b",
     "allenai/tulu-2-dpo-7b",
+}
+
+MODEL_KWARGS = {
+    "bigscience/T0pp": {"torch_dtype": torch.bfloat16},
+    "bigscience/T0_3B": {"torch_dtype": torch.bfloat16},
+    "google/flan-ul2": {"load_in_8bit": True},
+    "google/flan-t5-xxl": {"load_in_8bit": True},
+    "google/flan-t5-xl": {"load_in_8bit": True},
+    "google/flan-t5-large": {"load_in_8bit": True},
+    "google/flan-t5-base": {"load_in_8bit": True},
 }
 
 
@@ -201,7 +218,9 @@ def run_inference(
         batch_size=batch_size,
         num_workers=num_workers,
         pin_memory=True,
-        collate_fn=DataCollatorWithPadding(tokenizer, padding="longest"),
+        collate_fn=DataCollatorForSeq2Seq(tokenizer, padding="longest")
+        if model.config.is_encoder_decoder
+        else DataCollatorWithPadding(tokenizer, padding="longest"),
     )
 
     outputs = []
@@ -252,7 +271,16 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
 
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in llm_eval"
 
-    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="auto", low_cpu_mem_usage=True)
+    config = AutoConfig.from_pretrained(model_name_or_path)
+    if config.is_encoder_decoder:
+        model = AutoModelForSeq2SeqLM.from_pretrained(
+            model_name_or_path, device_map="auto", **MODEL_KWARGS.get(model_name_or_path, {})
+        )
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name_or_path, device_map="auto", low_cpu_mem_usage=True, **MODEL_KWARGS.get(model_name_or_path, {})
+        )
+
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
     tokenizer.use_default_system_prompt = False
     tokenizer.deprecation_warnings["Asking-to-pad-a-fast-tokenizer"] = True
