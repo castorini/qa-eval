@@ -7,13 +7,13 @@ ANNOTATE_FILE=$1
 
 for model_output in `ls data/model_outputs/NQ_*.jsonl`; do
   echo -e "${Green}Evaluating $model_output ...${NC}"
-  python -m qaeval $model_output --annotation $ANNOTATE_FILE
+  python -m qaeval $model_output --annotation $ANNOTATE_FILE --overwrite
 done
 
 model_output="data/model_outputs/NQ301_text-davinci-003_zeroshot.jsonl"
 echo -e "${Green}Evaluating $model_output ...${NC}"
-python -m qaeval $model_output --annotation $ANNOTATE_FILE
+python -m qaeval $model_output --annotation $ANNOTATE_FILE --overwrite
 
 model_output="data/model_outputs/NQ301_text-davinci-003_fewshot-n64.jsonl"
 echo -e "${Green}Evaluating $model_output ...${NC}"
-python -m qaeval $model_output --annotation $ANNOTATE_FILE
+python -m qaeval $model_output --annotation $ANNOTATE_FILE --overwrite
