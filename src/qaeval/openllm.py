@@ -297,14 +297,24 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
         responses = run_inference(second_examples, model, tokenizer, do_sample=False)
 
     outputs = []
-    total_count = len(candidates)
-    for index in range(total_count):
-        acceptable_count = 0
-        for j in range(len(original_responses[index])):
-            acceptable_count += _parse_response(
-                responses[index * num_return_sequences + j], candidates[index].answer, candidates[index].question.text
-            )
+    for index in range(len(candidates)):
+        judgments = []
+        if isinstance(responses[index], str):
+            for j in range(len(original_responses[index])):
+                judgments.append(
+                    _parse_response(
+                        responses[index * num_return_sequences + j],
+                        candidates[index].answer,
+                        candidates[index].question.text,
+                    )
+                )
+        else:
+            for resp in responses[index]:
+                judgments.append(_parse_response(resp, candidates[index].answer, candidates[index].question.text))
 
-        outputs.append((round(acceptable_count / len(original_responses[index])), original_responses[index]))
+        acceptable_count = sum(judgments)
+        outputs.append(
+            (round(acceptable_count / len(original_responses[index])), original_responses[index], judgments)
+        )
 
     return outputs

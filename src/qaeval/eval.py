@@ -444,8 +444,8 @@ def _save_output(
                     row.append(eval_result[m][i])
 
             if model_output:
-                _, out = model_output[i]
-                row.append(out)
+                for j in range(1, len(model_output[i])):
+                    row.append(model_output[i][j])
 
             w.writerow(row)
 
