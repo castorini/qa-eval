@@ -6,7 +6,7 @@
 Green='\033[0;32m'
 NC='\033[0m' # No Color
 
-CUDA_VISIBLE_DEVICES=$1
+export CUDA_VISIBLE_DEVICES=$1
 GROUP=$(($2))
 PROMPT=$3
 MODEL=$4
