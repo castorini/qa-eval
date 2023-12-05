@@ -18,9 +18,6 @@ for model_output in `ls data/model_outputs/NQ301_*.jsonl`; do
   then
     echo -e "${Green}Evaluating $model_output ...${NC}"
     python -m qaeval $model_output --prompt $PROMPT --model $MODEL --do_greedy --num_beams 10 --num_samples $NUM_SAMPLES --batch_size 1
-  else
-    echo -e "${Green}Evaluating $model_output ...${NC}"
-    python -m qaeval $model_output --prompt $PROMPT --model $MODEL --do_greedy --num_beams 10 --num_samples $NUM_SAMPLES --batch_size 1
   fi
   ((cnt++))
 done
