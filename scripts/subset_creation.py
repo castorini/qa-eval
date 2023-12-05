@@ -50,7 +50,7 @@ with open(predict_file) as f:
         if "question" in item and item["question"] in questions_set:
             subset.append(item)
 
-output_file = predict_file.stem.split("_")[0] + "_" + "_".join(ref_file.name.split("_")[1:])
+output_file = ref_file.stem.split("_")[0] + "_" + "_".join(predict_file.name.split("_")[1:])
 output_path = predict_file.parent / output_file
 # Save the extracted subset to a new JSONL file
 with open(output_path, mode='w') as writer:
