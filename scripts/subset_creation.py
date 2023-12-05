@@ -56,3 +56,5 @@ output_path = predict_file.parent / output_file
 with open(output_path, mode='w') as writer:
     for item in subset:
         writer.write(json.dumps(item) + "\n")
+
+print(f"Output saved to '{output_path}'")
