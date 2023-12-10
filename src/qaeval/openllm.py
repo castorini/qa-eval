@@ -42,6 +42,15 @@ MODEL_KWARGS = {
 }
 
 
+TULU_CHAT_TEMPLATE = {
+    "chat_template": "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
+}
+TOKENIZER_KWARGS = {
+    "allenai/tulu-2-7b": TULU_CHAT_TEMPLATE,
+    "allenai/tulu-2-dpo-7b": TULU_CHAT_TEMPLATE,
+}
+
+
 def _is_conversational(model_name_or_path):
     return model_name_or_path in CONVERSATIONAL_MODELS
 
@@ -83,7 +92,7 @@ def _prepare(
             prompt = prompt_template.format(q=question, answers=gold_answers, candidate_answer=candidate_answer)
 
         if _is_conversational(model_name_or_path):
-            if "Mistral" in model_name_or_path:
+            if "Mistral" in model_name_or_path or "tulu-2" in model_name_or_path:
                 instruction = None
                 content = prompt
             else:
@@ -210,9 +219,6 @@ def run_inference(
         remove_columns=list(dataset.features),
     )
 
-    if not tokenizer.pad_token:
-        tokenizer.pad_token = tokenizer.eos_token
-
     test_dataloader = DataLoader(
         dataset,
         batch_size=batch_size,
@@ -281,9 +287,13 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
             model_name_or_path, device_map="auto", low_cpu_mem_usage=True, **MODEL_KWARGS.get(model_name_or_path, {})
         )
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name_or_path, use_fast=True, **TOKENIZER_KWARGS.get(model_name_or_path, {})
+    )
     tokenizer.use_default_system_prompt = False
     tokenizer.deprecation_warnings["Asking-to-pad-a-fast-tokenizer"] = True
+    if not tokenizer.pad_token:
+        tokenizer.pad_token = tokenizer.eos_token
 
     is_conversational_true = _is_conversational(model.config.name_or_path)
 
