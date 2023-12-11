@@ -14,11 +14,9 @@ logger = logging.getLogger("gpt")
 
 
 def load_model(model_name: str, **kwargs):
-    max_tokens = kwargs.pop("max_tokens", 100)
     azure = kwargs.pop("azure", False)
     azure_deployment_name = kwargs.pop("deployment_name", "gpt4all")
-    temperature = kwargs.pop("temperature", 0.0)
-    return OpenAIProxy(model_name, max_tokens, azure=azure, azure_deployment_name=azure_deployment_name)
+    return OpenAIProxy(model_name, azure=azure, azure_deployment_name=azure_deployment_name)
 
 
 def _prepare(
@@ -93,7 +91,10 @@ def gpt_eval(model_name: str, candidates, **kwargs):
     prompt_file = kwargs.pop("prompt_file", None)
     assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in gpt_eval"
 
-    model = load_model(model_name, **kwargs)
+    azure = kwargs.pop("azure", False)
+    azure_deployment_name = kwargs.pop("deployment_name", "gpt4all")
+
+    model = load_model(model_name, azure=azure, azure_deployment_name=azure_deployment_name)
     prompts = _prepare(candidates, prompt_file)
     responses = model(prompts, **kwargs)
 
