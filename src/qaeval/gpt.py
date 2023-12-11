@@ -113,7 +113,7 @@ class OpenAIProxy:
         max_attempts: int = 5,
         sleep_time: int = 10,
         azure: bool = False,
-        azure_endpoint: str = "https://jarmy-llm.openai.azure.com/",
+        azure_endpoint: str = "https://dsgai-gpt4.openai.azure.com/",
         azure_api_version: str = "2023-09-01-preview",
         azure_deployment_name: str = "gpt4all",
     ):
