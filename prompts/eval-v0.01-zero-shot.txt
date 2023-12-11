@@ -1,0 +1,5 @@
+Question: {q}
+Answers: {answers}
+Candidate: {candidate_answer}
+
+Is candidate correct?

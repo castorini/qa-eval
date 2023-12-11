@@ -275,6 +275,8 @@ def evaluate_file(
     num_beams: int = 1,
     overwrite_cache: bool = False,
     num_return_sequences: int = 1,
+    azure: bool = False,
+    deployment_name: str = "gpt4all",
     return_per_sample: bool = False,
     overwrite: bool = False,
 ) -> Mapping[str, Union[float, List[float]]]:
@@ -321,6 +323,8 @@ def evaluate_file(
                     experiment_name=output_path.stem,
                     cache_dir=predict_file.parent,
                     overwrite_cache=overwrite_cache,
+                    azure=azure,
+                    deployment_name=deployment_name,
                 )
             else:
                 eval_output = llm_eval(

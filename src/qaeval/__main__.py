@@ -45,6 +45,7 @@ def main():
         choices=(
             "text-davinci-003",
             "gpt-3.5-turbo",
+            "gpt-4-1106-preview",
             "gpt-4",
             "lmsys/vicuna-13b-v1.5-16k",
             "lmsys/vicuna-7b-v1.5-16k",
@@ -122,6 +123,18 @@ def main():
         help="Number samples to try for each question. Preferably an odd number.",
     )
     parser.add_argument(
+        "--azure",
+        action="store_true",
+        default=False,
+        help="Whether to use Azure endpoint for calling OpenAI APIs",
+    )
+    parser.add_argument(
+        "--deployment_name",
+        type=str,
+        default="gpt4all",
+        help="Azure deployment name",
+    )
+    parser.add_argument(
         "--overwrite",
         action="store_true",
         default=False,
@@ -146,6 +159,8 @@ def main():
         args.num_beams,
         args.overwrite_cache,
         args.num_samples,
+        args.azure,
+        args.deployment_name,
         return_per_sample=True,
         overwrite=args.overwrite,
     )

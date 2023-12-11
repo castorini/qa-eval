@@ -1,49 +1,100 @@
 import json
 import logging
 import os
+import re
 import requests
 import time
 import numpy as np
 from typing import Optional, Sequence, Union
 
 import openai
+from data_utils import Candidate
 
 logger = logging.getLogger("gpt")
 
 
 def load_model(model_name: str, **kwargs):
     max_tokens = kwargs.pop("max_tokens", 100)
+    azure = kwargs.pop("azure", False)
+    azure_deployment_name = kwargs.pop("deployment_name", "gpt4all")
     temperature = kwargs.pop("temperature", 0.0)
-    return OpenAIProxy(model_name, max_tokens, temperature)
+    return OpenAIProxy(model_name, max_tokens, temperature, azure, azure_deployment_name=azure_deployment_name)
 
 
-def _prepare(candidates):
+def _prepare(
+    candidates, prompt_file: os.PathLike,
+):
+    with open(prompt_file) as p:
+        prompt_template = "".join(p.readlines()).strip()
+
+    prompts = []
     for candidate in candidates:
-        answers = ", ".join([f'"{a}"' for a in candidate.question.answers])
+        if isinstance(candidate, Candidate):
+            q = candidate.question
+            gold_answers = q.answers
+            candidate_answer = candidate.answer
+            question = q.text
+        else:
+            gold_answers = candidate["answers"]
+            candidate_answer = candidate["candidate_answer"]
+            question = candidate["question"]
 
-        q = candidate.question.text
-        if not q.endswith("?"):
-            q += "?"
+        gold_answers = ", ".join([f'"{a}"' for a in gold_answers])
 
-        prompt = f"Question: {q}\nAnswer: {answers}\nCandidate: {candidate.answer}\n\nIs candidate correct?"
-        yield prompt
+        if not question.endswith("?"):
+            question += "?"
+
+        prompt = prompt_template.format(q=question, answers=gold_answers, candidate_answer=candidate_answer)
+        sections = prompt.split("###")
+        instruction = "###".join(sections[:-1]) if len(sections) > 1 else None
+        content = sections[-1].strip()
+
+        if instruction:
+            prompts.append((content, instruction))
+        else:
+            prompts.append(prompt)
+
+    return prompts
 
 
 def _parse_response(response: str, candidate_answer: str, question: str) -> int:
+    patterns = [
+        r".*['\"]?(yes|no)\.?['\"]?[.!]?$",
+        (r".*my (final )?judgment is\s+['\"]?(yes|no)['\"]?[.!]?", 2),
+        r".*I would judge the candidate answer as\s+['\"]?(yes|no)['\"]?[.!]?",
+        r".*\s+['\"]?(yes|no)['\"]?,? the candidate( answer)? is",
+        r".*[jJ]udgment:\s+['\"]?(yes|no)\.?['\"]?",
+    ]
+
     if response.lower().startswith("yes"):
         acceptable = "Yes"
     elif response.lower().startswith("no"):
         acceptable = "No"
     else:
         acceptable = ""
-        logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
+        for pattern in patterns:
+            match_idx = 1
+            if isinstance(pattern, (list, tuple)):
+                pattern, match_idx = pattern
+
+            matched = re.match(pattern, response, re.IGNORECASE | re.MULTILINE | re.DOTALL)
+
+            if matched:
+                acceptable = matched.group(match_idx).capitalize()
+                break
+
+        if not acceptable:
+            logger.warning(f"Invalid response to `{question}` & `{candidate_answer}`: {response}")
 
     return int(acceptable == "Yes")
 
 
 def gpt_eval(model_name: str, candidates, **kwargs):
+    prompt_file = kwargs.pop("prompt_file", None)
+    assert prompt_file and os.path.exists(prompt_file), "prompt_file is required in gpt_eval"
+
     model = load_model(model_name, **kwargs)
-    prompts = list(_prepare(candidates))
+    prompts = _prepare(candidates, prompt_file)
     responses = model(prompts, "test", **kwargs)
 
     outputs = []
@@ -60,20 +111,32 @@ class OpenAIProxy:
         model_name: str,
         max_attempts: int = 5,
         sleep_time: int = 10,
+        azure: bool = False,
+        azure_endpoint: str = "https://jarmy-llm.openai.azure.com/",
+        azure_api_version: str = "2023-09-01-preview",
+        azure_deployment_name: str = "gpt4all",
     ):
         self.model_name = model_name
         self.max_attempts = max_attempts
         self.sleep_time = sleep_time
 
-        assert "OPENAI_API_KEY" in os.environ
-        openai.api_key = os.environ["OPENAI_API_KEY"]
+        if azure:
+            assert "AZURE_OPENAI_KEY" in os.environ
+            openai.api_key = os.environ["AZURE_OPENAI_KEY"]
+            openai.api_base = azure_endpoint
+            openai.api_type = "azure"
+            openai.api_version = azure_api_version
+            self.deployment_name = azure_deployment_name
+        else:
+            assert "OPENAI_API_KEY" in os.environ
+            openai.api_key = os.environ["OPENAI_API_KEY"]
 
         self.call_times = []
         self.num_errors = 0
         self.total_tokens = []
 
     def _is_conversational(self):
-        return self.model_name in ("gpt-4", "gpt-3.5-turbo")
+        return self.model_name in ("gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview")
 
     def completion(
         self,
