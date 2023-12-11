@@ -95,7 +95,7 @@ def gpt_eval(model_name: str, candidates, **kwargs):
 
     model = load_model(model_name, **kwargs)
     prompts = _prepare(candidates, prompt_file)
-    responses = model(prompts, "test", **kwargs)
+    responses = model(prompts, **kwargs)
 
     outputs = []
     for response, candidate in zip(responses, candidates):
