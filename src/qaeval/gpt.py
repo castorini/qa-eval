@@ -167,6 +167,10 @@ class OpenAIProxy:
             else:
                 prompt = text
 
+        api_kwargs = {}
+        if self.deployment_name:
+            api_kwargs["engine"] = self.deployment_name
+
         for attempt in range(1, self.max_attempts + 1):
             try:
                 s = time.time()
@@ -177,6 +181,7 @@ class OpenAIProxy:
                         temperature=temperature,
                         max_tokens=max_new_tokens,
                         top_p=top_p,
+                        **api_kwargs,
                     )
                 else:
                     response = openai.Completion.create(
@@ -185,6 +190,7 @@ class OpenAIProxy:
                         temperature=temperature,
                         max_tokens=max_new_tokens,
                         top_p=top_p,
+                        **api_kwargs,
                     )
                 e = time.time()
 
