@@ -288,12 +288,12 @@ class OpenAIProxy:
 
     def get_stats(self, reset: bool = True):
         stats = {
-            "mean call time": np.mean(self.call_times),
-            "std call time": np.std(self.call_times),
+            "mean call time": round(np.mean(self.call_times), 3),
+            "std call time": round(np.std(self.call_times), 3),
             "num calls": len(self.call_times),
             "num errors": self.num_errors,
             "total #tokens": np.sum(self.total_tokens),
-            "avg #tokens": np.mean(self.total_tokens),
+            "avg #tokens": round(np.mean(self.total_tokens), 1),
         }
 
         if self.prompt_tokens and self.completion_tokens:
@@ -308,7 +308,7 @@ class OpenAIProxy:
                         for p, c in zip(self.prompt_tokens, self.completion_tokens)
                     ]
                 )
-                stats["cost"] = f"${cost:.2f}"
+                stats["cost"] = round(cost, 5)
 
         if reset:
             self.call_times = []
