@@ -319,8 +319,10 @@ def evaluate_file(
                 eval_output = gpt_eval(
                     model_name,
                     candidates,
+                    prompt_file=prompt_file,
                     max_new_tokens=max_new_tokens,
                     temperature=temperature,
+                    top_p=top_p,
                     experiment_name=output_path.stem,
                     cache_dir=predict_file.parent,
                     overwrite_cache=overwrite_cache,
