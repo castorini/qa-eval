@@ -21,6 +21,8 @@ OPENAI_RATES = {
     "gpt-3-turbo-1106": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
 }
 
+CONVERSATIONAL_MODELS = {"gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview"}
+
 
 def load_model(model_name: str, **kwargs):
     azure = kwargs.pop("azure", False)
@@ -149,7 +151,7 @@ class OpenAIProxy:
         self.completion_tokens = []
 
     def _is_conversational(self):
-        return self.model_name in ("gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview")
+        return self.model_name in CONVERSATIONAL_MODELS
 
     def completion(
         self,
