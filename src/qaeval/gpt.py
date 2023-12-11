@@ -8,7 +8,7 @@ import numpy as np
 from typing import Optional, Sequence, Union
 
 import openai
-from data_utils import Candidate
+from .data_utils import Candidate
 
 logger = logging.getLogger("gpt")
 
