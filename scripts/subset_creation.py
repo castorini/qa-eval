@@ -2,6 +2,8 @@ import argparse
 import json
 from pathlib import Path
 
+from qaeval import SimpleTokenizer
+
 # Define the file paths
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -23,6 +25,7 @@ args = parser.parse_args()
 # output_path = "../data/model_outputs/NQ301_Rocketv2_FiD.jsonl"  # Define the output file path
 
 # Create a set to store questions from file1.jsonl
+tokenizer = SimpleTokenizer()
 questions_set = set()
 
 # Read questions from file1.jsonl and store them in the set
@@ -34,7 +37,7 @@ with open(ref_file) as f:
 
         item = json.loads(line)
         if "question" in item:
-            questions_set.add(item["question"])
+            questions_set.add(tokenizer.tokenize(item["question"], as_string=True))
 
 # Create a list to store JSON objects from file2.jsonl where the question is in the set
 subset = []
@@ -47,7 +50,7 @@ with open(predict_file) as f:
             continue
 
         item = json.loads(line)
-        if "question" in item and item["question"] in questions_set:
+        if "question" in item and tokenizer.tokenize(item["question"], as_string=True) in questions_set:
             subset.append(item)
 
 output_file = ref_file.stem.split("_")[0] + "_" + "_".join(predict_file.name.split("_")[1:])
