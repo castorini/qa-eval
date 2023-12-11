@@ -18,7 +18,7 @@ def load_model(model_name: str, **kwargs):
     azure = kwargs.pop("azure", False)
     azure_deployment_name = kwargs.pop("deployment_name", "gpt4all")
     temperature = kwargs.pop("temperature", 0.0)
-    return OpenAIProxy(model_name, max_tokens, temperature, azure, azure_deployment_name=azure_deployment_name)
+    return OpenAIProxy(model_name, max_tokens, azure=azure, azure_deployment_name=azure_deployment_name)
 
 
 def _prepare(
