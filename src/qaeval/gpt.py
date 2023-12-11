@@ -8,6 +8,8 @@ import numpy as np
 from typing import Optional, Sequence, Union
 
 import openai
+from tqdm import tqdm
+
 from .data_utils import Candidate
 
 logger = logging.getLogger("gpt")
@@ -264,7 +266,7 @@ class OpenAIProxy:
             completions.append(self.completion(texts))
         else:
             with open(cache_file, "w") as cw:
-                for text in texts:
+                for text in tqdm(texts, desc=self.model_name, colour="yellow"):
                     if isinstance(text, (list, tuple)):
                         text, instruction = text
                     else:
