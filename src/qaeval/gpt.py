@@ -12,6 +12,13 @@ from .data_utils import Candidate
 
 logger = logging.getLogger("gpt")
 
+OPENAI_RATES = {
+    "gpt-4-1106-preview": {"input": 0.01 / 1e3, "output": 0.03 / 1e3},
+    "gpt-4": {"input": 0.03 / 1e3, "output": 0.06 / 1e3},
+    "gpt-3-turbo": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
+    "gpt-3-turbo-1106": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
+}
+
 
 def load_model(model_name: str, **kwargs):
     azure = kwargs.pop("azure", False)
@@ -20,7 +27,8 @@ def load_model(model_name: str, **kwargs):
 
 
 def _prepare(
-    candidates, prompt_file: os.PathLike,
+    candidates,
+    prompt_file: os.PathLike,
 ):
     with open(prompt_file) as p:
         prompt_template = "".join(p.readlines()).strip()
@@ -135,6 +143,8 @@ class OpenAIProxy:
         self.call_times = []
         self.num_errors = 0
         self.total_tokens = []
+        self.prompt_tokens = []
+        self.completion_tokens = []
 
     def _is_conversational(self):
         return self.model_name in ("gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview")
@@ -197,6 +207,11 @@ class OpenAIProxy:
 
                 self.call_times.append(e - s)
                 self.total_tokens.append(response["usage"]["total_tokens"])
+
+                if "prompt_tokens" in response["usage"] and "completion_tokens" in response["usage"]:
+                    self.prompt_tokens.append(response["usage"]["prompt_tokens"])
+                    self.completion_tokens.append(response["usage"]["completion_tokens"])
+
                 if self._is_conversational():
                     return response["choices"][0]["message"]["content"].strip()
                 else:
@@ -270,25 +285,34 @@ class OpenAIProxy:
         return completions
 
     def get_stats(self, reset: bool = True):
-        num_calls = len(self.call_times)
-        avg_call_time = np.mean(self.call_times)
-        std_call_time = np.std(self.call_times)
+        stats = {
+            "mean call time": np.mean(self.call_times),
+            "std call time": np.std(self.call_times),
+            "num calls": len(self.call_times),
+            "num errors": self.num_errors,
+            "total #tokens": np.sum(self.total_tokens),
+            "avg #tokens": np.mean(self.total_tokens),
+        }
 
-        num_errors = self.num_errors
+        if self.prompt_tokens and self.completion_tokens:
+            stats["#input tokens"] = np.sum(self.prompt_tokens)
+            stats["#output tokens"] = np.sum(self.completion_tokens)
 
-        total_tokens = np.sum(self.total_tokens)
-        avg_tokens = np.mean(self.total_tokens)
+            if self.model_name in OPENAI_RATES:
+                rates = OPENAI_RATES[self.model_name]
+                cost = np.sum(
+                    [
+                        p * rates["input"] + c * rates["output"]
+                        for p, c in zip(self.prompt_tokens, self.completion_tokens)
+                    ]
+                )
+                stats["cost"] = f"${cost:.2f}"
 
         if reset:
             self.call_times = []
             self.num_errors = 0
             self.total_tokens = []
+            self.prompt_tokens = []
+            self.completion_tokens = []
 
-        return {
-            "mean call time": avg_call_time,
-            "std call time": std_call_time,
-            "num calls": num_calls,
-            "num errors": num_errors,
-            "total #tokens": total_tokens,
-            "avg #tokens": avg_tokens,
-        }
+        return stats
