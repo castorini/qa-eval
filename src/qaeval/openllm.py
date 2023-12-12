@@ -310,14 +310,13 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     for index in range(len(candidates)):
         judgments = []
         if isinstance(responses[index], str):
-            for j in range(len(original_responses[index])):
-                judgments.append(
-                    _parse_response(
-                        responses[index * num_return_sequences + j],
-                        candidates[index].answer,
-                        candidates[index].question.text,
-                    )
+            judgments.append(
+                _parse_response(
+                    responses[index],
+                    candidates[index].answer,
+                    candidates[index].question.text,
                 )
+            )
         else:
             for resp in responses[index]:
                 judgments.append(_parse_response(resp, candidates[index].answer, candidates[index].question.text))
