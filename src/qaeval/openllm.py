@@ -197,8 +197,6 @@ def run_inference(
     if isinstance(texts, str):
         texts = [texts]
 
-    # texts = [text for text in texts for _ in range(num_samples)]
-
     model.eval()
 
     dataset = datasets.Dataset.from_list(
@@ -259,7 +257,8 @@ def run_inference(
                     _ids = _ids[seq_length:]
 
                 _outs.append(ftfy.fix_encoding(tokenizer.decode(_ids, skip_special_tokens=True).strip()))
-            outputs.append(_outs)
+
+            outputs.append(_outs[0] if len(_outs) == 1 else _outs)
 
     return outputs
 
@@ -317,8 +316,9 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
                 judgments.append(_parse_response(resp, candidates[index].answer, candidates[index].question.text))
 
         acceptable_count = sum(judgments)
+        num_judgments = 1 if isinstance(original_responses[index], str) else len(original_responses[index])
         outputs.append(
-            (round(acceptable_count / len(original_responses[index])), original_responses[index], judgments)
+            (round(acceptable_count / num_judgments), original_responses[index], judgments)
         )
 
     return outputs
