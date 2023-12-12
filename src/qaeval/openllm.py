@@ -252,21 +252,14 @@ def run_inference(
         for b in range(batch_size):
             output_ids = output[b]
 
-            if num_return_sequences > 1:
-                _outs = []
-                for s in range(num_return_sequences):
-                    _ids = output_ids[s]
-                    if not model.config.is_encoder_decoder:
-                        _ids = _ids[seq_length:]
-
-                    _outs.append(ftfy.fix_encoding(tokenizer.decode(_ids, skip_special_tokens=True).strip()))
-                outputs.append(_outs)
-            else:
-                output_ids = output_ids[0]
+            _outs = []
+            for s in range(num_return_sequences):
+                _ids = output_ids[s]
                 if not model.config.is_encoder_decoder:
-                    output_ids = output_ids[seq_length:]
+                    _ids = _ids[seq_length:]
 
-                outputs.append(ftfy.fix_encoding(tokenizer.decode(output_ids, skip_special_tokens=True).strip()))
+                _outs.append(ftfy.fix_encoding(tokenizer.decode(_ids, skip_special_tokens=True).strip()))
+            outputs.append(_outs)
 
     return outputs
 
@@ -311,13 +304,14 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
     for index in range(len(candidates)):
         judgments = []
         if isinstance(responses[index], str):
-            judgments.append(
-                _parse_response(
-                    responses[index],
-                    candidates[index].answer,
-                    candidates[index].question.text,
+            for j in range(len(original_responses[index])):
+                judgments.append(
+                    _parse_response(
+                        responses[index * num_return_sequences + j],
+                        candidates[index].answer,
+                        candidates[index].question.text,
+                    )
                 )
-            )
         else:
             for resp in responses[index]:
                 judgments.append(_parse_response(resp, candidates[index].answer, candidates[index].question.text))
