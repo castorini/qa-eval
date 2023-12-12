@@ -6,6 +6,7 @@ OPENAI_API_KEY env variable should be set to run this script
 import csv
 import logging
 import os
+from numbers import Number
 from pathlib import Path
 from typing import Iterable, List, Mapping, Optional, Sequence, Set, Union
 
@@ -261,7 +262,7 @@ def evaluate_file(
         _save_output(candidates, eval_result, eval_output, output_path)
 
     return {
-        metric: scores if isinstance(scores, float) or return_per_sample else np.mean(scores)
+        metric: scores if isinstance(scores, Number) or return_per_sample else np.mean(scores)
         for metric, scores in eval_result.items()
     }
 
@@ -354,7 +355,7 @@ def _save_output(
                 row.append(eval_result["AnnotatedEM"][i])
 
             for m in sorted(eval_result.keys()):
-                if m not in ("EM", "F1", "AnnotatedEM"):
+                if m not in ("EM", "F1", "AnnotatedEM") and isinstance(eval_result[m], (list, tuple)):
                     row.append(eval_result[m][i])
 
             if model_output:
