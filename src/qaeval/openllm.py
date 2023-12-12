@@ -301,9 +301,11 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
 
     outputs = []
     for index in range(len(candidates)):
+        num_judgments = 1 if isinstance(original_responses[index], str) else len(original_responses[index])
+
         judgments = []
         if isinstance(responses[index], str):
-            for j in range(len(original_responses[index])):
+            for j in range(num_judgments):
                 judgments.append(
                     _parse_response(
                         responses[index * num_return_sequences + j],
@@ -316,7 +318,6 @@ def llm_eval(model_name_or_path: str, candidates, **kwargs):
                 judgments.append(_parse_response(resp, candidates[index].answer, candidates[index].question.text))
 
         acceptable_count = sum(judgments)
-        num_judgments = 1 if isinstance(original_responses[index], str) else len(original_responses[index])
         outputs.append(
             (round(acceptable_count / num_judgments), original_responses[index], judgments)
         )
