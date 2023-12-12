@@ -29,12 +29,14 @@ if args.analysis_file:
     with open(args.analysis_file) as f:
         reader = csv.DictReader(f, delimiter="\t")
 
-    for row in reader:
-        q = tokenizer.tokenize(row["Question"], as_string=True).lower()
-        p = tokenizer.tokenize(row["Predicted answer"], as_string=True)
-        reason = row["Why-Hu"].strip()
-        if reason:
-            analytics[f"{q}###{p}"] = reason
+        for row in reader:
+            q = tokenizer.tokenize(row["Question"], as_string=True).lower()
+            p = tokenizer.tokenize(row["Predicted answer"], as_string=True)
+            reason = row["Why-Hu"].strip()
+            if reason:
+                analytics[f"{q}###{p}"] = reason
+
+    print(f"{len(analytics)} records loaded from '{args.analysis_file}'")
 
 file_pattern = Path(args.file_pattern)
 results_dir = file_pattern.parent
