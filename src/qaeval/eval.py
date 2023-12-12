@@ -255,7 +255,7 @@ def evaluate_file(
             f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(candidates)}"
         )
 
-    eval_result["BLEU"] = wo_eval(candidates)
+    eval_result.update(wo_eval(candidates))
 
     if overwrite or not os.path.exists(output_path):
         _save_output(candidates, eval_result, eval_output, output_path)

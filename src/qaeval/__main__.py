@@ -172,16 +172,19 @@ def main():
     print(f"EM: {100.0 * np.mean(em_scores):.2f} ({np.sum(em_scores)}/{len(em_scores)})")
     print(f"F1: {100.0 * np.mean(f1_scores):.2f}")
 
-    if "BLEU" in result:
-        print(f"BLEU: {result['BLEU']:.2f}")
+    for metric in sorted(result.keys()):
+        if metric not in ("EM", "F1", args.model, "AnnotatedEM"):
+            print(f"{metric}: {result[metric]:.2f}")
 
     if "AnnotatedEM" in result:
+        print("***")
         annotated_em_scores = result["AnnotatedEM"]
         print(
             f"AnnotatedEM: {100.0 * np.mean(annotated_em_scores):.2f} ({np.sum(annotated_em_scores)}/{len(annotated_em_scores)})"
         )
 
     if args.model in result:
+        print("***")
         gpt_scores = result[args.model]
         print(f"{args.model}: {100.0 * np.mean(gpt_scores):.2f} ({np.sum(gpt_scores)}/{len(gpt_scores)})")
 
