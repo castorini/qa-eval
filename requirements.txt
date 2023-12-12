@@ -7,3 +7,5 @@ sentencepiece #LlamaTokenizer
 protobuf #LlamaTokenizer
 streamlit # interactive chat
 evaluate
+rouge_score
+nltk
