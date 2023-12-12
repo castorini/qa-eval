@@ -330,7 +330,7 @@ def _save_output(
             headers.append("AnnotatedEM")
 
         for m in sorted(eval_result.keys()):
-            if m not in ("EM", "F1", "AnnotatedEM"):
+            if m not in ("EM", "F1", "AnnotatedEM") and isinstance(eval_result[m], (list, tuple)):
                 headers.append(m)
 
         if model_output:
