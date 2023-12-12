@@ -6,6 +6,7 @@ from typing import Optional, Sequence, Union
 from tqdm import tqdm
 
 import datasets
+import ftfy
 import torch
 from torch.utils.data import DataLoader
 from transformers import (
@@ -258,14 +259,14 @@ def run_inference(
                     if not model.config.is_encoder_decoder:
                         _ids = _ids[seq_length:]
 
-                    _outs.append(tokenizer.decode(_ids, skip_special_tokens=True).strip())
+                    _outs.append(ftfy.fix_encoding(tokenizer.decode(_ids, skip_special_tokens=True).strip()))
                 outputs.append(_outs)
             else:
                 output_ids = output_ids[0]
                 if not model.config.is_encoder_decoder:
                     output_ids = output_ids[seq_length:]
 
-                outputs.append(tokenizer.decode(output_ids, skip_special_tokens=True).strip())
+                outputs.append(ftfy.fix_encoding(tokenizer.decode(output_ids, skip_special_tokens=True).strip()))
 
     return outputs
 
