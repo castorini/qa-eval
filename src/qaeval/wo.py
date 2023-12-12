@@ -28,8 +28,8 @@ def wo_eval(candidates, **kwargs):
 
     bleu = BLEU()
     score = bleu.corpus_score(cands, refs).score
-    rouge_scores = rouge.compute(cands, refs)
-    hf_score = hf_bleu.compute(cands, refs)["bleu"]
+    rouge_scores = rouge.compute(predictions=cands, references=refs)
+    hf_score = hf_bleu.compute(predictions=cands, references=refs)["bleu"]
 
     return {
         "sacreBLEU": score,
