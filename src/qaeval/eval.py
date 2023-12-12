@@ -15,6 +15,7 @@ from tqdm import tqdm
 from .data_utils import read_questions, read_predict_file, read_annotations, Question, Candidate
 from .gpt import gpt_eval
 from .openllm import llm_eval
+from .wo import wo_eval
 from .squad_evaluate import metric_max_over_ground_truths, regex_match, exact_match_score, f1_score
 
 # from .vicuna_llm import infer_vicuna
@@ -254,10 +255,15 @@ def evaluate_file(
             f"Only questions found in annotation file were evaluated: {len(eval_result['EM'])} out of {len(candidates)}"
         )
 
+    eval_result["BLEU"] = wo_eval(candidates)
+
     if overwrite or not os.path.exists(output_path):
         _save_output(candidates, eval_result, eval_output, output_path)
 
-    return {metric: scores if return_per_sample else np.mean(scores) for metric, scores in eval_result.items()}
+    return {
+        metric: scores if isinstance(scores, float) or return_per_sample else np.mean(scores)
+        for metric, scores in eval_result.items()
+    }
 
 
 def _calc_metrics(candidates: Sequence[Candidate], eval_output, model_name: str, has_annotated_file: bool = False):

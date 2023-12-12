@@ -172,6 +172,9 @@ def main():
     print(f"EM: {100.0 * np.mean(em_scores):.2f} ({np.sum(em_scores)}/{len(em_scores)})")
     print(f"F1: {100.0 * np.mean(f1_scores):.2f}")
 
+    if "BLEU" in result:
+        print(f"BLEU: {result['BLEU']:.2f}")
+
     if "AnnotatedEM" in result:
         annotated_em_scores = result["AnnotatedEM"]
         print(
