@@ -12,6 +12,7 @@ from typing import Iterable, List, Mapping, Optional, Sequence, Set, Union
 
 import numpy as np
 from tqdm import tqdm
+from unidecode import unidecode
 
 from .data_utils import read_questions, read_predict_file, read_annotations, Question, Candidate
 from .gpt import gpt_eval
@@ -360,7 +361,7 @@ def _save_output(
 
             if model_output:
                 for j in range(1, len(model_output[i])):
-                    row.append(model_output[i][j])
+                    row.append(unidecode(model_output[i][j]))
 
             w.writerow(row)
 

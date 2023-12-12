@@ -9,3 +9,4 @@ streamlit # interactive chat
 evaluate
 rouge_score
 nltk
+unidecode
