@@ -92,9 +92,7 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
                 }
             else:
                 if predictions[key]["judgment"] != final_judgment:
-                    print(
-                        f"[WARN] inconsistency found for [{question}] [{prediction}]"
-                    )
+                    print(f"[WARN] inconsistency found for [{question}] [{prediction}]")
                     print(f"   [{results_file.name}]: {responses}")
                     print(f"   [{predictions[key]['source']}]: {predictions[key]['responses']}")
                     print("***" * 4)
@@ -106,9 +104,10 @@ print(
 em_misses = 0
 fp = 0
 fn = 0
-agreements_per_em_failure = defaultdict(int)
 judg1_counts = defaultdict(int)
-disagreements_per_diverging_em_failure = defaultdict(lambda: defaultdict(int))
+agreements_for_em_failures = defaultdict(lambda: defaultdict(int))
+disagreements_for_em_failures = defaultdict(int)
+exactmatch_fn = 0
 for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="yellow"):
     exact_match = pred["EM"]
     final_judgment = pred["judgment"]
@@ -123,6 +122,9 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
     if qa_key not in human_annotation:
         human_annotation[qa_key] = 0
 
+    if human_annotation[qa_key] and not exact_match:
+        exactmatch_fn += 1
+
     if final_judgment != human_annotation[qa_key]:
         if final_judgment:
             fp += 1
@@ -132,10 +134,10 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
             fn += 1
 
         if failure_mode:
-            disagreements_per_diverging_em_failure[failure_mode][n_judg1] += 1
+            disagreements_for_em_failures[failure_mode] += 1
     else:
         if failure_mode:
-            agreements_per_em_failure[failure_mode] += 1
+            agreements_for_em_failures[failure_mode][n_judg1] += 1
 
 total_diverging_freq = sum(freq for n_judg1, freq in judg1_counts.items() if n_judg1 != 0 and n_judg1 != 1)
 
@@ -151,37 +153,43 @@ print()
 print("***" * 30)
 print()
 
-# for failure_mode in sorted(agreements_per_em_failure.keys()):
-#     freq = agreements_per_em_failure[failure_mode]
-#     print(
-#         f"{failure_mode}: {freq} "
-#         f"(Out of EM failures: {100. * freq / len(analytics):.2f}%) "
-#         f"(Out of all: {100. * freq / len(predictions):.2f}%)"
-#     )
-#
-# print()
-# print("***" * 30)
-# print()
-
-print("Humans judge yes, but automated eval says no")
-for failure_mode in sorted(disagreements_per_diverging_em_failure.keys()):
-    total_fail = sum(disagreements_per_diverging_em_failure[failure_mode].values())
+print("Humans judge yes, but automated eval says yes")
+print()
+for failure_mode in sorted(agreements_for_em_failures.keys()):
     diverging_freq = sum(
-        freq
-        for n_judg1, freq in disagreements_per_diverging_em_failure[failure_mode].items()
-        if n_judg1 != 0 and n_judg1 != 1
+        freq for n_judg1, freq in agreements_for_em_failures[failure_mode].items() if n_judg1 != 0 and n_judg1 != 1
     )
 
-    print(failure_mode, f"{total_fail}", f"({100. * total_fail / len(analytics):.2f}%)")
-    for n_judg1 in sorted(disagreements_per_diverging_em_failure[failure_mode].keys()):
-        freq = disagreements_per_diverging_em_failure[failure_mode][n_judg1]
-        print(f"\t[{n_judg1}] {freq} ({100. * freq / total_fail:.2f}%) (Out of FN: {100. * freq / fn:.2f}%)")
-    if total_diverging_freq > 0:
+    total_freq = sum(agreements_for_em_failures[failure_mode].values())
+
+    print(
+        failure_mode,
+        "---",
+        f"{total_freq / len(analytics):.2f}%",
+        f"({total_freq} out of {len(analytics)})",
+        "---",
+        "#Diverging",
+        f"{diverging_freq}",
+        f"({100. * diverging_freq / total_freq}%)",
+    )
+
+    for n_judg1 in sorted(agreements_for_em_failures[failure_mode].keys()):
+        freq = agreements_for_em_failures[failure_mode][n_judg1]
         print(
-            f"\t~~~~~ {diverging_freq} ({100. * diverging_freq / total_fail:.2f}%) "
-            f"(Out of FN: {100. * diverging_freq / fn:.2f}%) "
-            f"(Out of diverges: {100. * diverging_freq / total_diverging_freq:.2f}%)"
+            f"    [{n_judg1}] {100. * freq / total_freq:.2f}%",
+            f"({freq} out of {total_freq})",
+            "---",
+            f"{100. * freq / len(analytics):.2f}%",
         )
+
+print()
+print("***" * 30)
+print()
+
+print("Humans judge yes, but automated eval says no")
+print()
+for failure_mode, freq in sorted(disagreements_for_em_failures.items(), key=lambda x: x[1], reverse=True):
+    print(failure_mode, "---", f"{freq} out of {len(analytics)}", f"({100. * freq / len(analytics):.2f}%)")
 
 print()
 print("***" * 30)
@@ -196,5 +204,6 @@ for n_judg1 in sorted(judg1_counts.keys()):
 if total_diverging_freq > 0:
     print("---")
     print(
-        f"#judged diverged = {total_diverging_freq} " f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)"
+        f"#judged diverged = {total_diverging_freq} "
+        f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)"
     )
