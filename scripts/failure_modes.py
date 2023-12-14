@@ -117,6 +117,9 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
 
     failure_mode = analytics.get(qa_key, None)
 
+    if qa_key not in human_annotation:
+        human_annotation[qa_key] = 0
+
     if final_judgment != human_annotation[qa_key]:
         if final_judgment:
             fp += 1
