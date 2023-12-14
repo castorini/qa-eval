@@ -112,9 +112,9 @@ disagreements_per_diverging_em_failure = defaultdict(lambda: defaultdict(int))
 for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="yellow"):
     exact_match = pred["EM"]
     final_judgment = pred["judgment"]
-    judgments = eval(row[8])
+    judgments = pred["judgments"]
 
-    n_judg1 = Counter(pred["judgments"]).get(1, 0)
+    n_judg1 = Counter(judgments).get(1, 0)
     n_judg1 = round(n_judg1 / len(judgments), 1)
     judg1_counts[n_judg1] += 1
 
