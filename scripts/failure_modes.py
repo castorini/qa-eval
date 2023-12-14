@@ -158,10 +158,12 @@ print()
 
 print("Humans judge yes, but automated eval says yes")
 print()
+agreed_diverging_freq = 0
 for failure_mode in sorted(agreements_for_em_failures.keys()):
     diverging_freq = sum(
         freq for n_judg1, freq in agreements_for_em_failures[failure_mode].items() if n_judg1 != 0 and n_judg1 != 1
     )
+    agreed_diverging_freq += diverging_freq
 
     total_freq = sum(agreements_for_em_failures[failure_mode].values())
 
@@ -182,9 +184,14 @@ for failure_mode in sorted(agreements_for_em_failures.keys()):
         )
 
         print(
-            " Overall #diverging",
+            "  Overall #diverging",
             f"{100. * diverging_per_em_failures[failure_mode] / total_diverging_freq:.1f}%",
             f"({diverging_per_em_failures[failure_mode]})",
+        )
+        print(
+            "  Success rate",
+            f"{100. * diverging_freq / diverging_per_em_failures[failure_mode]:.1f}%",
+            f"({diverging_freq}/{diverging_per_em_failures[failure_mode]})",
         )
 
     for n_judg1 in sorted(agreements_for_em_failures[failure_mode].keys()):
@@ -195,6 +202,7 @@ for failure_mode in sorted(agreements_for_em_failures.keys()):
             "---",
             f"{100. * freq / len(analytics):.1f}%",
         )
+    print()
 
 print()
 print("***" * 30)
@@ -220,4 +228,9 @@ if total_diverging_freq > 0:
     print(
         f"#judged diverged = {total_diverging_freq} "
         f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)"
+    )
+    print(
+        "Overall success rate = ",
+        f"{100. * agreed_diverging_freq / total_diverging_freq}",
+        f"({agreed_diverging_freq}/{total_diverging_freq})",
     )
