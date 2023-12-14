@@ -165,21 +165,21 @@ for failure_mode in sorted(agreements_for_em_failures.keys()):
     print(
         failure_mode,
         "---",
-        f"{total_freq / len(analytics):.2f}%",
+        f"{total_freq / len(analytics):.1f}%",
         f"({total_freq} out of {len(analytics)})",
         "---",
         "#Diverging",
         f"{diverging_freq}",
-        f"({100. * diverging_freq / total_freq}%)",
+        f"({100. * diverging_freq / total_freq:.1f}%)",
     )
 
     for n_judg1 in sorted(agreements_for_em_failures[failure_mode].keys()):
         freq = agreements_for_em_failures[failure_mode][n_judg1]
         print(
-            f"    [{n_judg1}] {100. * freq / total_freq:.2f}%",
+            f"    [{n_judg1}] {100. * freq / total_freq:.1f}%",
             f"({freq} out of {total_freq})",
             "---",
-            f"{100. * freq / len(analytics):.2f}%",
+            f"{100. * freq / len(analytics):.1f}%",
         )
 
 print()
@@ -189,7 +189,7 @@ print()
 print("Humans judge yes, but automated eval says no")
 print()
 for failure_mode, freq in sorted(disagreements_for_em_failures.items(), key=lambda x: x[1], reverse=True):
-    print(failure_mode, "---", f"{freq} out of {len(analytics)}", f"({100. * freq / len(analytics):.2f}%)")
+    print(failure_mode, "---", f"({100. * freq / len(analytics):.1f}%)", f"({freq} out of {len(analytics)})")
 
 print()
 print("***" * 30)
