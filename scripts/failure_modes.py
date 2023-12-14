@@ -106,6 +106,7 @@ fp = 0
 fn = 0
 judg1_counts = defaultdict(int)
 agreements_for_em_failures = defaultdict(lambda: defaultdict(int))
+diverging_per_em_failures = defaultdict(int)
 disagreements_for_em_failures = defaultdict(int)
 exactmatch_fn = 0
 for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="yellow"):
@@ -118,6 +119,8 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
     judg1_counts[n_judg1] += 1
 
     failure_mode = analytics.get(qa_key, None)
+    if failure_mode and n_judg1 not in (0.0, 1.0):
+        diverging_per_em_failures[failure_mode] += 1
 
     if qa_key not in human_annotation:
         human_annotation[qa_key] = 0
@@ -165,13 +168,24 @@ for failure_mode in sorted(agreements_for_em_failures.keys()):
     print(
         failure_mode,
         "---",
-        f"{total_freq / len(analytics):.1f}%",
+        f"{100. * total_freq / len(analytics):.1f}%",
         f"({total_freq} out of {len(analytics)})",
-        "---",
-        "#Diverging",
-        f"{diverging_freq}",
-        f"({100. * diverging_freq / total_freq:.1f}%)",
     )
+    if total_diverging_freq > 0:
+        print(
+            "  #Diverging",
+            f"{100. * diverging_freq / total_freq:.1f}%",
+            f"({diverging_freq})",
+            "---",
+            f"{100. * diverging_freq / total_diverging_freq:.1f}%",
+            f"(out of {total_diverging_freq})",
+        )
+
+        print(
+            " Overall #diverging",
+            f"{100. * diverging_per_em_failures[failure_mode] / total_diverging_freq:.1f}%",
+            f"({diverging_per_em_failures[failure_mode]})",
+        )
 
     for n_judg1 in sorted(agreements_for_em_failures[failure_mode].keys()):
         freq = agreements_for_em_failures[failure_mode][n_judg1]
@@ -189,7 +203,7 @@ print()
 print("Humans judge yes, but automated eval says no")
 print()
 for failure_mode, freq in sorted(disagreements_for_em_failures.items(), key=lambda x: x[1], reverse=True):
-    print(failure_mode, "---", f"({100. * freq / len(analytics):.1f}%)", f"({freq} out of {len(analytics)})")
+    print(failure_mode, "---", f"{100. * freq / len(analytics):.1f}%", f"({freq} out of {len(analytics)})")
 
 print()
 print("***" * 30)
