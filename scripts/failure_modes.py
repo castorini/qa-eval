@@ -126,6 +126,8 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
         if reason:
             agreements_per_em_failure[failure_mode] += 1
 
+total_diverging_freq = sum(freq for n_judg1, freq in judg1_counts.items() if n_judg1 != 0 and n_judg1 != 1)
+
 print()
 print("***" * 30)
 print()
@@ -164,7 +166,9 @@ for failure_mode in sorted(disagreements_per_diverging_em_failure.keys()):
         print(f"\t[{n_judg1}] {freq} ({100. * freq / total_fail:.2f}%) (Out of FN: {100. * freq / fn:.2f}%)")
     print("---")
     print(
-        f"\t~~~ {diverging_freq} ({100. * diverging_freq / total_fail:.2f}%) (Out of FN: {100. * diverging_freq / fn:.2f}%)"
+        f"\t~~~ {diverging_freq} ({100. * diverging_freq / total_fail:.2f}%) "
+        f"(Out of FN: {100. * diverging_freq / fn:.2f}%) "
+        f"(Out of diverges: {100. * diverging_freq / total_diverging_freq:.2f}%)"
     )
 
 print()
@@ -176,3 +180,5 @@ for n_judg1 in sorted(judg1_counts.keys()):
         f"#judged {n_judg1} times as one = {judg1_counts[n_judg1]} "
         f"({100. * judg1_counts[n_judg1] / sum(judg1_counts.values()):.1f}%)"
     )
+print("---")
+print(f"#judged diverged = {total_diverging_freq} " f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)")
