@@ -134,7 +134,7 @@ def main():
         "--deployment_name",
         type=str,
         default="gpt4all",
-        help="Azure deployment name",
+        help="Azure deployment name (e.g. 'gpt4all' for gpt-4 and 'gpt35t' for gpt-3)",
     )
     parser.add_argument(
         "--overwrite",
