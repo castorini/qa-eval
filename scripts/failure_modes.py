@@ -72,6 +72,7 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
             exact_match = int(row[4])
             final_judgment = int(row[6])
             judgments = eval(row[8])
+            responses = eval(row[7])
 
             tok_q = tokenizer.tokenize(question, as_string=True).lower()
             tok_p = tokenizer.tokenize(prediction, as_string=True)
@@ -84,11 +85,16 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
                     "judgment": final_judgment,
                     "judgments": judgments,
                     "source": results_file.name,
+                    "responses": responses,
                 }
             else:
-                assert (
-                    predictions[key]["judgment"] != final_judgment
-                ), f"inconsistency found in '{results_file.name}' vs. '{predictions[key]['source']}': [{question}] [{prediction}]"
+                if predictions[key]["judgment"] != final_judgment:
+                    print(
+                        f"[WARN] inconsistency found for [{question}] [{prediction}]"
+                    )
+                    print(f"   [{results_file.name}]: {responses}")
+                    print(f"   [{predictions[key]['source']}]: {predictions[key]['responses']}")
+                    print("***" * 4)
 
 print(
     f"{len(predictions)} QA predictions collected from {len(list(results_dir.glob(file_pattern.name)))} result files"
