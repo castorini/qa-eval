@@ -21,7 +21,7 @@ OPENAI_RATES = {
     "gpt-3.5-turbo-1106": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
 }
 
-CONVERSATIONAL_MODELS = {"gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview"}
+CONVERSATIONAL_MODELS = {"gpt-4", "gpt-3.5-turbo", "gpt-3.5-turbo-1106", "gpt-4-1106-preview"}
 
 
 def load_model(model_name: str, **kwargs):
@@ -106,7 +106,7 @@ def gpt_eval(model_name: str, candidates, **kwargs):
     azure = kwargs.pop("azure", False)
     azure_deployment_name = kwargs.pop("deployment_name", "gpt4all")
 
-    model = load_model(model_name, azure=azure, azure_deployment_name=azure_deployment_name)
+    model = load_model(model_name, azure=azure, deployment_name=azure_deployment_name)
     prompts = _prepare(candidates, prompt_file)
     responses = model(prompts, **kwargs)
 
