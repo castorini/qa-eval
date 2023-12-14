@@ -110,7 +110,7 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
 
     reason = analytics.get(key, None)
     if reason:
-        failure_mode = BOTTOMUP_FAILURE_MODES[reason]
+        failure_mode = BOTTOMUP_FAILURE_MODES.get(reason, reason)
 
     if final_judgment != human_annotation[key]:
         if final_judgment:

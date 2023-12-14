@@ -81,7 +81,7 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), colo
             tok_p = tokenizer.tokenize(prediction, as_string=True)
             reason = analytics.get(f"{tok_q}###{tok_p}", None)
             if reason:
-                failure_mode = BOTTOMUP_FAILURE_MODES[reason]
+                failure_mode = BOTTOMUP_FAILURE_MODES.get(reason, reason)
                 judg1_per_reason[failure_mode][judged_ones] += 1
 
 print(f"{len(annotations)} collected from {len(list(results_dir.glob(file_pattern.name)))} result files")
