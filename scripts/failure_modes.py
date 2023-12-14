@@ -83,11 +83,12 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
                     "EM": exact_match,
                     "judgment": final_judgment,
                     "judgments": judgments,
+                    "source": results_file.name,
                 }
             else:
                 assert (
                     predictions[key]["judgment"] != final_judgment
-                ), f"inconsistency found in '{results_file}': [{question}] [{prediction}]"
+                ), f"inconsistency found in '{results_file.name}' vs. '{predictions[key]['source']}': [{question}] [{prediction}]"
 
 print(
     f"{len(predictions)} QA predictions collected from {len(list(results_dir.glob(file_pattern.name)))} result files"
@@ -181,4 +182,6 @@ for n_judg1 in sorted(judg1_counts.keys()):
         f"({100. * judg1_counts[n_judg1] / sum(judg1_counts.values()):.1f}%)"
     )
 print("---")
-print(f"#judged diverged = {total_diverging_freq} " f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)")
+print(
+    f"#judged diverged = {total_diverging_freq} " f"({100. * total_diverging_freq / sum(judg1_counts.values()):.1f}%)"
+)
