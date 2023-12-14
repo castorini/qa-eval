@@ -16,7 +16,7 @@ FAILURE_MODES = {
         "Tokenization Mismatches",
         "Synonymous Answer",
     ),
-    "Symbolic Equivalence": ("Symbolic Eq", "Failure in Symbolic Eq"),
+    "Symbolic Equivalence": ("Symbolic Eq",),
     "Granularity Discrepancy": ("Temporal Granularity Discrepancy", "Spatial Granularity Discrepancy"),
     "Incomplete Reference Answers": ("List", "Open-ended", "Compound"),
     "Intrinsic Ambiguity": ("Intrinsic Ambiguity",),
@@ -148,18 +148,19 @@ print()
 print("***" * 30)
 print()
 
-for failure_mode in sorted(agreements_per_em_failure.keys()):
-    freq = agreements_per_em_failure[failure_mode]
-    print(
-        f"{failure_mode}: {freq} "
-        f"(Out of EM failures: {100. * freq / len(analytics):.2f}%) "
-        f"(Out of all: {100. * freq / len(predictions):.2f}%)"
-    )
+# for failure_mode in sorted(agreements_per_em_failure.keys()):
+#     freq = agreements_per_em_failure[failure_mode]
+#     print(
+#         f"{failure_mode}: {freq} "
+#         f"(Out of EM failures: {100. * freq / len(analytics):.2f}%) "
+#         f"(Out of all: {100. * freq / len(predictions):.2f}%)"
+#     )
+#
+# print()
+# print("***" * 30)
+# print()
 
-print()
-print("***" * 30)
-print()
-
+print("Humans judge yes, but automated eval says no")
 for failure_mode in sorted(disagreements_per_diverging_em_failure.keys()):
     total_fail = sum(disagreements_per_diverging_em_failure[failure_mode].values())
     diverging_freq = sum(
@@ -168,13 +169,12 @@ for failure_mode in sorted(disagreements_per_diverging_em_failure.keys()):
         if n_judg1 != 0 and n_judg1 != 1
     )
 
-    print(failure_mode)
+    print(failure_mode, f"{total_fail}", f"({100. * total_fail / len(analytics):.2f}%)")
     for n_judg1 in sorted(disagreements_per_diverging_em_failure[failure_mode].keys()):
         freq = disagreements_per_diverging_em_failure[failure_mode][n_judg1]
         print(f"\t[{n_judg1}] {freq} ({100. * freq / total_fail:.2f}%) (Out of FN: {100. * freq / fn:.2f}%)")
-    print("---")
     print(
-        f"\t~~~ {diverging_freq} ({100. * diverging_freq / total_fail:.2f}%) "
+        f"\t~~~~~ {diverging_freq} ({100. * diverging_freq / total_fail:.2f}%) "
         f"(Out of FN: {100. * diverging_freq / fn:.2f}%) "
         f"(Out of diverges: {100. * diverging_freq / total_diverging_freq:.2f}%)"
     )

@@ -16,7 +16,7 @@ FAILURE_MODES = {
         "Tokenization Mismatches",
         "Synonymous Answer",
     ),
-    "Symbolic Equivalence": ("Symbolic Eq", "Failure in Symbolic Eq"),
+    "Symbolic Equivalence": ("Symbolic Eq",),
     "Granularity Discrepancy": ("Temporal Granularity Discrepancy", "Spatial Granularity Discrepancy"),
     "Incomplete Reference Answers": ("List", "Open-ended", "Compound"),
     "Intrinsic Ambiguity": ("Intrinsic Ambiguity",),
