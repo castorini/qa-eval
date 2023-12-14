@@ -52,7 +52,7 @@ with open(args.analysis_file) as f:
         acceptable = int(row["Acceptable-Hu"].strip().lower() == "yes")
         reason = row["Why-Hu"].strip()
         if reason:
-            analytics[f"{q}###{p}"] = reason
+            analytics[f"{q}###{p}"] = BOTTOMUP_FAILURE_MODES.get(reason, reason)
 
         human_annotation[f"{q}###{p}"] = acceptable
 
@@ -115,11 +115,9 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
     n_judg1 = round(n_judg1 / len(judgments), 1)
     judg1_counts[n_judg1] += 1
 
-    reason = analytics.get(key, None)
-    if reason:
-        failure_mode = BOTTOMUP_FAILURE_MODES.get(reason, reason)
+    failure_mode = analytics.get(qa_key, None)
 
-    if final_judgment != human_annotation[key]:
+    if final_judgment != human_annotation[qa_key]:
         if final_judgment:
             fp += 1
         else:
@@ -127,10 +125,10 @@ for qa_key, pred in tqdm(predictions.items(), desc="collecting stats", colour="y
                 em_misses += 1
             fn += 1
 
-        if reason:
+        if failure_mode:
             disagreements_per_diverging_em_failure[failure_mode][n_judg1] += 1
     else:
-        if reason:
+        if failure_mode:
             agreements_per_em_failure[failure_mode] += 1
 
 total_diverging_freq = sum(freq for n_judg1, freq in judg1_counts.items() if n_judg1 != 0 and n_judg1 != 1)
