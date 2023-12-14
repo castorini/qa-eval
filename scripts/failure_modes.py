@@ -48,7 +48,7 @@ with open(args.analysis_file) as f:
 
     for row in reader:
         q = tokenizer.tokenize(row["Question"], as_string=True).lower()
-        p = tokenizer.tokenize(row["Predicted answer"], as_string=True)
+        p = tokenizer.tokenize(row["Predicted answer"], as_string=True).lower()
         acceptable = int(row["Acceptable-Hu"].strip().lower() == "yes")
         reason = row["Why-Hu"].strip()
         if reason:
@@ -75,7 +75,7 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
             responses = eval(row[7])
 
             tok_q = tokenizer.tokenize(question, as_string=True).lower()
-            tok_p = tokenizer.tokenize(prediction, as_string=True)
+            tok_p = tokenizer.tokenize(prediction, as_string=True).lower()
             key = f"{tok_q}###{tok_p}"
             if key not in predictions:
                 predictions[key] = {
