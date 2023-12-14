@@ -71,7 +71,7 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), desc
             prediction = row[3]
             exact_match = int(row[4])
             final_judgment = int(row[6])
-            responses = eval(row[7])
+            responses = row[7]
             if len(row) > 8:
                 judgments = eval(row[8])
             else:
