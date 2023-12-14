@@ -17,8 +17,8 @@ logger = logging.getLogger("gpt")
 OPENAI_RATES = {
     "gpt-4-1106-preview": {"input": 0.01 / 1e3, "output": 0.03 / 1e3},
     "gpt-4": {"input": 0.03 / 1e3, "output": 0.06 / 1e3},
-    "gpt-3-turbo": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
-    "gpt-3-turbo-1106": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
+    "gpt-3.5-turbo": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
+    "gpt-3.5-turbo-1106": {"input": 0.001 / 1e3, "output": 0.002 / 1e3},
 }
 
 CONVERSATIONAL_MODELS = {"gpt-4", "gpt-3.5-turbo", "gpt-4-1106-preview"}

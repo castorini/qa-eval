@@ -232,6 +232,6 @@ if total_diverging_freq > 0:
     )
     print(
         "Overall success rate = ",
-        f"{100. * agreed_diverging_freq / total_diverging_freq}",
+        f"{100. * agreed_diverging_freq / total_diverging_freq:.1f}%",
         f"({agreed_diverging_freq}/{total_diverging_freq})",
     )

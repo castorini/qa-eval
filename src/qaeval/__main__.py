@@ -46,6 +46,7 @@ def main():
         choices=(
             "text-davinci-003",
             "gpt-3.5-turbo",
+            "gpt-3.5-turbo-1106",
             "gpt-4-1106-preview",
             "gpt-4",
             "lmsys/vicuna-13b-v1.5-16k",
