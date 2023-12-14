@@ -7,6 +7,23 @@ from tqdm import tqdm
 
 from qaeval import SimpleTokenizer
 
+FAILURE_MODES = {
+    "Semantic Equivalence": (
+        "Multinominal Entities",
+        "EM in Explanatory Answer",
+        "Bridging/Abridging",
+        "More Elaborate Answer",
+        "Tokenization Mismatches",
+        "Synonymous Answer",
+    ),
+    "Symbolic Equivalence": ("Symbolic Eq", "Failure in Symbolic Eq"),
+    "Granularity Discrepancy": ("Temporal Granularity Discrepancy", "Spatial Granularity Discrepancy"),
+    "Incomplete Reference Answers": ("List", "Open-ended", "Compound"),
+    "Intrinsic Ambiguity": ("Intrinsic Ambiguity",),
+    "Incorrect Gold Answers": ("Incorrect Gold Answers",),
+}
+BOTTOMUP_FAILURE_MODES = {child: parent for parent, children in FAILURE_MODES.items() for child in children}
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "file_pattern",
@@ -64,7 +81,8 @@ for i, results_file in tqdm(enumerate(results_dir.glob(file_pattern.name)), colo
             tok_p = tokenizer.tokenize(prediction, as_string=True)
             reason = analytics.get(f"{tok_q}###{tok_p}", None)
             if reason:
-                judg1_per_reason[reason][judged_ones] += 1
+                failure_mode = BOTTOMUP_FAILURE_MODES[reason]
+                judg1_per_reason[failure_mode][judged_ones] += 1
 
 print(f"{len(annotations)} collected from {len(list(results_dir.glob(file_pattern.name)))} result files")
 
@@ -95,11 +113,11 @@ print()
 print("***" * 30)
 print()
 
-for reason, counts in judg1_per_reason.items():
-    reason_percent = 100. * sum(counts.values()) / sum(judg1_counts.values())
+for failure_mode, counts in judg1_per_reason.items():
+    _percent = 100.0 * sum(counts.values()) / sum(judg1_counts.values())
     for freq in sorted(counts.keys()):
         print(
-            f"[{reason} ({reason_percent:.1f}%)]"
+            f"[{failure_mode} ({_percent:.1f}%)] "
             f"#judged {freq} times as one = {counts[freq]} "
             f"({100. * counts[freq] / sum(counts.values()):.1f}%)"
         )
