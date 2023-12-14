@@ -188,11 +188,12 @@ for failure_mode in sorted(agreements_for_em_failures.keys()):
             f"{100. * diverging_per_em_failures[failure_mode] / total_diverging_freq:.1f}%",
             f"({diverging_per_em_failures[failure_mode]})",
         )
-        print(
-            "  Success rate",
-            f"{100. * diverging_freq / diverging_per_em_failures[failure_mode]:.1f}%",
-            f"({diverging_freq}/{diverging_per_em_failures[failure_mode]})",
-        )
+        if diverging_per_em_failures[failure_mode] > 0:
+            print(
+                "  Success rate",
+                f"{100. * diverging_freq / diverging_per_em_failures[failure_mode]:.1f}%",
+                f"({diverging_freq}/{diverging_per_em_failures[failure_mode]})",
+            )
 
     for n_judg1 in sorted(agreements_for_em_failures[failure_mode].keys()):
         freq = agreements_for_em_failures[failure_mode][n_judg1]
