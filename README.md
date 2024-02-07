@@ -1,6 +1,4 @@
-# Evaluating Open-Domain Question Answering in the Era of Large Language Models
-
-This repository hosts the code for our ACL 2023 paper: https://arxiv.org/abs/2305.06984.
+# Evaluating Question Answering with LLMs
 
 <!-- Thanks for your interest in our repo! -->
 <!-- We were inspired by FaithDial to organize this repo! 🖖 -->
