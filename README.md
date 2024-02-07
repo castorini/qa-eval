@@ -89,18 +89,6 @@ The above command evaluates only 301 annotated questions and skips the rest in t
 
 If you have any questions or encounter any problems, feel free to open an issue.
 
-## Citation
-
-If you want to cite our papers, please use:
-
-```bibtex
-@article{kamalloo2023evaluating,
-  title = "{Evaluating Open-Domain Question Answering in the Era of Large Language Models}",
-  author = {Kamalloo, Ehsan and Dziri, Nouha and Clarke, Charles L. A. and Rafiei, Davood},
-  journal={arXiv preprint arXiv:2305.06984},
-  year={2018}
-}
-```
 
 ## License
 
